@@ -1,9 +1,13 @@
 .button {
-	background-color: #12b76a;
-	font-weight: 500;
+	background: #FF6A00;
+	color: #FFF;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 1.25rem;
 
 	&:hover {
-		background-color: #039855;
+		background-color: #FF6A00;
 	}
 
 	&:disabled {
