@@ -1,4 +1,4 @@
-import { ForgotPassword, FormBanner } from "@/feature"
+import { ForgotPassword, FormBanner, SignUp } from "@/feature"
 import { Flex, Text } from "@mantine/core"
 import React, { useState } from "react"
 
@@ -10,7 +10,7 @@ import s from "./banner.module.scss"
 export const Banner = () => {
 	const [opened, setOpened] = useState(false)
 	const [forgotPassword, setForgotPassword] = useState(false)
-
+	const [singIn, setSignIn] = useState(false)
 	const handleOpen = () => {
 		setOpened(true)
 	}
@@ -40,6 +40,11 @@ export const Banner = () => {
 						setForgotPassword(true)
 						setOpened(false)
 					}}
+					handleSubscribe={() => {
+						setSignIn(true)
+						setOpened(false)
+						setForgotPassword(false)
+					}}
 				/>
 			</Modal>
 			<Modal
@@ -48,6 +53,9 @@ export const Banner = () => {
 				onClose={() => setForgotPassword(false)}
 			>
 				<ForgotPassword />
+			</Modal>
+			<Modal size={"43rem"} opened={singIn} onClose={() => setSignIn(false)}>
+				<SignUp />
 			</Modal>
 		</>
 	)

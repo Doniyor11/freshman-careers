@@ -8,24 +8,17 @@ import s from "./form.module.scss"
 
 interface IFormProps {
 	onClickForgotPassword?: () => void
-
+	handleSubscribe?: () => void
+	loading?: boolean
 }
 
-export const FormBanner:FC<IFormProps> = ({
-																			onClickForgotPassword
-																		}) => {
+export const FormBanner: FC<IFormProps> = ({
+	onClickForgotPassword,
+	handleSubscribe,
+	loading,
+}) => {
 	const [value, setValue] = useState("")
 	const [_, setFocused] = useState(false)
-	const [loading, setLoading] = useState(false)
-
-	const handleSubscribe = () => {
-		setLoading(true)
-		// Simulate API call
-		setTimeout(() => {
-			setLoading(false)
-			alert("Subscription initiated!")
-		}, 2000)
-	}
 
 	return (
 		<>
@@ -51,7 +44,7 @@ export const FormBanner:FC<IFormProps> = ({
 							</Text>
 						</Flex>
 						<Flex direction={"column"}>
-							<Flex direction={'column'} gap={'1rem'}>
+							<Flex direction={"column"} gap={"1rem"}>
 								<Input
 									label={"Email"}
 									type={"email"}
@@ -69,17 +62,19 @@ export const FormBanner:FC<IFormProps> = ({
 									value={value}
 								/>
 							</Flex>
-							<Text component={'p'} className={s.formForgotPassword} onClick={onClickForgotPassword}>
+							<Text
+								component={"p"}
+								className={s.formForgotPassword}
+								onClick={onClickForgotPassword}
+							>
 								Forgot your password?
 							</Text>
 						</Flex>
-						<Flex direction={'column'} gap={'0.5rem'}>
-							<FilledButton bg={'#004C84'} h={'2.75rem'}>
+						<Flex direction={"column"} gap={"0.5rem"}>
+							<FilledButton bg={"#004C84"} h={"2.75rem"}>
 								Sign In
 							</FilledButton>
-							<FilledButton h={'2.75rem'}>
-								Sign Up
-							</FilledButton>
+							<FilledButton h={"2.75rem"}>Sign Up</FilledButton>
 						</Flex>
 					</Flex>
 				</Box>
@@ -91,7 +86,6 @@ export const FormBanner:FC<IFormProps> = ({
 					/>
 				</Box>
 			</Flex>
-
 		</>
 	)
 }
