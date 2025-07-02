@@ -1,24 +1,37 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios"
+import Cookies from "js-cookie"
+import { toast } from "react-toastify"
 
-import { EnvKeys } from "@/shared/constants/env"
+import { EnvKeys, TOKEN } from "@/shared/constants/env"
+import { routeHistory } from "@/shared/libs/history-router.ts"
 import { IResponseData } from "@/shared/types/response-data"
 
 const clientApi = axios.create({
-	//* use .env file for safety purposes, constant is used as an example
 	baseURL: EnvKeys.NEXT_HOST,
 })
 
 clientApi.interceptors.request.use(
 	<T>(config: InternalAxiosRequestConfig<IResponseData<T>>) => {
-		// Do something before request is sent
+		const token = Cookies.get(TOKEN.AUTH_TOKEN)
+		config.headers["authorization"] = `Bearer ${token}`
 		return config
 	},
 )
 
 clientApi.interceptors.response.use(
 	<T>(response: AxiosResponse<IResponseData<T>>) => {
-		// Do something with response data
 		return response
+	},
+	(err) => {
+		if (!err.response) {
+			toast.error(err.message)
+		} else if (err.response.status === 401) {
+			if (routeHistory) {
+				routeHistory.push("/main")
+			}
+			Cookies.remove(TOKEN.AUTH_TOKEN)
+		}
+		return Promise.reject(err.response.data)
 	},
 )
 

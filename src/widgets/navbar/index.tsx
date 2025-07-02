@@ -1,6 +1,9 @@
 import { Box, Container, Flex, Text } from "@mantine/core"
 import React from "react"
 
+import { useAuthorizationStore } from "@/widgets/auth/model"
+import { AuthWrapper } from "@/widgets/auth/ui"
+
 import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./navbar.module.scss"
@@ -25,36 +28,58 @@ const navbarLink = [
 ]
 
 export const Navbar = () => {
+	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
+		s.setAuthorization,
+		s.setModalType,
+	])
 	return (
-		<Box className={s.navbarWrapper}>
-			<Container size={"1440px"}>
-				<Flex className={s.navbar} justify="space-between" align="center">
-					<Flex pl={"2rem"}>
-						{navbarLink.map((link) => (
-							<a key={link.label} href={link.href} className={s.navbarLink}>
-								{link.label}
-							</a>
-						))}
+		<>
+			<Box className={s.navbarWrapper}>
+				<Container size={"1440px"}>
+					<Flex className={s.navbar} justify="space-between" align="center">
+						<Flex pl={"2rem"}>
+							{navbarLink.map((link) => (
+								<a key={link.label} href={link.href} className={s.navbarLink}>
+									{link.label}
+								</a>
+							))}
+						</Flex>
+						<Flex
+							direction={"column"}
+							align={"center"}
+							justify={"center"}
+							gap={"0.13rem"}
+							className={s.navbarLogoBox}
+							pr={"7rem"}
+						>
+							<Text component={"p"}>Freshman</Text>
+							<Text component={"span"}>Careers</Text>
+						</Flex>
+						<Flex gap={"1rem"} className={s.navbarButtons}>
+							<FilledButton
+								onClick={() => {
+									setAuthorization(true)
+									setModalType("login")
+								}}
+								className={s.navbarButton}
+								bg={"#004C84"}
+							>
+								Sign In
+							</FilledButton>
+							<FilledButton
+								onClick={() => {
+									setAuthorization(true)
+									setModalType("register")
+								}}
+								className={s.navbarButton}
+							>
+								Sign Up
+							</FilledButton>
+						</Flex>
 					</Flex>
-					<Flex
-						direction={"column"}
-						align={"center"}
-						justify={"center"}
-						gap={"0.13rem"}
-						className={s.navbarLogoBox}
-						pr={"7rem"}
-					>
-						<Text component={"p"}>Freshman</Text>
-						<Text component={"span"}>Careers</Text>
-					</Flex>
-					<Flex gap={"1rem"} className={s.navbarButtons}>
-						<FilledButton className={s.navbarButton} bg={"#004C84"}>
-							Sign In
-						</FilledButton>
-						<FilledButton className={s.navbarButton}>Sign Up</FilledButton>
-					</Flex>
-				</Flex>
-			</Container>
-		</Box>
+				</Container>
+			</Box>
+			<AuthWrapper />
+		</>
 	)
 }

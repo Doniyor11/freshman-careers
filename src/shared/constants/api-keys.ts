@@ -1,5 +1,4 @@
 export enum apiKeys {
-	users = "users",
-	articles = "articles",
-	postUser = "users",
+	signIn = "auth/signin",
+	signUp = "auth/signUp",
 }
