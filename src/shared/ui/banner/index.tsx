@@ -1,11 +1,20 @@
+import { ForgotPassword, FormBanner } from "@/feature"
 import { Flex, Text } from "@mantine/core"
-import React from "react"
+import React, { useState } from "react"
 
+import { Modal } from "@/shared/ui"
 import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./banner.module.scss"
 
 export const Banner = () => {
+	const [opened, setOpened] = useState(false)
+	const [forgotPassword, setForgotPassword] = useState(false)
+
+	const handleOpen = () => {
+		setOpened(true)
+	}
+
 	return (
 		<>
 			<Flex
@@ -17,10 +26,29 @@ export const Banner = () => {
 				<Text component={"p"} className={s.internshipsBannerText}>
 					Start your path to an internship today!
 				</Text>
-				<FilledButton h={"3.75rem"} p={"0rem 1.5rem"}>
+				<FilledButton h={"3.75rem"} p={"0rem 1.5rem"} onClick={handleOpen}>
 					Apply Now
 				</FilledButton>
 			</Flex>
+			<Modal
+				size={"56.3rem"}
+				opened={opened && !forgotPassword}
+				onClose={() => setOpened(false)}
+			>
+				<FormBanner
+					onClickForgotPassword={() => {
+						setForgotPassword(true)
+						setOpened(false)
+					}}
+				/>
+			</Modal>
+			<Modal
+				size={"43rem"}
+				opened={forgotPassword}
+				onClose={() => setForgotPassword(false)}
+			>
+				<ForgotPassword />
+			</Modal>
 		</>
 	)
 }

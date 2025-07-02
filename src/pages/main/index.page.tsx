@@ -1,8 +1,14 @@
-import { Internships, Mentorship, Opportunities, Reviews } from "@/feature"
-import { Container } from "@mantine/core"
+import {
+	Faq,
+	Internships,
+	Mentorship,
+	Opportunities,
+	Reviews,
+	Webinar,
+} from "@/feature"
 import Head from "next/head"
 
-import { Navbar } from "@/widgets"
+import { Navbar, Footer } from "@/widgets"
 
 const HomePage = () => {
 	return (
@@ -16,10 +22,11 @@ const HomePage = () => {
 			<Navbar />
 			<Internships />
 			<Opportunities />
-			<Container size={"1440px"}>
-				<Mentorship />
-			</Container>
+			<Mentorship />
 			<Reviews />
+			<Webinar />
+			<Faq />
+			<Footer/>
 		</>
 	)
 }
