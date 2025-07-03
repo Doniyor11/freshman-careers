@@ -1,13 +1,22 @@
-import Image2 from "@//shared/assets/images/icon.png"
-import Image1 from "@//shared/assets/images/image1.png"
 import { Box, Container, Grid } from "@mantine/core"
+import dayjs from "dayjs"
 import React from "react"
+
+import { useAuthorizationStore } from "@/widgets/auth/model"
+
+import { useGetInternshipsQuery } from "@/entities/internships/query.ts"
+import { IGetInternship } from "@/entities/internships/types.ts"
 
 import { Banner, InternshipsCard, TitleHead } from "@/shared/ui"
 
 import s from "./internships.module.scss"
 
 export const Internships = () => {
+	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
+		s.setAuthorization,
+		s.setModalType,
+	])
+	const { data } = useGetInternshipsQuery()
 	return (
 		<Box className={s.internshipsWrapper}>
 			<Container size={"1440px"}>
@@ -19,21 +28,29 @@ export const Internships = () => {
 					}
 				/>
 				<Grid gutter={"3rem"} m={"2.5rem 0 2.5rem"}>
-					{Array.from({ length: 6 }).map((_, idx) => (
-						<Grid.Col span={4} key={idx}>
+					{data?.map((i: IGetInternship, index: number) => (
+						<Grid.Col span={4} key={index}>
 							<InternshipsCard
-								imageSrc={Image1}
-								imageAlt={""}
-								iconSrc={Image2}
-								iconAlt={""}
-								day={"Today"}
-								title={"Developer"}
-								description={
-									"Join our team as a Developer Intern and work on cutting-edge projects that shape the future of technology."
+								companyName={i?.company?.title}
+								imageSrc={i?.picture as any}
+								imageAlt={i?.title}
+								iconSrc={i?.company?.image as any}
+								iconAlt={i?.company?.title}
+								day={
+									i?.date_posted && dayjs(i.date_posted).isSame(dayjs(), "day")
+										? "today"
+										: " "
 								}
+								title={i?.title}
+								description={i?.description}
 								datesLabel={"Internship Dates:"}
-								dates={"01.06.2025 - 01.09.2025"}
-								onApply={() => alert("Apply for Developer Internship")}
+								dates={`${dayjs(i?.internship_start_date).format(
+									"DD.MM.YYYY",
+								)} - ${dayjs(i?.internship_end_date).format("DD.MM.YYYY")}`}
+								onApply={() => {
+									setAuthorization(true)
+									setModalType("login")
+								}}
 							/>
 						</Grid.Col>
 					))}

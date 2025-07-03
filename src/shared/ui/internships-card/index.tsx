@@ -15,6 +15,7 @@ interface InternshipsCardProps {
 	iconAlt: string
 	day: string
 	title: string
+	companyName?: string
 	description: string
 	datesLabel: string
 	dates: string
@@ -42,6 +43,7 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 	onEdit,
 	onDelete,
 	border = true,
+																																	companyName
 }) => {
 	return (
 		<Box
@@ -51,13 +53,30 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 			}}
 		>
 			<Box className={s.internshipsCardImage}>
-				<Image src={imageSrc} alt={imageAlt} width={400} height={256} />
+				<Image
+					src={imageSrc}
+					alt={imageAlt}
+					width={400}
+					height={256}
+					unoptimized
+				/>
 			</Box>
 			<Box className={s.internshipsCardContent}>
 				<Flex justify={"space-between"} align={"center"}>
-					<Box className={s.internshipsCardIcon}>
-						<Image src={iconSrc} alt={iconAlt} width={32} height={32} />
-					</Box>
+					<Flex align={"center"} gap={10}>
+						<Box className={s.internshipsCardIcon}>
+							<Image
+								src={iconSrc}
+								alt={iconAlt}
+								width={32}
+								height={32}
+								unoptimized
+							/>
+						</Box>
+						<Text className={s.companyName}>
+							{companyName}
+						</Text>
+					</Flex>
 					<Box className={s.internshipsCardDay}>{day}</Box>
 				</Flex>
 				<Flex direction={"column"} m={"1.5rem 0 1.5rem"} gap={"0.75rem"}>
@@ -65,7 +84,7 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 						{title}
 					</Text>
 					<Text component={"p"} className={s.internshipsCardDescription}>
-						{description.split(" ").slice(0, 25).join(" ").replace(/\.*$/, "") + "..."}
+						{description}
 					</Text>
 				</Flex>
 				<Flex direction={"column"} mb={"1.5rem"}>
