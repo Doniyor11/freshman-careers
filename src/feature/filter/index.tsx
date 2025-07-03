@@ -9,8 +9,70 @@ import { Select } from "@/shared/ui"
 import s from "./filter.module.scss"
 import { FilledButton } from "@/shared/ui/buttons"
 
+const badgeFilters = [
+	{
+		label: "Format",
+		options: ["Remotely", "Office", "Hybrid"],
+		stateKey: "format",
+	},
+	{
+		label: "Education",
+		options: ["Graduate", "3rd year", "1-2 course", "Absent"],
+		stateKey: "education",
+	},
+	{
+		label: "Salary, $",
+		options: ["до 100", "101-200", "201-500", "501-1,000", "1,000-2,000", "2000+", "Not specified"],
+		stateKey: "salary",
+	},
+]
+
+type FilterState = {
+	format: number | null
+	education: number | null
+	salary: number | null
+}
+
+const initialState: FilterState = {
+	format: null,
+	education: null,
+	salary: null,
+}
+
+const BadgeGroup: React.FC<{
+	options: string[]
+	value: number | null
+	onChange: (idx: number) => void
+	label: string
+}> = ({ options, value, onChange, label }) => (
+	<Flex gap={"0.5rem"} direction={"column"}>
+		<Text component={"p"} className={s.filterLabel}>
+			{label}
+		</Text>
+		<Flex gap={"0.38rem"} wrap={"wrap"}>
+			{options.map((option, idx) => (
+				<Badge
+					key={option}
+					color="#848F98"
+					bg={value === idx ? "#FF6A00" : "#E2EAFF"}
+					size={"xl"}
+					className={cx(s.filterBadge, { [s.filterBadgeActive]: value === idx })}
+					onClick={() => onChange(idx)}
+				>
+					{option}
+				</Badge>
+			))}
+		</Flex>
+	</Flex>
+)
+
 export const Filter = () => {
-	const [isActive, setIsActive] = React.useState<number | null>(null)
+	const [filter, setFilter] = React.useState<FilterState>(initialState)
+
+	const handleBadgeChange = (key: keyof FilterState, idx: number) => {
+		setFilter(prev => ({ ...prev, [key]: idx }))
+	}
+
 	return (
 		<Box className={s.filterWrapper}>
 			<Box className={s.filterSearch}>
@@ -31,65 +93,19 @@ export const Filter = () => {
 					placeholder={"Select dates"}
 					leftSection={<Icon5 />}
 				/>
-				<Flex gap={"0.5rem"} direction={"column"}>
-					<Text component={"p"} className={s.filterLabel}>
-						Format
-					</Text>
-					<Flex gap={"0.38rem"} wrap={"wrap"}>
-						{["Remotely", "Office", "Hybrid"].map((label, idx) => (
-							<Badge
-								key={label}
-								color="#848F98"
-								bg={isActive === idx ? "#FF6A00" : "#E2EAFF"}
-								size={"xl"}
-								className={cx(s.filterBadge, { [s.filterBadgeActive]: isActive === idx })}
-								onClick={() => setIsActive(idx)}
-							>
-								{label}
-							</Badge>
-						))}
-					</Flex>
-				</Flex>
-				<Flex gap={"0.5rem"} direction={"column"}>
-					<Text component={"p"} className={s.filterLabel}>
-						Education
-					</Text>
-					<Flex gap={"0.38rem"} wrap={"wrap"}>
-						{["Graduate", "3rd year", "1-2 course", "Absent"].map((label, idx) => (
-							<Badge
-								key={label}
-								color="#848F98"
-								bg={isActive === idx ? "#FF6A00" : "#E2EAFF"}
-								size={"xl"}
-								className={cx(s.filterBadge, { [s.filterBadgeActive]: isActive === idx })}
-								onClick={() => setIsActive(idx)}
-							>
-								{label}
-							</Badge>
-						))}
-					</Flex>
-				</Flex>
-				<Flex gap={"0.5rem"} direction={"column"}>
-					<Text component={"p"} className={s.filterLabel}>
-						Salary, $
-					</Text>
-					<Flex gap={"0.38rem"} wrap={"wrap"}>
-						{["до 100", "101-200", "201-500", "501-1,000", "1,000-2,000", "2000+", "Not specified"].map((label, idx) => (
-							<Badge
-								key={label}
-								color="#848F98"
-								bg={isActive === idx ? "#FF6A00" : "#E2EAFF"}
-								size={"xl"}
-								className={cx(s.filterBadge, { [s.filterBadgeActive]: isActive === idx })}
-								onClick={() => setIsActive(idx)}
-							>
-								{label}
-							</Badge>
-						))}
-					</Flex>
-				</Flex>
+				{badgeFilters.map(({ label, options, stateKey }) => (
+					<BadgeGroup
+						key={label}
+						label={label}
+						options={options}
+						value={filter[stateKey as keyof FilterState]}
+						onChange={idx => handleBadgeChange(stateKey as keyof FilterState, idx)}
+					/>
+				))}
 			</Flex>
-			<FilledButton fullWidth h={'3rem'} mt={'1.5rem'}>Add interships</FilledButton>
+			<FilledButton fullWidth h={'3rem'} mt={'1.5rem'}>
+				Add interships
+			</FilledButton>
 		</Box>
 	)
 }
