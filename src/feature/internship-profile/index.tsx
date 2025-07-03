@@ -17,6 +17,7 @@ export const InternshipProfile = () => {
 			p={"3rem 0 7.25rem 0"}
 			bg={"#FAFBFF"}
 		>
+
 			<Grid>
 				<Grid.Col span={3}>
 					<Filter />
