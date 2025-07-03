@@ -112,8 +112,12 @@ export const SignIn = () => {
 								<Text className={s.sub}>$47.99</Text>
 							</Box>
 						</Flex>
-						<Button m={"32px 0 8px"} className={cx(s.formBtn, s.signUp)}>
-							Sign Up Subscribe
+						<Button
+							m={"32px 0 8px"}
+							className={cx(s.formBtn, s.signUp)}
+							onClick={() => setModalType("register")}
+						>
+							Subscribe
 						</Button>
 						<Text className={cx(s.discountSubtitle, s.bottom)}>
 							$7.99 per month after 6-month offer

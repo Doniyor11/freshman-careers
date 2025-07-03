@@ -19,6 +19,10 @@
     font-weight: 500;
     line-height: 40px;
 
+    &.otherTitle {
+      text-align: left;
+    }
+
     span {
       display: block;
       color: #004C84;

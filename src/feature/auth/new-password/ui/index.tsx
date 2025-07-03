@@ -1,40 +1,44 @@
-import { useSignUpQuery } from "@/feature/auth/sign-up/api/query.ts"
-import { SignUpScheme } from "@/feature/auth/sign-up/api/scheme.ts"
-import { ISignUp } from "@/feature/auth/sign-up/api/types.ts"
+import { useNewPasswordQuery } from "@/feature/auth/new-password/api/query.ts"
+import { NewPasswordScheme } from "@/feature/auth/new-password/api/scheme.ts"
+import { INewPassword } from "@/feature/auth/new-password/api/types.ts"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { ActionIcon, Box, Button, Text } from "@mantine/core"
 import cx from "clsx"
+import Cookies from "js-cookie"
 import { Controller, useForm } from "react-hook-form"
-import { IMaskInput } from "react-imask"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
 import s from "@/widgets/auth/ui/styles.module.scss"
 
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
-import { InputFilled } from "@/shared/ui/inputs"
+import { TOKEN } from "@/shared/constants/env.ts"
+import { PasswordInputFilled } from "@/shared/ui/inputs/password-input-filled"
 
-export const SignUp = () => {
+export const NewPassword = () => {
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
 		s.setAuthorization,
 		s.setModalType,
 	])
-
+	const SignupToken = Cookies.get(TOKEN.SIGNUP_TOKEN)
 	const {
 		control,
 		handleSubmit,
 		formState: { isDirty, isValid },
-	} = useForm<ISignUp>({
+	} = useForm<INewPassword>({
 		mode: "onChange",
-		resolver: yupResolver(SignUpScheme),
+		resolver: yupResolver(NewPasswordScheme),
 	})
-	const { mutate } = useSignUpQuery(() => setModalType('new-password'))
-
-	const onSubmit = (data: ISignUp) => {
+	const { mutate } = useNewPasswordQuery(() => {
+		setModalType("register")
+		setAuthorization(false)
+	})
+	const onSubmit = (data: INewPassword) => {
 		mutate({
-			email: data?.email,
-			phone_number: data.phone_number,
+			login: data?.login,
+			password: data?.password,
+			password_confirmation: data?.password_confirmation,
+			signup_token: SignupToken,
 		})
-		setModalType('new-password')
 	}
 
 	return (
@@ -42,31 +46,31 @@ export const SignUp = () => {
 			<ActionIcon className={s.close} onClick={() => setAuthorization(true)}>
 				<IconClose />
 			</ActionIcon>
-			<h2 className={s.otherTitle}>Create Account</h2>
+			<h2 className={s.otherTitle}>Enter a new password</h2>
 			<Text m={"4px 0 32px"} className={s.cardSubtitle}>
-				Enter your email and phone number to create a new account on the
-				platform
+				Enter the password and repeat it again
 			</Text>
 
 			<form className={s.form} onSubmit={handleSubmit(onSubmit)}>
 				<Controller
-					name={"email"}
+					name={"password"}
 					control={control}
 					render={({ field }) => (
-						<InputFilled height={64} placeholder={"Email"} {...field} />
+						<PasswordInputFilled
+							height={64}
+							placeholder={"New password"}
+							{...field}
+						/>
 					)}
 				/>
-
 				<Controller
-					name={"phone_number"}
+					name={"password_confirmation"}
 					control={control}
 					render={({ field }) => (
-						<InputFilled
+						<PasswordInputFilled
 							mt={16}
 							height={64}
-							component={IMaskInput as any}
-							mask='+0 000 000 0000'
-							placeholder={"Phone Number"}
+							placeholder={"Repeat the password"}
 							{...field}
 						/>
 					)}
@@ -74,21 +78,13 @@ export const SignUp = () => {
 
 				<Button
 					h={56}
+					mt={64}
 					fz={20}
-					type={"submit"}
-					m={"32px 0 8px"}
-					className={cx(s.formBtn, s.signUp)}
+					type="submit"
 					disabled={!isDirty || !isValid}
-				>
-					Sign Up
-				</Button>
-				<Button
-					fz={20}
-					h={56}
 					className={cx(s.formBtn, s.signIn)}
-					onClick={() => setModalType("login")}
 				>
-					Sign In
+					Continue
 				</Button>
 			</form>
 		</Box>

@@ -1,4 +1,6 @@
 export enum apiKeys {
 	signIn = "auth/signin",
-	signUp = "auth/signUp",
+	signUp = "/auth/signup/step1",
+	newPassword = "/auth/signup/step2",
+	internships = "internships",
 }

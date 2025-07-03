@@ -5,4 +5,5 @@ export enum EnvKeys {
 
 export enum TOKEN {
 	AUTH_TOKEN = "AUTH_TOKEN_FRONT",
+	SIGNUP_TOKEN = "AUTH_TOKEN_FRONT",
 }

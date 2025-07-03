@@ -9,4 +9,6 @@ export interface IInputStyled extends DefaultProps {
   className?: string
   height?: string | number
   error?: boolean
+  component?: any
+  mask?: any
 }

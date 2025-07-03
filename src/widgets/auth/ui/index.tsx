@@ -1,10 +1,9 @@
-import { SignIn } from "@/feature/auth"
-import { SignUp } from "@/feature/auth/sign-up/ui"
+import { NewPassword, SignIn, SignUp } from "@/feature/auth"
 import { Modal } from "@mantine/core"
 import React, { useEffect } from "react"
+import { Case, Switch } from "react-if"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
-import { Case, Switch } from "react-if"
 
 export const AuthWrapper = () => {
 	const [authorization, modalType, setAuthorization, setModalType] =
@@ -18,7 +17,9 @@ export const AuthWrapper = () => {
 	useEffect(() => {
 		const authType = sessionStorage.getItem("authType") || "login"
 		setModalType(
-			authType === "register" || authType === "forgot-password"
+			authType === "register" ||
+				authType === "forgot-password" ||
+				authType === "new-password"
 				? authType
 				: "login",
 		)
@@ -34,13 +35,15 @@ export const AuthWrapper = () => {
 			withCloseButton={false}
 			onClose={() => setAuthorization(false)}
 		>
-
 			<Switch>
 				<Case condition={modalType === "login"}>
 					<SignIn />
 				</Case>
 				<Case condition={modalType === "register"}>
 					<SignUp />
+				</Case>
+				<Case condition={modalType === "new-password"}>
+					<NewPassword />
 				</Case>
 			</Switch>
 		</Modal>

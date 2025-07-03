@@ -13,7 +13,9 @@ const clientApi = axios.create({
 clientApi.interceptors.request.use(
 	<T>(config: InternalAxiosRequestConfig<IResponseData<T>>) => {
 		const token = Cookies.get(TOKEN.AUTH_TOKEN)
-		config.headers["authorization"] = `Bearer ${token}`
+		if (token) {
+			config.headers["authorization"] = `Bearer ${token}`
+		}
 		return config
 	},
 )

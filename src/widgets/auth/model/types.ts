@@ -5,6 +5,7 @@ export interface IInitialState {
     | "login"
     | "register"
     | "forgot-password"
+    | "new-password"
 }
 
 export interface IAuthorizationStore extends IInitialState {
@@ -15,5 +16,6 @@ export interface IAuthorizationStore extends IInitialState {
       | "login"
       | "register"
       | "forgot-password"
+      | "new-password"
   ) => void
 }
