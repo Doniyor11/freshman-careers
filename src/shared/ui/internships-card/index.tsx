@@ -23,6 +23,7 @@ interface InternshipsCardProps {
 	onEdit?: () => void
 	onDelete?: () => void
 	isAdmin?: boolean
+	border?: boolean
 }
 
 export const InternshipsCard: React.FC<InternshipsCardProps> = ({
@@ -40,9 +41,15 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 	isAdmin = false,
 	onEdit,
 	onDelete,
+	border = true,
 }) => {
 	return (
-		<Box className={s.internshipsCardWrapper}>
+		<Box
+			className={s.internshipsCardWrapper}
+			style={{
+				border: border ? "1px solid #E5E5E5" : "none",
+			}}
+		>
 			<Box className={s.internshipsCardImage}>
 				<Image src={imageSrc} alt={imageAlt} width={400} height={256} />
 			</Box>
@@ -53,12 +60,12 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 					</Box>
 					<Box className={s.internshipsCardDay}>{day}</Box>
 				</Flex>
-				<Flex direction={"column"} m={"1.5rem 0 1.5rem"}>
+				<Flex direction={"column"} m={"1.5rem 0 1.5rem"} gap={"0.75rem"}>
 					<Text component={"h3"} className={s.internshipsCardTitle}>
 						{title}
 					</Text>
 					<Text component={"p"} className={s.internshipsCardDescription}>
-						{description}
+						{description.split(" ").slice(0, 25).join(" ").replace(/\.*$/, "") + "..."}
 					</Text>
 				</Flex>
 				<Flex direction={"column"} mb={"1.5rem"}>

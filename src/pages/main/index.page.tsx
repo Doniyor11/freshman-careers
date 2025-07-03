@@ -8,7 +8,7 @@ import {
 } from "@/feature"
 import Head from "next/head"
 
-import { Navbar, Footer } from "@/widgets"
+import { Footer, Navbar } from "@/widgets"
 
 const HomePage = () => {
 	return (
@@ -26,7 +26,7 @@ const HomePage = () => {
 			<Reviews />
 			<Webinar />
 			<Faq />
-			<Footer/>
+			<Footer />
 		</>
 	)
 }

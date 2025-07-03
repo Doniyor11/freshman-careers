@@ -47,7 +47,7 @@ export const Navbar = () => {
 						align={"center"}
 						justify={"center"}
 						gap={"0.13rem"}
-						className={s.navbarLogoBox}
+						className={'navbarLogoBox'}
 						pr={"7rem"}
 					>
 						<Text component={"p"}>Freshman</Text>
