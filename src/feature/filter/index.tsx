@@ -7,7 +7,9 @@ import Icon5 from "@/shared/assets/images/icon/briefcase.svg"
 export const Filter = () => {
 	return (
 		<Box className={s.filterWrapper}>
-			<Input leftSection={<Icon4 />} className={'input-custom'} placeholder={'Search for internships'}/>
+			<Box className={s.filterSearch}>
+				<Input leftSection={<Icon4 />} className={'input-custom'} placeholder={'Search for internships'}/>
+			</Box>
 			<Select
 				label={'Internship Date'}
 				placeholder={"Internship direction"}
