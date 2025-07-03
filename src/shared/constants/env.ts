@@ -1,5 +1,5 @@
 export enum EnvKeys {
-	NEXT_HOST = "https://freshman.careers",
+	NEXT_HOST = "https://api.freshman.careers/",
 }
 
 
