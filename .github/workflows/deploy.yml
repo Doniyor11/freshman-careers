@@ -3,10 +3,10 @@ name: CI/CD for Freshman Careers
 on:
   push:
     branches:
-      - main   # Запускается на push в основную ветку
+      - dev   # Запускается на push в основную ветку
   pull_request:
     branches:
-      - main   # Запускается при создании pull request в основную ветку
+      - dev   # Запускается при создании pull request в основную ветку
 
 jobs:
   build:
