@@ -6,4 +6,35 @@
 
 .filterSearch{
   border-bottom: 1px solid #FFF;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filterLabel{
+  color: #FFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+  letter-spacing: -0.02rem;
+}
+
+.filterBadge{
+  border-radius: 0.25rem;
+  border: 1px solid #E2EAFF;
+  color: #848F98;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: -0.0175rem;
+  cursor:  pointer;
+}
+
+.filterBadgeActive{
+  background: #FF6A00;
+  border: 1px solid #FF6A00;
+  color: #fff;
 }

@@ -28,32 +28,35 @@ export const Internships = () => {
 					}
 				/>
 				<Grid gutter={"3rem"} m={"2.5rem 0 2.5rem"}>
-					{data?.map((i: IGetInternship, index: number) => (
-						<Grid.Col span={4} key={index}>
-							<InternshipsCard
-								companyName={i?.company?.title}
-								imageSrc={i?.picture as any}
-								imageAlt={i?.title}
-								iconSrc={i?.company?.image as any}
-								iconAlt={i?.company?.title}
-								day={
-									i?.date_posted && dayjs(i.date_posted).isSame(dayjs(), "day")
-										? "today"
-										: " "
-								}
-								title={i?.title}
-								description={i?.description}
-								datesLabel={"Internship Dates:"}
-								dates={`${dayjs(i?.internship_start_date).format(
-									"DD.MM.YYYY",
-								)} - ${dayjs(i?.internship_end_date).format("DD.MM.YYYY")}`}
-								onApply={() => {
-									setAuthorization(true)
-									setModalType("login")
-								}}
-							/>
-						</Grid.Col>
-					))}
+					{data
+						? data.map((i: IGetInternship, index: number) => (
+							<Grid.Col span={4} key={index}>
+								<InternshipsCard
+									companyName={i?.company?.title}
+									imageSrc={i?.picture as any}
+									imageAlt={i?.title}
+									iconSrc={i?.company?.image as any}
+									iconAlt={i?.company?.title}
+									day={
+										i?.date_posted && dayjs(i.date_posted).isSame(dayjs(), "day")
+											? "today"
+											: " "
+									}
+									title={i?.title}
+									description={i?.description}
+									datesLabel={"Internship Dates:"}
+									dates={`${dayjs(i?.internship_start_date).format(
+										"DD.MM.YYYY",
+									)} - ${dayjs(i?.internship_end_date).format("DD.MM.YYYY")}`}
+									onApply={() => {
+										setAuthorization(true)
+										setModalType("login")
+									}}
+								/>
+							</Grid.Col>
+						))
+						: <div className={s.error}>Произошла ошибка при загрузке стажировок. Проверьте подключение к сети.</div>
+					}
 				</Grid>
 				<Banner />
 			</Container>
