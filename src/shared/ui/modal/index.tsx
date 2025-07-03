@@ -2,26 +2,21 @@ import IconClose from "@//shared/assets/images/icon/close.svg"
 import {
 	ActionIcon,
 	Flex,
-	MantineSize,
 	Modal as ModalCustom,
+	ModalProps,
 } from "@mantine/core"
 import React, { FC } from "react"
 
 import s from "./modal.module.scss"
 
-interface ModalIProps {
-	size?: number | MantineSize | (string & {})
+interface ModalIProps extends ModalProps {
 	children?: React.ReactNode
-	onClose?: () => void
-	opened: boolean
 }
 
-export const Modal: FC<ModalIProps> = ({ size, children, onClose, opened }) => {
+export const Modal: FC<ModalIProps> = ({ children, ...otherProps }) => {
 	return (
 		<>
 			<ModalCustom
-				opened={opened}
-				onClose={onClose ?? (() => {})}
 				withCloseButton={false}
 				classNames={{
 					root: s.modalRoot,
@@ -31,13 +26,13 @@ export const Modal: FC<ModalIProps> = ({ size, children, onClose, opened }) => {
 					body: s.modalBody,
 					close: s.modalClose,
 				}}
-				size={size}
+				{...otherProps}
 			>
 				<Flex justify={"flex-end"}>
 					<ActionIcon
 						bg={"transparent"}
 						className={s.closeButton}
-						onClick={onClose ?? (() => {})}
+						onClick={otherProps.onClose ?? (() => {})}
 					>
 						<IconClose className={s.closeIcon} />
 					</ActionIcon>
