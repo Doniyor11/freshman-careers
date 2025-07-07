@@ -13,8 +13,10 @@ import s from "@/widgets/auth/ui/styles.module.scss"
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
 import { TOKEN } from "@/shared/constants/env.ts"
 import { PasswordInputFilled } from "@/shared/ui/inputs/password-input-filled"
+import { useRouter } from "next/router"
 
 export const NewPassword = () => {
+	const router = useRouter()
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
 		s.setAuthorization,
 		s.setModalType,
@@ -29,12 +31,13 @@ export const NewPassword = () => {
 		resolver: yupResolver(NewPasswordScheme),
 	})
 	const { mutate } = useNewPasswordQuery(() => {
+		router.push("/profile")
 		setModalType("register")
 		setAuthorization(false)
 	})
 	const onSubmit = (data: INewPassword) => {
 		mutate({
-			login: data?.login,
+			login: "NewUser",
 			password: data?.password,
 			password_confirmation: data?.password_confirmation,
 			signup_token: SignupToken,
@@ -43,7 +46,7 @@ export const NewPassword = () => {
 
 	return (
 		<Box w={670} className={s.boxWrapper}>
-			<ActionIcon className={s.close} onClick={() => setAuthorization(true)}>
+			<ActionIcon className={s.close} onClick={() => setAuthorization(false)}>
 				<IconClose />
 			</ActionIcon>
 			<h2 className={s.otherTitle}>Enter a new password</h2>

@@ -4,6 +4,7 @@ import { ISignIn } from "@/feature/auth/sign-in/api/types.ts"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { ActionIcon, Box, Button, Flex, Text } from "@mantine/core"
 import cx from "clsx"
+import { useRouter } from "next/router"
 import { Controller, useForm } from "react-hook-form"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
@@ -14,6 +15,7 @@ import { InputFilled } from "@/shared/ui/inputs"
 import { PasswordInputFilled } from "@/shared/ui/inputs/password-input-filled"
 
 export const SignIn = () => {
+	const router = useRouter()
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
 		s.setAuthorization,
 		s.setModalType,
@@ -27,7 +29,10 @@ export const SignIn = () => {
 		mode: "onChange",
 		resolver: yupResolver(SignInScheme),
 	})
-	const { mutate } = useSignInQuery(() => setAuthorization(false))
+	const { mutate } = useSignInQuery(() => {
+		router.push("/profile")
+		setAuthorization(false)
+	})
 
 	const onSubmit = (data: ISignIn) => {
 		mutate({

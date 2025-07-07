@@ -23,6 +23,7 @@
 .profileItem {
   padding: 1rem;
   cursor: pointer;
+  user-select: none;
 
   &:not(:last-child) {
     border-bottom: 1px solid #F3F9FF;

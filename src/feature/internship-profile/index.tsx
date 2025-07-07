@@ -1,15 +1,26 @@
 import { Filter } from "@/feature"
+import { useApplicationFilterStore } from "@/feature/filter/model"
 import { Container, Flex, Grid, Menu, Text } from "@mantine/core"
+import dayjs from "dayjs"
 import React from "react"
+
+import { useGetMyApplicationsQuery } from "@/entities/my-applications/query.ts"
+import { IGetInternship } from "@/entities/my-applications/types.ts"
 
 import Icon2 from "@/shared/assets/images/icon/chevron_backward3.svg"
 import Icon3 from "@/shared/assets/images/icon/chevron_backward-small.svg"
-import Image1 from "@/shared/assets/images/image1.png"
 import { InternshipsCard } from "@/shared/ui"
 
 import s from "./internship-profile.module.scss"
 
 export const InternshipProfile = () => {
+	const [format, education, salary] = useApplicationFilterStore((s) => [
+		s.format,
+		s.education,
+		s.salary,
+	])
+	console.log(`${format}, ${education},${salary}`)
+	const { data } = useGetMyApplicationsQuery()
 	return (
 		<Container
 			size={"1440px"}
@@ -17,7 +28,6 @@ export const InternshipProfile = () => {
 			p={"3rem 0 7.25rem 0"}
 			bg={"#FAFBFF"}
 		>
-
 			<Grid>
 				<Grid.Col span={3}>
 					<Filter />
@@ -67,22 +77,27 @@ export const InternshipProfile = () => {
 					</Flex>
 					{/* ------------ Card -------------	*/}
 					<Grid mt={"1.5rem"} gutter={"1.5rem"}>
-						{Array.from(Array(6).keys()).map((key) => (
-							<Grid.Col span={4} key={key}>
+						{data?.map((i: IGetInternship, index: number) => (
+							<Grid.Col span={4} key={index}>
 								<InternshipsCard
-									imageSrc={Image1}
-									imageAlt={"Image1"}
-									iconSrc={Image1}
-									iconAlt={"Image1"}
-									day={"Today"}
-									title={"Trainee designer"}
-									description={
-										"Internship at Microsoft is a unique experience of working in an international team, participation in real projects and an opportunity to learn the best practices of one of the most innovative corporations in the world."
+									companyName={i?.company?.title}
+									imageSrc={i?.picture as any}
+									imageAlt={i?.title}
+									iconSrc={i?.company?.image as any}
+									iconAlt={i?.company?.title}
+									day={
+										i?.date_posted &&
+										dayjs(i.date_posted).isSame(dayjs(), "day")
+											? "today"
+											: dayjs(i.date_posted).format("DD.MM.YYYY")
 									}
+									title={i?.title}
+									description={i?.description}
 									datesLabel={"Internship Dates:"}
-									dates={"25.05.2025 - 25.08.2025"}
-									onApply={() => console.log("Apply clicked")}
-									border={false}
+									dates={`${dayjs(i?.internship_start_date).format(
+										"DD.MM.YYYY",
+									)} - ${dayjs(i?.internship_end_date).format("DD.MM.YYYY")}`}
+									onApply={() => console.log("click")}
 								/>
 							</Grid.Col>
 						))}
