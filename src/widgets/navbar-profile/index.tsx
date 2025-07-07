@@ -1,12 +1,25 @@
 import Icon from "@//shared/assets/images/icon/chevron_backward-small.svg"
 import ImageUser from "@//shared/assets/images/image2.png"
 import { Box, Container, Flex, Menu, Text } from "@mantine/core"
+import Cookies from "js-cookie"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import React from "react"
+
+import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
+
+import { TOKEN } from "@/shared/constants/env.ts"
 
 import s from "./navbar-profile.module.scss"
 
 export const NavbarProfile = () => {
+	const router = useRouter()
+	const { data } = useGetUserMeQuery()
+
+	const handleLogout = () => {
+		Cookies.remove(TOKEN.AUTH_TOKEN)
+		router.push("/")
+	}
 	return (
 		<Box className={s.profileContainer} p={"0.5rem 0"}>
 			<Container size={"1440px"}>
@@ -43,10 +56,10 @@ export const NavbarProfile = () => {
 							>
 								<Flex align={"flex-start"} direction={"column"} w={"11rem"}>
 									<Text component={"h3"} className={s.profileItemName}>
-										Valera
+										{data?.login}
 									</Text>
 									<Text component={"p"} className={s.profileItemEmail}>
-										postman@gmail.com
+										{data?.email}
 									</Text>
 								</Flex>
 								<Text component={"span"} className={s.profileItemInfo}>
@@ -67,6 +80,7 @@ export const NavbarProfile = () => {
 								className={s.profileItem}
 								justify={"space-between"}
 								align={"center"}
+								onClick={handleLogout}
 							>
 								<Text component={"span"} className={s.profileItemText}>
 									Sign Out

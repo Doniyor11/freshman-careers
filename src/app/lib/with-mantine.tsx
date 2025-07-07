@@ -1,5 +1,6 @@
 import { MantineProvider } from "@mantine/core"
 import "@mantine/core/styles.css"
+import '@mantine/dates/styles.css';
 import { ComponentType } from "react"
 
 export const WithMantine =

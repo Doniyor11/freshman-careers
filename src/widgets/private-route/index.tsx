@@ -19,7 +19,7 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
   if (!token) {
     return (
       <Center h={"40vh"}>
-        <Loader size={"xl"} color={"#003FDE" as any} />
+        <Loader size={"xl"} color={"#004B84" as any} />
       </Center>
     )
   }

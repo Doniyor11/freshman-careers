@@ -3,4 +3,6 @@ export enum apiKeys {
 	signUp = "/auth/signup/step1",
 	newPassword = "/auth/signup/step2",
 	internships = "internships",
+	myApplications = "account/internships",
+	userMe = "account/me",
 }
