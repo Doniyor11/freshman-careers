@@ -39,7 +39,7 @@ export const SignUp = () => {
 
 	return (
 		<Box w={670} className={s.boxWrapper}>
-			<ActionIcon className={s.close} onClick={() => setAuthorization(true)}>
+			<ActionIcon className={s.close} onClick={() => setAuthorization(false)}>
 				<IconClose />
 			</ActionIcon>
 			<h2 className={s.otherTitle}>Create Account</h2>
