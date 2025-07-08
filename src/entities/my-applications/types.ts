@@ -26,3 +26,12 @@ export interface ICompany {
   description: string
   id: number
 }
+
+
+export interface IMyInternshipParam {
+  name?: string,
+  format?: string,
+  education?: string,
+  salary?: string,
+  date?: Date | null
+}

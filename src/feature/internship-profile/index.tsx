@@ -1,6 +1,7 @@
 import { Filter } from "@/feature"
 import { useApplicationFilterStore } from "@/feature/filter/model"
 import { Container, Flex, Grid, Menu, Text } from "@mantine/core"
+import { useDebouncedValue } from "@mantine/hooks"
 import dayjs from "dayjs"
 import React from "react"
 
@@ -14,13 +15,19 @@ import { InternshipsCard } from "@/shared/ui"
 import s from "./internship-profile.module.scss"
 
 export const InternshipProfile = () => {
-	const [format, education, salary] = useApplicationFilterStore((s) => [
-		s.format,
-		s.education,
-		s.salary,
-	])
-	console.log(`${format}, ${education},${salary}`)
-	const { data } = useGetMyApplicationsQuery()
+	const [format, education, salary, search, date] = useApplicationFilterStore(
+		(s) => [s.format, s.education, s.salary, s.search, s.date],
+	)
+	const [debouncedValue] = useDebouncedValue(search, 200)
+
+	const { data } = useGetMyApplicationsQuery({
+		name: debouncedValue,
+		format,
+		education,
+		salary,
+		date: (date ? `${dayjs(date).format("YYYY-MM-DD")}` : null) as any,
+	})
+
 	return (
 		<Container
 			size={"1440px"}
