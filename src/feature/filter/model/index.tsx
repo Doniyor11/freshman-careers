@@ -4,10 +4,11 @@ import { devtools } from "zustand/middleware"
 import { IApplicationFilterStore, IInitialState } from "./types.ts"
 
 const initialState: IInitialState = {
-	format: "",
-	education: "",
-	salary: "",
-	search: "",
+	format: undefined,
+	education: undefined,
+	salary: undefined,
+	search: undefined,
+	date: null,
 }
 
 export const useApplicationFilterStore = create<IApplicationFilterStore>()(
@@ -24,6 +25,9 @@ export const useApplicationFilterStore = create<IApplicationFilterStore>()(
 		},
 		setSearch: (e) => {
 			set({ search: e })
+		},
+		setDate: (e) => {
+			set({ date: e })
 		},
 	})),
 )

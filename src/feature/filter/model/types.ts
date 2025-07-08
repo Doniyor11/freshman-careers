@@ -1,13 +1,15 @@
 export interface IInitialState {
-  format: string
-  education: string
-  salary: string
-  search: string
+  format: string | undefined
+  education: string | undefined
+  salary: string | undefined
+  search: string | undefined
+  date: Date | null
 }
 
 export interface IApplicationFilterStore extends IInitialState {
-  setFormat: (format: string) => void
-  setEducation: (education: string) => void
-  setSalary: (salary: string) => void
-  setSearch: (search: string) => void
+  setFormat: (format: string | undefined) => void
+  setEducation: (education: string | undefined) => void
+  setSalary: (salary: string | undefined) => void
+  setSearch: (search: string | undefined) => void
+  setDate: (date: Date | null) => void
 }

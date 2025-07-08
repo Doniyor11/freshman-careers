@@ -15,19 +15,23 @@ export const Filter = () => {
 		education,
 		salary,
 		search,
+		date,
 		setFormat,
 		setEducation,
 		setSalary,
 		setSearch,
+		setDate,
 	] = useApplicationFilterStore((s) => [
 		s.format,
 		s.education,
 		s.salary,
 		s.search,
+		s.date,
 		s.setFormat,
 		s.setEducation,
 		s.setSalary,
 		s.setSearch,
+		s.setDate,
 	])
 
 	return (
@@ -51,29 +55,31 @@ export const Filter = () => {
 					label={"Internship Date"}
 					placeholder={"Select dates"}
 					leftSection={<Icon5 />}
+					value={date}
+					onChange={setDate}
 				/>
 				<BadgeGroup
 					label={"Format"}
-					options={["Remotely", "Office", "Hybrid"]}
+					options={["Remote", "Office", "Hybrid"]}
 					value={format}
 					onChange={(e: any) => setFormat(e)}
 				/>
 				<BadgeGroup
 					label={"Education"}
-					options={["Graduate", "3rd year", "1-2 course", "Absent"]}
+					options={["Graduate", "3rd year", "1-2 courses", "Absent"]}
 					value={education}
 					onChange={(e: any) => setEducation(e)}
 				/>
 				<BadgeGroup
 					label={"Salary, $"}
 					options={[
-						"до 100",
+						"up to 100",
 						"101-200",
 						"201-500",
-						"501-1,000",
-						"1,000-2,000",
+						"501-1000",
+						"1001-2000",
 						"2000+",
-						"Not specified",
+						"Not Specified",
 					]}
 					value={salary}
 					onChange={(e: any) => setSalary(e)}
@@ -88,8 +94,8 @@ export const Filter = () => {
 
 const BadgeGroup: React.FC<{
 	options: string[]
-	value: string
-	onChange: (option: string) => void
+	value: string | undefined
+	onChange: (option: string | undefined) => void
 	label: string
 }> = ({ options, value, onChange, label }) => (
 	<Flex gap={"0.5rem"} direction={"column"}>
