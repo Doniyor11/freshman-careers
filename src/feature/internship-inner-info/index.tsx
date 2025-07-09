@@ -1,7 +1,7 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
+import ImageModal from "@//shared/assets/images/icon/document-text2.svg"
 import ImageRight from "@//shared/assets/images/image5.png"
 import IconApple from "@//shared/assets/images/image6.png"
-import ImageModal from "@//shared/assets/images/icon/document-text2.svg"
 import { Box, Container, Flex, List, Text } from "@mantine/core"
 import Image from "next/image"
 import React from "react"
@@ -39,6 +39,10 @@ const dataPriceInfo = [
 ]
 
 export const InternshipInnerInfo = () => {
+	const [opened, setOpened] = React.useState(false)
+	const handleOpenModal = () => {
+		setOpened(true)
+	}
 	return (
 		<Container size={"1440px"} className={s.internshipInnerInfoWrapper}>
 			<Flex>
@@ -82,7 +86,7 @@ export const InternshipInnerInfo = () => {
 							))}
 						</Flex>
 					</Box>
-					<FilledButton fullWidth h={"3.5rem"}>
+					<FilledButton fullWidth h={"3.5rem"} onClick={handleOpenModal}>
 						Submit an application
 					</FilledButton>
 				</Flex>
@@ -146,27 +150,33 @@ export const InternshipInnerInfo = () => {
 			</Flex>
 			{/* Modal Upload document	*/}
 			<Modal
-				opened={true}
-				onClose={() => {
-					console.log("close modal")
-				}}
+				opened={opened}
+				onClose={() => setOpened(false)}
 				size={"43rem"}
 				centered
 			>
-				<Text component={"h3"} className={s.titleModal}>Upload document</Text>
+				<Text component={"h3"} className={s.titleModal}>
+					Upload document
+				</Text>
 				<Text component={"p"} className={s.titleDescription}>
 					To upload a document, click on the upload button
 				</Text>
-				<Box className={s.imageModal} >
-					<Flex direction={'column'}>
+				<Box className={s.imageModal}>
+					<Flex direction={"column"}>
 						<ImageModal />
-						<Text component={"p"} className={s.imageName}>Summary 2</Text>
-						<Text component={"p"} className={s.imageDesciption}>Successfully uploaded</Text>
+						<Text component={"p"} className={s.imageName}>
+							Summary 2
+						</Text>
+						<Text component={"p"} className={s.imageDesciption}>
+							Successfully uploaded
+						</Text>
 					</Flex>
 				</Box>
-				<Flex direction={'column'} gap={'0.75rem'} mt={'4rem'}>
-					<FilledButton h={'3.5rem'} bg={'#004C84'}>Upload the document</FilledButton>
-					<OutlineButton h={'3.5rem'}>Cancel</OutlineButton>
+				<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
+					<FilledButton h={"3.5rem"} bg={"#004C84"}>
+						Upload the document
+					</FilledButton>
+					<OutlineButton h={"3.5rem"}>Cancel</OutlineButton>
 				</Flex>
 			</Modal>
 		</Container>
