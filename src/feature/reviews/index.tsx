@@ -44,6 +44,7 @@ export const Reviews = () => {
 										alt={"Image 1"}
 										width={336}
 										height={460}
+										unoptimized
 									/>
 								</Box>
 								<Box className={s.reviewsWrapperContent} p={"3rem"}>

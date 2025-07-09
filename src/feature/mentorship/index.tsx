@@ -67,6 +67,7 @@ export const Mentorship = () => {
 								alt={"Mentorship Image"}
 								width={526}
 								height={526}
+								unoptimized
 							/>
 						</Box>
 					</Grid.Col>

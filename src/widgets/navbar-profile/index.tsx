@@ -44,7 +44,13 @@ export const NavbarProfile = () => {
 					>
 						<Menu.Target>
 							<Box className={s.profileImage}>
-								<Image src={ImageUser} alt={""} width={56} height={56} />
+								<Image
+									src={ImageUser}
+									alt={""}
+									width={56}
+									height={56}
+									unoptimized
+								/>
 							</Box>
 						</Menu.Target>
 

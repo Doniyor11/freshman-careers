@@ -99,6 +99,7 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 					className={s.internshipsCardButton}
 					fullWidth
 					onClick={onApply}
+					h={'2.75rem'}
 				>
 					Apply now
 				</FilledButton>

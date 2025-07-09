@@ -22,7 +22,7 @@ export const OpportunitiesCard: FC<OpportunitiesCardIProps> = ({
 		<Flex align={"center"} justify={"center"} >
 			<Box className={s.opportunitiesCard}>
 				<Box className={s.opportunitiesCardImage}>
-					<Image src={imageSrc} alt={""} width={128} height={128} />
+					<Image src={imageSrc} alt={""} width={128} height={128} unoptimized />
 				</Box>
 				<Text component={"h3"} className={s.opportunitiesCardTitle}>
 					{title}

@@ -1,5 +1,7 @@
+import { InternshipInnerInfo } from "@/feature"
 import Head from "next/head"
 import React from "react"
+
 import { NavbarProfile } from "@/widgets"
 
 const ProfilePage = () => {
@@ -11,7 +13,8 @@ const ProfilePage = () => {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavbarProfile/>
+			<NavbarProfile />
+			<InternshipInnerInfo />
 		</>
 	)
 }
