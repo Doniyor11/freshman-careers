@@ -6,7 +6,7 @@ import { ActionIcon, Box, Container, Flex, Grid, Text } from "@mantine/core"
 import Image from "next/image"
 import React from "react"
 
-import { Input, Modal } from "@/shared/ui"
+import { Input, Modal, PricingCard } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./my-profile.module.scss"
@@ -48,7 +48,9 @@ export const MyProfile = () => {
 }
 
 const ProfileCard = () => {
-	const [modalType, setModalType] = React.useState<"edit" | "password" | null>(null)
+	const [modalType, setModalType] = React.useState<"edit" | "password" | null>(
+		null,
+	)
 
 	return (
 		<>
@@ -95,7 +97,9 @@ const ProfileCard = () => {
 					>
 						Edit
 					</FilledButton>
-					<OutlineButton h={"2.75rem"} fullWidth
+					<OutlineButton
+						h={"2.75rem"}
+						fullWidth
 						onClick={() => setModalType("password")}
 						disabled={modalType === "edit"}
 					>
@@ -103,7 +107,11 @@ const ProfileCard = () => {
 					</OutlineButton>
 				</Flex>
 			</Box>
-			<Modal opened={!!modalType} onClose={() => setModalType(null)} size={"50rem"}>
+			<Modal
+				opened={!!modalType}
+				onClose={() => setModalType(null)}
+				size={"50rem"}
+			>
 				{modalType === "edit" && <EditProfileModal />}
 				{modalType === "password" && <ChangePasswordProfileModal />}
 			</Modal>
@@ -112,39 +120,63 @@ const ProfileCard = () => {
 }
 
 const SubscriptionCard = () => {
+	const [modalType, setModalType] = React.useState<
+		"subscription" | "UnSubscription" | null
+	>(null)
 	return (
-		<Box className={s.card}>
-			<Text component={"p"} className={s.cardTitle} mb={"1.5rem"}>
-				Subscription
-			</Text>
-			<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>
-				<Text component={"p"} className={s.label}>
-					Status:
+		<>
+			<Box className={s.card}>
+				<Text component={"p"} className={s.cardTitle} mb={"1.5rem"}>
+					Subscription
 				</Text>
-				<Text component={"p"} className={s.titleBig}>
-					Active
-				</Text>
-			</Flex>
-			<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>
-				<Text component={"p"} className={s.label}>
-					Tariff:
-				</Text>
-				<Text component={"p"} className={s.titleBig}>
-					Base
-				</Text>
-			</Flex>
-			<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>
-				<Text component={"p"} className={s.label}>
-					Renewal Date:
-				</Text>
-				<Text component={"p"} className={s.titleBig}>
-					24.05.2025
-				</Text>
-			</Flex>
-			<FilledButton bg={"#004C84"} h={"2.75rem"} fullWidth>
-				Management
-			</FilledButton>
-		</Box>
+				<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>
+					<Text component={"p"} className={s.label}>
+						Status:
+					</Text>
+					<Text component={"p"} className={s.titleBig}>
+						Active
+					</Text>
+				</Flex>
+				<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>
+					<Text component={"p"} className={s.label}>
+						Tariff:
+					</Text>
+					<Text component={"p"} className={s.titleBig}>
+						Base
+					</Text>
+				</Flex>
+				<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>
+					<Text component={"p"} className={s.label}>
+						Renewal Date:
+					</Text>
+					<Text component={"p"} className={s.titleBig}>
+						24.05.2025
+					</Text>
+				</Flex>
+				<FilledButton
+					bg={"#004C84"}
+					h={"2.75rem"}
+					fullWidth
+					onClick={() => setModalType("subscription")}
+				>
+					Management
+				</FilledButton>
+			</Box>
+			<Modal
+				opened={!!modalType}
+				onClose={() => setModalType(null)}
+				size={modalType === "UnSubscription" ? "36rem" : "54rem"}
+			>
+				{modalType === "subscription" && (
+					<SubscriptionModal
+						handleSubscribe={() => {
+							setModalType("UnSubscription")
+						}}
+					/>
+				)}
+				{modalType === "UnSubscription" && <UnSubscriptionModal />}
+			</Modal>
+		</>
 	)
 }
 
@@ -249,7 +281,6 @@ const EditProfileModal = () => {
 		if (file) {
 			setSelectedImage(file)
 			setPreviewUrl(URL.createObjectURL(file))
-
 		}
 	}
 
@@ -288,13 +319,15 @@ const EditProfileModal = () => {
 					</OutlineButton>
 				</label>
 			</Flex>
-			<Flex direction={'column'} gap={'1rem'}>
+			<Flex direction={"column"} gap={"1rem"}>
 				<Input label={"Mail"} />
 				<Input label={"Phone"} />
 			</Flex>
-			<Flex direction={'column'} gap={'0.75rem'} mt={'4rem'}>
-				<FilledButton bg={'#004C84'} h={'3.5rem'}>Save</FilledButton>
-				<OutlineButton h={'3.5rem'}>Cancel</OutlineButton>
+			<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
+				<FilledButton bg={"#004C84"} h={"3.5rem"}>
+					Save
+				</FilledButton>
+				<OutlineButton h={"3.5rem"}>Cancel</OutlineButton>
 			</Flex>
 		</>
 	)
@@ -308,13 +341,60 @@ const ChangePasswordProfileModal = () => {
 				Enter your email and phone number, then click Save to confirm your
 				changes
 			</Text>
-			<Flex direction={'column'} gap={'1rem'}>
-				<Input label={"Mail"} type={"password"}/>
-				<Input label={"Phone"} type={"password"}/>
+			<Flex direction={"column"} gap={"1rem"}>
+				<Input label={"Mail"} type={"password"} />
+				<Input label={"Phone"} type={"password"} />
 			</Flex>
-			<Flex direction={'column'} gap={'0.75rem'} mt={'4rem'}>
-				<FilledButton bg={'#004C84'} h={'3.5rem'}>Save</FilledButton>
-				<OutlineButton h={'3.5rem'}>Cancel</OutlineButton>
+			<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
+				<FilledButton bg={"#004C84"} h={"3.5rem"}>
+					Save
+				</FilledButton>
+				<OutlineButton h={"3.5rem"}>Cancel</OutlineButton>
+			</Flex>
+		</>
+	)
+}
+
+const SubscriptionModal = ({
+	handleSubscribe,
+}: {
+	handleSubscribe: () => void
+}) => {
+	return (
+		<>
+			<Text className={s.editModalTitle} mb={"1.75rem"}>
+				Subscription management
+			</Text>
+			<PricingCard
+				justify={"center"}
+				align={"center"}
+				unsubscribe
+				title={"Base"}
+				description={"Get access to standard platform features for 6 months"}
+				buttonText={"Active until 24.05.2025."}
+				onClickOnUnSubscribe={handleSubscribe}
+			/>
+			<Flex direction={"column"} gap={"0.75rem"} mt={"2rem"}>
+				<OutlineButton h={"3.5rem"}>Close</OutlineButton>
+			</Flex>
+		</>
+	)
+}
+
+const UnSubscriptionModal = () => {
+	return (
+		<>
+			<Text className={s.editModalTitle}>Unsubscribe?</Text>
+			<Text className={s.editModalDescription}>
+				Are you sure you want to cancel your subscription? After canceling, you
+				will not be able to access internships and all applications you have
+				submitted will be deleted.
+			</Text>
+			<Flex direction={"column"} gap={"0.75rem"} mt={"2rem"}>
+				<FilledButton bg={"#004C84"} h={"3.5rem"}>
+					Do not unsubscribe
+				</FilledButton>
+				<OutlineButton h={"3.5rem"}>Unsubscribe</OutlineButton>
 			</Flex>
 		</>
 	)

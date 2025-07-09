@@ -1,11 +1,13 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
 import ImageRight from "@//shared/assets/images/image5.png"
 import IconApple from "@//shared/assets/images/image6.png"
+import ImageModal from "@//shared/assets/images/icon/document-text2.svg"
 import { Box, Container, Flex, List, Text } from "@mantine/core"
 import Image from "next/image"
 import React from "react"
 
-import { FilledButton } from "@/shared/ui/buttons"
+import { Modal } from "@/shared/ui"
+import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./internship-inner-info.module.scss"
 
@@ -86,9 +88,16 @@ export const InternshipInnerInfo = () => {
 				</Flex>
 				{/* 2 */}
 				<Box className={s.imageWrapper}>
-					<Image src={ImageRight} alt={""} width={850} height={515} unoptimized/>
+					<Image
+						src={ImageRight}
+						alt={""}
+						width={850}
+						height={515}
+						unoptimized
+					/>
 				</Box>
 			</Flex>
+			{/* ----------------- Bottom info ----------------- */}
 			<Flex direction={"column"} m={"5rem 0 2.5rem 0"} gap={"0.5rem"}>
 				<Text component={"p"} className={s.descriptionTitle}>
 					Description
@@ -109,7 +118,7 @@ export const InternshipInnerInfo = () => {
 			</Flex>
 			<Flex m={"2.5rem 0 4rem 0"} gap={"2.5rem"}>
 				{/* 1 */}
-				<Flex direction={"column"} flex={1} gap={'0.5rem'}>
+				<Flex direction={"column"} flex={1} gap={"0.5rem"}>
 					<Text component={"p"} className={s.descriptionTitle}>
 						Requirements
 					</Text>
@@ -122,7 +131,7 @@ export const InternshipInnerInfo = () => {
 					</List>
 				</Flex>
 				{/*	2 */}
-				<Flex direction={"column"} flex={1} gap={'0.5rem'}>
+				<Flex direction={"column"} flex={1} gap={"0.5rem"}>
 					<Text component={"p"} className={s.descriptionTitle}>
 						Terms and conditions
 					</Text>
@@ -135,6 +144,31 @@ export const InternshipInnerInfo = () => {
 					</List>
 				</Flex>
 			</Flex>
+			{/* Modal Upload document	*/}
+			<Modal
+				opened={true}
+				onClose={() => {
+					console.log("close modal")
+				}}
+				size={"43rem"}
+				centered
+			>
+				<Text component={"h3"} className={s.titleModal}>Upload document</Text>
+				<Text component={"p"} className={s.titleDescription}>
+					To upload a document, click on the upload button
+				</Text>
+				<Box className={s.imageModal} >
+					<Flex direction={'column'}>
+						<ImageModal />
+						<Text component={"p"} className={s.imageName}>Summary 2</Text>
+						<Text component={"p"} className={s.imageDesciption}>Successfully uploaded</Text>
+					</Flex>
+				</Box>
+				<Flex direction={'column'} gap={'0.75rem'} mt={'4rem'}>
+					<FilledButton h={'3.5rem'} bg={'#004C84'}>Upload the document</FilledButton>
+					<OutlineButton h={'3.5rem'}>Cancel</OutlineButton>
+				</Flex>
+			</Modal>
 		</Container>
 	)
 }

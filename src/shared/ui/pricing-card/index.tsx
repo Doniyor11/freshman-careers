@@ -7,20 +7,26 @@ import s from "./pricing-card.module.scss"
 
 interface PricingCardIProps {
 	justify?: "flex-start" | "center" | "flex-end"
+	align?: "flex-start" | "center" | "flex-end"
 	buttonText?: string
 	handleSubscribe?: () => void
 	loading?: boolean
 	unsubscribe?: boolean
 	onClickOnUnSubscribe?: () => void
+	title?: string
+	description?: string
 }
 
 export const PricingCard: FC<PricingCardIProps> = ({
 	justify,
+	align,
 	buttonText,
 	handleSubscribe,
 	loading,
 	unsubscribe = false,
 	onClickOnUnSubscribe = () => {},
+	title = "Don't have subscription?",
+	description = "Get access to standard platform features for 6 months",
 }) => {
 	return (
 		<div className={s.pricingCardContainer}>
@@ -29,11 +35,14 @@ export const PricingCard: FC<PricingCardIProps> = ({
 			<Box className={s.pricingCard}>
 				{/* Card Content */}
 				<Stack className={s.cardContent}>
-					<Flex direction={"column"} gap={"1rem"} className={s.cardContentTop}>
-						<Text className={s.cardContentTitle}>Don't have subscription?</Text>
-						<Text className={s.cardContentDescription}>
-							Get access to standard platform features for 6 months.
-						</Text>
+					<Flex
+						direction={"column"}
+						gap={"1rem"}
+						className={s.cardContentTop}
+						align={align}
+					>
+						<Text className={s.cardContentTitle}>{title}</Text>
+						<Text className={s.cardContentDescription}>{description}</Text>
 					</Flex>
 
 					<Flex align={"center"} gap={"0.5rem"} justify={justify}>
@@ -44,7 +53,7 @@ export const PricingCard: FC<PricingCardIProps> = ({
 						</div>
 					</Flex>
 
-					<Flex direction={"column"} gap={"0.5rem"} mt={'1.80rem'}>
+					<Flex direction={"column"} gap={"0.5rem"} mt={"1.80rem"}>
 						<FilledButton
 							fullWidth
 							size="2.75rem"
