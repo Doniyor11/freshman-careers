@@ -3,10 +3,10 @@ import React from "react"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
 import { AuthWrapper } from "@/widgets/auth/ui"
-
 import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./navbar.module.scss"
+import { useRouter } from "next/router"
 
 const navbarLink = [
 	{
@@ -32,6 +32,8 @@ export const Navbar = () => {
 		s.setAuthorization,
 		s.setModalType,
 	])
+	const router = useRouter()
+
 	return (
 		<>
 			<Box className={s.navbarWrapper}>
@@ -51,6 +53,11 @@ export const Navbar = () => {
 							gap={"0.13rem"}
 							className={'navbarLogoBox'}
 							pr={"7rem"}
+							onClick={
+								() => {
+									router.push("/")
+								}
+							}
 						>
 							<Text component={"p"}>Freshman</Text>
 							<Text component={"span"}>Careers</Text>

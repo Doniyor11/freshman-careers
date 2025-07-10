@@ -31,6 +31,11 @@ export const NavbarProfile = () => {
 						gap={"0.13rem"}
 						className={"navbarLogoBox"}
 						p={"0.5rem 1rem"}
+						onClick={
+							() => {
+								router.push("/")
+							}
+						}
 					>
 						<Text component={"p"}>Freshman</Text>
 						<Text component={"span"}>Careers</Text>

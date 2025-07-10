@@ -10,7 +10,13 @@ import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./internship-inner-info.module.scss"
 
+
 export const InternshipInnerInfo = () => {
+	const [opened, setOpened] = React.useState(false)
+	const handleOpenModal = () => {
+		setOpened(true)
+	}
+
 	const params = useParams()
 	const { data } = useGetInternshipQuery(Number(params?.id))
 
@@ -40,7 +46,6 @@ export const InternshipInnerInfo = () => {
 			info: `${data?.internship_start_date} - ${data?.internship_end_date}`,
 		},
 	]
-
 	return (
 		<Container size={"1440px"} className={s.internshipInnerInfoWrapper}>
 			<Flex>
@@ -84,7 +89,7 @@ export const InternshipInnerInfo = () => {
 							))}
 						</Flex>
 					</Box>
-					<FilledButton fullWidth h={"3.5rem"}>
+					<FilledButton fullWidth h={"3.5rem"} onClick={handleOpenModal}>
 						Submit an application
 					</FilledButton>
 				</Flex>
@@ -99,6 +104,7 @@ export const InternshipInnerInfo = () => {
 					/>
 				</Box>
 			</Flex>
+			{/* ----------------- Bottom info ----------------- */}
 			<Flex direction={"column"} m={"5rem 0 2.5rem 0"} gap={"0.5rem"}>
 				<Text component={"p"} className={s.descriptionTitle}>
 					Description
@@ -135,6 +141,37 @@ export const InternshipInnerInfo = () => {
 					</List>
 				</Flex>
 			</Flex>
+			{/* Modal Upload document	*/}
+			<Modal
+				opened={opened}
+				onClose={() => setOpened(false)}
+				size={"43rem"}
+				centered
+			>
+				<Text component={"h3"} className={s.titleModal}>
+					Upload document
+				</Text>
+				<Text component={"p"} className={s.titleDescription}>
+					To upload a document, click on the upload button
+				</Text>
+				<Box className={s.imageModal}>
+					<Flex direction={"column"}>
+						<ImageModal />
+						<Text component={"p"} className={s.imageName}>
+							Summary 2
+						</Text>
+						<Text component={"p"} className={s.imageDesciption}>
+							Successfully uploaded
+						</Text>
+					</Flex>
+				</Box>
+				<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
+					<FilledButton h={"3.5rem"} bg={"#004C84"}>
+						Upload the document
+					</FilledButton>
+					<OutlineButton h={"3.5rem"}>Cancel</OutlineButton>
+				</Flex>
+			</Modal>
 		</Container>
 	)
 }
