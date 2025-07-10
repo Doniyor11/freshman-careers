@@ -1,6 +1,5 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
 import IconDoc from "@//shared/assets/images/icon/document-text.svg"
-import IconDownload from "@//shared/assets/images/icon/download.svg"
 import IconTrash from "@//shared/assets/images/icon/trash.svg"
 import ImageUser from "@//shared/assets/images/image.png"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
@@ -216,17 +215,15 @@ const Documents = () => {
 								: "-"}
 						</Text>
 					</Flex>
-
-					<Flex gap={2} align={"center"}>
-						<ActionIcon bg={"#fff"} onClick={() => console.log(i.id)}>
-							<IconDownload />
-						</ActionIcon>
-						<ActionIcon bg={"#fff"} onClick={() => console.log(i.id)}>
-							<IconTrash />
-						</ActionIcon>
-					</Flex>
+					<ActionIcon bg={"#fff"} onClick={() => console.log(i.id)}>
+						<IconTrash />
+					</ActionIcon>
 				</Flex>
 			))}
+
+			<FilledButton bg={"#004C84"} h={"2.75rem"} fullWidth mt={"1.5rem"}>
+				Download the document
+			</FilledButton>
 		</Box>
 	)
 }
