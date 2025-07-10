@@ -76,6 +76,7 @@ export const NavbarProfile = () => {
 								className={s.profileItem}
 								justify={"space-between"}
 								align={"center"}
+								onClick={() => router.push("/my-profile")}
 							>
 								<Text component={"span"} className={s.profileItemText}>
 									Profile

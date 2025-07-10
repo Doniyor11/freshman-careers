@@ -21,6 +21,10 @@
   line-height: 3rem;
 }
 
+.companyLogo {
+  object-fit: contain;
+}
+
 .infoText {
   color: #001C31;
   font-size: 1.75rem;
@@ -55,16 +59,17 @@
 
 .imageWrapper {
   height: 32rem;
+  max-width: 840px;
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     border-radius: 0.5rem;
   }
 }
 
-.list{
+.list {
   color: #848F98;
 }
 

@@ -3,6 +3,7 @@ import { useApplicationFilterStore } from "@/feature/filter/model"
 import { Container, Flex, Grid, Menu, Text } from "@mantine/core"
 import { useDebouncedValue } from "@mantine/hooks"
 import dayjs from "dayjs"
+import { useRouter } from "next/router"
 import React from "react"
 
 import { useGetMyApplicationsQuery } from "@/entities/my-applications/query.ts"
@@ -15,6 +16,7 @@ import { InternshipsCard } from "@/shared/ui"
 import s from "./internship-profile.module.scss"
 
 export const InternshipProfile = () => {
+	const router = useRouter()
 	const [format, education, salary, search, date] = useApplicationFilterStore(
 		(s) => [s.format, s.education, s.salary, s.search, s.date],
 	)
@@ -104,7 +106,7 @@ export const InternshipProfile = () => {
 									dates={`${dayjs(i?.internship_start_date).format(
 										"DD.MM.YYYY",
 									)} - ${dayjs(i?.internship_end_date).format("DD.MM.YYYY")}`}
-									onApply={() => console.log("click")}
+									onApply={() => router.push(`/internship-inner/${i?.id}`)}
 								/>
 							</Grid.Col>
 						))}
