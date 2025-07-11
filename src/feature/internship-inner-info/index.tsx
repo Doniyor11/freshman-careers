@@ -1,20 +1,49 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
-import { Box, Container, Flex, List, Text } from "@mantine/core"
+import {
+	ActionIcon,
+	Box,
+	Container,
+	Flex,
+	Group,
+	List,
+	Modal,
+	Text,
+} from "@mantine/core"
+import { Dropzone, FileWithPath, MIME_TYPES } from "@mantine/dropzone"
 import Image from "next/image"
 import { useParams } from "next/navigation"
-import React from "react"
+import React, { useState } from "react"
 
+import { useUploadFileQuery } from "@/entities/file-upload/query.ts"
 import { useGetInternshipQuery } from "@/entities/internships/query.ts"
 
-import { FilledButton } from "@/shared/ui/buttons"
+import ImageModal from "@/shared/assets/images/icon/document-text2.svg"
+import ImageModal1 from "@/shared/assets/images/icon/document-text3.svg"
+import IconClose from "@/shared/assets/images/icon/icon-close.svg"
+import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./internship-inner-info.module.scss"
 
-
 export const InternshipInnerInfo = () => {
-	const [opened, setOpened] = React.useState(false)
+	const [opened, setOpened] = useState(false)
+	const [success, setSuccess] = useState(false)
+	const [uploaded, setUploaded] = useState(false)
+	const [file, setFile] = useState<FileWithPath[]>([])
 	const handleOpenModal = () => {
 		setOpened(true)
+	}
+	const handleCloseModal = () => {
+		setOpened(false)
+		setFile([])
+		setUploaded(false)
+	}
+
+	const { mutate, isPending } = useUploadFileQuery(() => setSuccess(true))
+
+	const handleUploadFile = () => {
+		mutate({
+			file: file[0],
+		})
 	}
 
 	const params = useParams()
@@ -46,6 +75,7 @@ export const InternshipInnerInfo = () => {
 			info: `${data?.internship_start_date} - ${data?.internship_end_date}`,
 		},
 	]
+
 	return (
 		<Container size={"1440px"} className={s.internshipInnerInfoWrapper}>
 			<Flex>
@@ -144,33 +174,94 @@ export const InternshipInnerInfo = () => {
 			{/* Modal Upload document	*/}
 			<Modal
 				opened={opened}
-				onClose={() => setOpened(false)}
+				onClose={handleCloseModal}
 				size={"43rem"}
 				centered
+				withCloseButton={false}
+				padding={24}
 			>
-				<Text component={"h3"} className={s.titleModal}>
-					Upload document
-				</Text>
-				<Text component={"p"} className={s.titleDescription}>
-					To upload a document, click on the upload button
-				</Text>
-				<Box className={s.imageModal}>
-					<Flex direction={"column"}>
-						<ImageModal />
-						<Text component={"p"} className={s.imageName}>
-							Summary 2
-						</Text>
-						<Text component={"p"} className={s.imageDesciption}>
-							Successfully uploaded
-						</Text>
-					</Flex>
-				</Box>
-				<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
-					<FilledButton h={"3.5rem"} bg={"#004C84"}>
-						Upload the document
-					</FilledButton>
-					<OutlineButton h={"3.5rem"}>Cancel</OutlineButton>
-				</Flex>
+				<div className={s.modalWrapper}>
+					<ActionIcon
+						className={s.iconClose}
+						onClick={handleCloseModal}
+						variant={"transparent"}
+					>
+						<IconClose />
+					</ActionIcon>
+					<Text component={"h3"} className={s.titleModal}>
+						Upload document
+					</Text>
+					<Text component={"p"} className={s.titleDescription}>
+						To upload a document, click on the upload button
+					</Text>
+
+					{!success ? (
+						<>
+							<Dropzone
+								onDrop={(files) => {
+									setFile(files)
+									setUploaded(true)
+								}}
+								onReject={(files) => console.log("rejected files", files)}
+								maxFiles={1}
+								multiple={false}
+								// maxSize={10 * 1024 ** 2}
+								accept={[MIME_TYPES.pdf, MIME_TYPES.doc]}
+								className={s.dropzone}
+							>
+								<Group
+									gap="xl"
+									justify="center"
+									style={{ pointerEvents: "none" }}
+									mih={300}
+								>
+									<Dropzone.Accept>
+										<ImageModal />
+									</Dropzone.Accept>
+
+									<Dropzone.Idle>
+										{!uploaded ? (
+											<ImageModal1 />
+										) : (
+											<Flex direction={"column"} align={"center"} gap={12}>
+												<ImageModal />
+												<Text className={s.imageDesciption}>
+													{file[0]?.name}
+												</Text>
+											</Flex>
+										)}
+									</Dropzone.Idle>
+								</Group>
+							</Dropzone>
+							<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
+								<FilledButton
+									h={"3.5rem"}
+									bg={"#004C84"}
+									onClick={handleUploadFile}
+									loading={isPending}
+									disabled={!(file.length > 0)}
+								>
+									Upload the document
+								</FilledButton>
+								<OutlineButton onClick={handleCloseModal} h={"3.5rem"}>
+									Cancel
+								</OutlineButton>
+							</Flex>
+						</>
+					) : (
+						<div className={s.successBox}>
+							<Flex direction={"column"}>
+								<ImageModal />
+								<Text component={"p"} className={s.imageName}>
+									{file[0]?.name}
+								</Text>
+								<Text component={"p"} className={s.imageDesciption}>
+									Successfully uploaded
+								</Text>
+							</Flex>
+						</div>
+					)}
+				</div>
 			</Modal>
 		</Container>
 	)

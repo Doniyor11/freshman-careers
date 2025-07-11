@@ -17,5 +17,6 @@ export const useGetInternshipQuery = (id?: number) => {
 		queryFn: () => getInternshipApi(id),
 		queryKey: [apiKeys.internships, id],
 		select: (data) => data,
+		enabled: !!id,
 	})
 }
