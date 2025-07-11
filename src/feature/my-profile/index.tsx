@@ -5,16 +5,26 @@ import IconTrash from "@//shared/assets/images/icon/trash.svg"
 import ImageUser from "@//shared/assets/images/image.png"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
-import { ActionIcon, Box, Container, Flex, Grid, Text } from "@mantine/core"
+import {
+	ActionIcon,
+	Anchor,
+	Box,
+	Container,
+	Flex,
+	Grid,
+	Text,
+} from "@mantine/core"
 import dayjs from "dayjs"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import React from "react"
 
+import { useDeleteFilesQuery } from "@/entities/file-delete/query.ts"
 import { useGetUserFilesQuery } from "@/entities/user-files/query.ts"
 import { IUserFiles } from "@/entities/user-files/types.ts"
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
 
+import { EnvKeys } from "@/shared/constants/env.ts"
 import { Input, Modal, PricingCard } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
@@ -193,7 +203,7 @@ const SubscriptionCard = () => {
 
 const Documents = () => {
 	const { data } = useGetUserFilesQuery()
-
+	const { mutate, isPending } = useDeleteFilesQuery()
 	if (!(data?.length > 0)) return <></>
 
 	return (
@@ -218,10 +228,20 @@ const Documents = () => {
 					</Flex>
 
 					<Flex gap={2} align={"center"}>
-						<ActionIcon bg={"#fff"} onClick={() => console.log(i.id)}>
-							<IconDownload />
-						</ActionIcon>
-						<ActionIcon bg={"#fff"} onClick={() => console.log(i.id)}>
+						<Anchor
+							href={`${EnvKeys.NEXT_HOST}/${encodeURI(i?.file_path)}`}
+							download
+							target={"_blank"}
+						>
+							<ActionIcon variant={"transparent"}>
+								<IconDownload />
+							</ActionIcon>
+						</Anchor>
+						<ActionIcon
+							variant={"transparent"}
+							disabled={isPending}
+							onClick={() => mutate(i.id)}
+						>
 							<IconTrash />
 						</ActionIcon>
 					</Flex>
