@@ -1,48 +1,81 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
-import ImageModal from "@//shared/assets/images/icon/document-text2.svg"
-import ImageRight from "@//shared/assets/images/image5.png"
-import IconApple from "@//shared/assets/images/image6.png"
-import { Box, Container, Flex, List, Text } from "@mantine/core"
+import {
+	ActionIcon,
+	Box,
+	Container,
+	Flex,
+	Group,
+	List,
+	Modal,
+	Text,
+} from "@mantine/core"
+import { Dropzone, FileWithPath, MIME_TYPES } from "@mantine/dropzone"
 import Image from "next/image"
-import React from "react"
+import { useParams } from "next/navigation"
+import React, { useState } from "react"
 
-import { Modal } from "@/shared/ui"
+import { useUploadFileQuery } from "@/entities/file-upload/query.ts"
+import { useGetInternshipQuery } from "@/entities/internships/query.ts"
+
+import ImageModal from "@/shared/assets/images/icon/document-text2.svg"
+import ImageModal1 from "@/shared/assets/images/icon/document-text3.svg"
+import IconClose from "@/shared/assets/images/icon/icon-close.svg"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./internship-inner-info.module.scss"
 
-const dataPriceInfo = [
-	{
-		title: "Payments",
-		info: "Once a month",
-	},
-	{
-		title: "Education",
-		info: "Graduate",
-	},
-	{
-		title: "Format",
-		info: "Remote, full-time",
-	},
-	{
-		title: "Schedule",
-		info: "5/2",
-	},
-	{
-		title: "Working hours",
-		info: "9:00-17:00",
-	},
-	{
-		title: "Internship dates",
-		info: "25.05.2025 - 25.08.2025",
-	},
-]
-
 export const InternshipInnerInfo = () => {
-	const [opened, setOpened] = React.useState(false)
+	const [opened, setOpened] = useState(false)
+	const [success, setSuccess] = useState(false)
+	const [uploaded, setUploaded] = useState(false)
+	const [file, setFile] = useState<FileWithPath[]>([])
 	const handleOpenModal = () => {
 		setOpened(true)
 	}
+	const handleCloseModal = () => {
+		setOpened(false)
+		setFile([])
+		setUploaded(false)
+	}
+
+	const { mutate, isPending } = useUploadFileQuery(() => setSuccess(true))
+
+	const handleUploadFile = () => {
+		mutate({
+			file: file[0],
+		})
+	}
+
+	const params = useParams()
+	const { data } = useGetInternshipQuery(Number(params?.id))
+
+	const dataPriceInfo = [
+		{
+			title: "Payments",
+			info: data?.payment_status,
+		},
+		{
+			title: "Education",
+			info: data?.education,
+		},
+		{
+			title: "Format",
+			info: data?.format,
+		},
+		{
+			title: "Schedule",
+			info: data?.schedule,
+		},
+		{
+			title: "Working hours",
+			info: data?.working_hours,
+		},
+		{
+			title: "Internship dates",
+			info: `${data?.internship_start_date} - ${data?.internship_end_date}`,
+		},
+	]
+
 	return (
 		<Container size={"1440px"} className={s.internshipInnerInfoWrapper}>
 			<Flex>
@@ -53,7 +86,7 @@ export const InternshipInnerInfo = () => {
 			</Flex>
 			<Flex mb={"2.5rem"}>
 				<Text component={"h1"} className={s.title}>
-					Trainee designer
+					{data?.title}
 				</Text>
 			</Flex>
 			<Flex gap={"2rem"}>
@@ -62,7 +95,7 @@ export const InternshipInnerInfo = () => {
 					<Box>
 						<Flex gap={"0.69rem"} mb={"0.5rem"} align={"center"}>
 							<Image
-								src={IconApple}
+								src={`${data?.company?.image}`}
 								alt={"apple"}
 								width={42}
 								height={42}
@@ -70,12 +103,12 @@ export const InternshipInnerInfo = () => {
 								unoptimized
 							/>
 							<Text component={"p"} className={s.infoText}>
-								Apple
+								{data?.company?.name}
 							</Text>
 						</Flex>
 						<Flex mb={"2rem"}>
 							<Text component={"p"} className={s.priceText}>
-								from $400 a month
+								{data?.salary}
 							</Text>
 						</Flex>
 						<Flex direction={"column"} gap={"0.5rem"}>
@@ -93,7 +126,7 @@ export const InternshipInnerInfo = () => {
 				{/* 2 */}
 				<Box className={s.imageWrapper}>
 					<Image
-						src={ImageRight}
+						src={`${data?.picture}`}
 						alt={""}
 						width={850}
 						height={515}
@@ -107,17 +140,7 @@ export const InternshipInnerInfo = () => {
 					Description
 				</Text>
 				<Text component={"p"} className={s.description}>
-					The Magnit Market project team is looking for Middle+ or Senior level
-					Java developers to develop a part of SuperApp with a multi-million
-					audience. The goal is to create the country's leading marketplace
-					integrated into the Magnet ecosystem. The project includes several
-					teams responsible for key blocks: storefront and user journey, order
-					management system (OMS), product catalog management (PIM), logistics
-					and tools for merchants. The developer will maintain and develop
-					services on a modern stack (Java, Kotlin, Spring, Kafka), participate
-					in teamwork, rallies and Code Review. Will also have to design and
-					develop integrations with other services in the ecosystem, analyze
-					requests and build fault-tolerant solutions under high load.
+					{data?.description}
 				</Text>
 			</Flex>
 			<Flex m={"2.5rem 0 4rem 0"} gap={"2.5rem"}>
@@ -129,7 +152,7 @@ export const InternshipInnerInfo = () => {
 					<List className={s.list}>
 						<List.Item>
 							<Text component={"p"} className={s.description}>
-								Have 5+ years of commercial Java development experience
+								{data?.requirements}
 							</Text>
 						</List.Item>
 					</List>
@@ -142,7 +165,7 @@ export const InternshipInnerInfo = () => {
 					<List className={s.list}>
 						<List.Item>
 							<Text component={"p"} className={s.description}>
-								Employment in an accredited IT company with competitive salary
+								{data?.conditions}
 							</Text>
 						</List.Item>
 					</List>
@@ -151,33 +174,94 @@ export const InternshipInnerInfo = () => {
 			{/* Modal Upload document	*/}
 			<Modal
 				opened={opened}
-				onClose={() => setOpened(false)}
+				onClose={handleCloseModal}
 				size={"43rem"}
 				centered
+				withCloseButton={false}
+				padding={24}
 			>
-				<Text component={"h3"} className={s.titleModal}>
-					Upload document
-				</Text>
-				<Text component={"p"} className={s.titleDescription}>
-					To upload a document, click on the upload button
-				</Text>
-				<Box className={s.imageModal}>
-					<Flex direction={"column"}>
-						<ImageModal />
-						<Text component={"p"} className={s.imageName}>
-							Summary 2
-						</Text>
-						<Text component={"p"} className={s.imageDesciption}>
-							Successfully uploaded
-						</Text>
-					</Flex>
-				</Box>
-				<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
-					<FilledButton h={"3.5rem"} bg={"#004C84"}>
-						Upload the document
-					</FilledButton>
-					<OutlineButton h={"3.5rem"}>Cancel</OutlineButton>
-				</Flex>
+				<div className={s.modalWrapper}>
+					<ActionIcon
+						className={s.iconClose}
+						onClick={handleCloseModal}
+						variant={"transparent"}
+					>
+						<IconClose />
+					</ActionIcon>
+					<Text component={"h3"} className={s.titleModal}>
+						Upload document
+					</Text>
+					<Text component={"p"} className={s.titleDescription}>
+						To upload a document, click on the upload button
+					</Text>
+
+					{!success ? (
+						<>
+							<Dropzone
+								onDrop={(files) => {
+									setFile(files)
+									setUploaded(true)
+								}}
+								onReject={(files) => console.log("rejected files", files)}
+								maxFiles={1}
+								multiple={false}
+								// maxSize={10 * 1024 ** 2}
+								accept={[MIME_TYPES.pdf, MIME_TYPES.doc]}
+								className={s.dropzone}
+							>
+								<Group
+									gap="xl"
+									justify="center"
+									style={{ pointerEvents: "none" }}
+									mih={300}
+								>
+									<Dropzone.Accept>
+										<ImageModal />
+									</Dropzone.Accept>
+
+									<Dropzone.Idle>
+										{!uploaded ? (
+											<ImageModal1 />
+										) : (
+											<Flex direction={"column"} align={"center"} gap={12}>
+												<ImageModal />
+												<Text className={s.imageDesciption}>
+													{file[0]?.name}
+												</Text>
+											</Flex>
+										)}
+									</Dropzone.Idle>
+								</Group>
+							</Dropzone>
+							<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
+								<FilledButton
+									h={"3.5rem"}
+									bg={"#004C84"}
+									onClick={handleUploadFile}
+									loading={isPending}
+									disabled={!(file.length > 0)}
+								>
+									Upload the document
+								</FilledButton>
+								<OutlineButton onClick={handleCloseModal} h={"3.5rem"}>
+									Cancel
+								</OutlineButton>
+							</Flex>
+						</>
+					) : (
+						<div className={s.successBox}>
+							<Flex direction={"column"}>
+								<ImageModal />
+								<Text component={"p"} className={s.imageName}>
+									{file[0]?.name}
+								</Text>
+								<Text component={"p"} className={s.imageDesciption}>
+									Successfully uploaded
+								</Text>
+							</Flex>
+						</div>
+					)}
+				</div>
 			</Modal>
 		</Container>
 	)

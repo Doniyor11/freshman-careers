@@ -1,20 +1,40 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
 import IconDoc from "@//shared/assets/images/icon/document-text.svg"
+import IconDownload from "@//shared/assets/images/icon/download.svg"
 import IconTrash from "@//shared/assets/images/icon/trash.svg"
 import ImageUser from "@//shared/assets/images/image.png"
-import { ActionIcon, Box, Container, Flex, Grid, Text } from "@mantine/core"
+import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
+import { useProfileStore } from "@/feature/my-profile/model"
+import {
+	ActionIcon,
+	Anchor,
+	Box,
+	Container,
+	Flex,
+	Grid,
+	Text,
+} from "@mantine/core"
+import dayjs from "dayjs"
 import Image from "next/image"
+import { useRouter } from "next/router"
 import React from "react"
 
+import { useDeleteFilesQuery } from "@/entities/file-delete/query.ts"
+import { useGetUserFilesQuery } from "@/entities/user-files/query.ts"
+import { IUserFiles } from "@/entities/user-files/types.ts"
+import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
+
+import { EnvKeys } from "@/shared/constants/env.ts"
 import { Input, Modal, PricingCard } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./my-profile.module.scss"
 
 export const MyProfile = () => {
+	const router = useRouter()
 	return (
 		<Container size={"1440px"} className={s.myProfileWrapper}>
-			<Flex>
+			<Flex onClick={() => router.push("/profile")}>
 				<IconBack />
 				<Text component={"p"} className={s.backText}>
 					Go back
@@ -48,10 +68,11 @@ export const MyProfile = () => {
 }
 
 const ProfileCard = () => {
-	const [modalType, setModalType] = React.useState<"edit" | "password" | null>(
-		null,
-	)
-
+	const [modalType, setModalType] = useProfileStore((s) => [
+		s.modalType,
+		s.setModalType,
+	])
+	const { data } = useGetUserMeQuery()
 	return (
 		<>
 			<Box className={s.card}>
@@ -77,7 +98,7 @@ const ProfileCard = () => {
 						Phone Number:
 					</Text>
 					<Text component={"p"} className={s.titleBig}>
-						+321 5214 521 231
+						{`+${data?.phone_number}` || "-"}
 					</Text>
 				</Flex>
 				<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>
@@ -85,7 +106,7 @@ const ProfileCard = () => {
 						Email
 					</Text>
 					<Text component={"p"} className={s.titleBig}>
-						mail@mail.com
+						{data?.email || "-"}
 					</Text>
 				</Flex>
 				<Flex direction={"column"} gap={"0.5rem"}>
@@ -181,28 +202,51 @@ const SubscriptionCard = () => {
 }
 
 const Documents = () => {
+	const { data } = useGetUserFilesQuery()
+	const { mutate, isPending } = useDeleteFilesQuery()
+	if (!(data?.length > 0)) return <></>
+
 	return (
 		<Box className={s.card}>
 			<Text component={"p"} className={s.cardTitle} mb={"1.5rem"}>
 				Documents
 			</Text>
-			<Flex className={s.documentList}>
-				<IconDoc />
-				<Flex direction={"column"} flex={"auto"}>
-					<Text component={"p"} className={s.documentTitle} ml={"0.5rem"}>
-						Summary
-					</Text>
-					<Text component={"p"} className={s.documentLabel} ml={"0.5rem"}>
-						Download date: 05/24/2025
-					</Text>
+
+			{data?.map((i: IUserFiles, index: number) => (
+				<Flex key={index} className={s.documentList}>
+					<IconDoc />
+					<Flex direction={"column"} flex={"auto"}>
+						<Text component={"p"} className={s.documentTitle} ml={"0.5rem"}>
+							{i?.file_name || "-"}
+						</Text>
+						<Text component={"p"} className={s.documentLabel} ml={"0.5rem"}>
+							Download date:{" "}
+							{i?.uploaded_at
+								? dayjs(i?.uploaded_at).format("MM/DD/YYYY")
+								: "-"}
+						</Text>
+					</Flex>
+
+					<Flex gap={2} align={"center"}>
+						<Anchor
+							href={`${EnvKeys.NEXT_HOST}/${encodeURI(i?.file_path)}`}
+							download
+							target={"_blank"}
+						>
+							<ActionIcon variant={"transparent"}>
+								<IconDownload />
+							</ActionIcon>
+						</Anchor>
+						<ActionIcon
+							variant={"transparent"}
+							disabled={isPending}
+							onClick={() => mutate(i.id)}
+						>
+							<IconTrash />
+						</ActionIcon>
+					</Flex>
 				</Flex>
-				<ActionIcon bg={"#fff"}>
-					<IconTrash />
-				</ActionIcon>
-			</Flex>
-			<FilledButton bg={"#004C84"} h={"2.75rem"} fullWidth mt={"1.5rem"}>
-				Download the document
-			</FilledButton>
+			))}
 		</Box>
 	)
 }
@@ -269,67 +313,6 @@ const Card = () => {
 				</FilledButton>
 			</Box>
 		</Box>
-	)
-}
-
-const EditProfileModal = () => {
-	const [_, setSelectedImage] = React.useState<File | null>(null)
-	const [previewUrl, setPreviewUrl] = React.useState<string | null>(null)
-
-	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0]
-		if (file) {
-			setSelectedImage(file)
-			setPreviewUrl(URL.createObjectURL(file))
-		}
-	}
-
-	React.useEffect(() => {
-		return () => {
-			if (previewUrl) URL.revokeObjectURL(previewUrl)
-		}
-	}, [previewUrl])
-	return (
-		<>
-			<Text className={s.editModalTitle}>Editing a profile</Text>
-			<Text className={s.editModalDescription}>
-				Enter your email and phone number, then click Save to confirm your
-				changes
-			</Text>
-			<Flex direction={"column"} gap={"0.75rem"} mb={"1rem"}>
-				<Box className={s.editModalImageWrapper}>
-					<Image
-						src={previewUrl || ImageUser}
-						alt={""}
-						width={196}
-						height={196}
-						unoptimized
-					/>
-				</Box>
-				<input
-					type="file"
-					accept="image/*"
-					style={{ display: "none" }}
-					id="profile-image-upload"
-					onChange={handleImageChange}
-				/>
-				<label htmlFor="profile-image-upload">
-					<OutlineButton h={"3rem"} p={"0 2rem"}>
-						Edit Profile Image
-					</OutlineButton>
-				</label>
-			</Flex>
-			<Flex direction={"column"} gap={"1rem"}>
-				<Input label={"Mail"} />
-				<Input label={"Phone"} />
-			</Flex>
-			<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
-				<FilledButton bg={"#004C84"} h={"3.5rem"}>
-					Save
-				</FilledButton>
-				<OutlineButton h={"3.5rem"}>Cancel</OutlineButton>
-			</Flex>
-		</>
 	)
 }
 
