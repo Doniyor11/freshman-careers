@@ -21,6 +21,7 @@ export const EditProfileModal = () => {
 	const setModalType = useProfileStore((s) => s.setModalType)
 
 	const { data: DefaultValue } = useGetUserMeQuery()
+
 	const handleImageChange = (e: File | null) => {
 		const file = e
 		if (file) {
@@ -46,9 +47,11 @@ export const EditProfileModal = () => {
 
 	useEffect(() => {
 		reset({
-			email: DefaultValue?.email,
-			login: DefaultValue?.login,
-			phone_number: DefaultValue?.phone_number,
+			user_update:{
+				email: DefaultValue?.email,
+				login: DefaultValue?.login,
+				phone_number: DefaultValue?.phone_number,
+			}
 		})
 		setPreviewUrl(DefaultValue?.profile_image)
 	}, [reset])
@@ -57,9 +60,11 @@ export const EditProfileModal = () => {
 
 	const onSubmit = (data: IEditProfile) => {
 		mutate({
-			email: data.email,
-			phone_number: data.phone_number,
-			login: data.login,
+			user_update:{
+				email: data.user_update.email,
+				phone_number: data.user_update.phone_number,
+				login: data.user_update.login,
+			},
 			profile_image: selectedImage,
 		})
 	}
@@ -105,19 +110,19 @@ export const EditProfileModal = () => {
 				</Flex>
 				<Flex direction={"column"} gap={"1rem"}>
 					<Controller
-						name={"email"}
+						name={"user_update.email"}
 						control={control}
 						render={({ field }) => <Input label={"Mail"} {...field} />}
 					/>
 
 					<Controller
-						name={"login"}
+						name={"user_update.login"}
 						control={control}
 						render={({ field }) => <Input label={"Login"} {...field} />}
 					/>
 
 					<Controller
-						name={"phone_number"}
+						name={"user_update.phone_number"}
 						control={control}
 						render={({ field }) => <Input label={"Phone"} {...field} />}
 					/>
