@@ -28,8 +28,8 @@ export const Internships = () => {
 					}
 				/>
 				<Grid gutter={"3rem"} m={"2.5rem 0 2.5rem"}>
-					{data
-						? data.map((i: IGetInternship, index: number) => (
+					{data ? (
+						data.map((i: IGetInternship, index: number) => (
 							<Grid.Col span={4} key={index}>
 								<InternshipsCard
 									companyName={i?.company?.title}
@@ -38,7 +38,8 @@ export const Internships = () => {
 									iconSrc={i?.company?.image as any}
 									iconAlt={i?.company?.title}
 									day={
-										i?.date_posted && dayjs(i.date_posted).isSame(dayjs(), "day")
+										i?.date_posted &&
+										dayjs(i.date_posted).isSame(dayjs(), "day")
 											? "today"
 											: " "
 									}
@@ -55,8 +56,12 @@ export const Internships = () => {
 								/>
 							</Grid.Col>
 						))
-						: <div className={s.error}>Произошла ошибка при загрузке стажировок. Проверьте подключение к сети.</div>
-					}
+					) : (
+						<div className={s.error}>
+							Произошла ошибка при загрузке стажировок. Проверьте подключение к
+							сети.
+						</div>
+					)}
 				</Grid>
 				<Banner />
 			</Container>

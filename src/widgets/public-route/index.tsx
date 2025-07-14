@@ -1,9 +1,9 @@
+import { Center, Loader } from "@mantine/core"
 import Cookies from "js-cookie"
 import { useRouter } from "next/router"
 import { ReactNode, useEffect } from "react"
 
 import { TOKEN } from "@/shared/constants/env"
-import { Center, Loader } from "@mantine/core"
 
 const PublicRoute = ({ children }: { children: ReactNode }) => {
 	const router = useRouter()
@@ -14,7 +14,6 @@ const PublicRoute = ({ children }: { children: ReactNode }) => {
 			router.push("/profile")
 		}
 	}, [token, router])
-
 
 	if (token) {
 		return (

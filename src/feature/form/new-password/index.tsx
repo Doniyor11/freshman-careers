@@ -1,6 +1,7 @@
-import React from "react"
-import { Flex, Text } from "@mantine/core"
 import s from "@/feature/form/sign-up/create.module.scss"
+import { Flex, Text } from "@mantine/core"
+import React from "react"
+
 import { Input } from "@/shared/ui"
 import { FilledButton } from "@/shared/ui/buttons"
 
@@ -16,7 +17,7 @@ export const NewPassword = () => {
 						Enter your email to continue
 					</Text>
 				</Flex>
-				<Flex w={"100%"} gap={"1rem"} align={'center'} direction={'column'}>
+				<Flex w={"100%"} gap={"1rem"} align={"center"} direction={"column"}>
 					<Input label={"New password"} type={"password"} />
 					<Input label={"Repeat the password"} type={"password"} />
 				</Flex>

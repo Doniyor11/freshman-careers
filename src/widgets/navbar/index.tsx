@@ -1,12 +1,13 @@
 import { Box, Container, Flex, Text } from "@mantine/core"
+import { useRouter } from "next/router"
 import React from "react"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
 import { AuthWrapper } from "@/widgets/auth/ui"
+
 import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./navbar.module.scss"
-import { useRouter } from "next/router"
 
 const navbarLink = [
 	{
@@ -51,13 +52,11 @@ export const Navbar = () => {
 							align={"center"}
 							justify={"center"}
 							gap={"0.13rem"}
-							className={'navbarLogoBox'}
+							className={"navbarLogoBox"}
 							pr={"7rem"}
-							onClick={
-								() => {
-									router.push("/")
-								}
-							}
+							onClick={() => {
+								router.push("/")
+							}}
 						>
 							<Text component={"p"}>Freshman</Text>
 							<Text component={"span"}>Careers</Text>

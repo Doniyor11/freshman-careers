@@ -1,10 +1,13 @@
 import { InternshipProfile } from "@/feature"
+import dynamic from "next/dynamic"
 import Head from "next/head"
 import React from "react"
 
 import { NavbarProfile } from "@/widgets"
-import dynamic from "next/dynamic"
-const PrivateRoute = dynamic(() => import('@/widgets/private-route'), { ssr: false })
+
+const PrivateRoute = dynamic(() => import("@/widgets/private-route"), {
+	ssr: false,
+})
 
 const ProfilePage = () => {
 	return (

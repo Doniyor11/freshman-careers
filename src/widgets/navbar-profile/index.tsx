@@ -1,5 +1,4 @@
 import Icon from "@//shared/assets/images/icon/chevron_backward-small.svg"
-import ImageUser from "@//shared/assets/images/image2.png"
 import { Box, Container, Flex, Menu, Text } from "@mantine/core"
 import Cookies from "js-cookie"
 import Image from "next/image"
@@ -8,7 +7,7 @@ import React from "react"
 
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
 
-import { TOKEN } from "@/shared/constants/env.ts"
+import { EnvKeys, TOKEN } from "@/shared/constants/env.ts"
 
 import s from "./navbar-profile.module.scss"
 
@@ -31,11 +30,9 @@ export const NavbarProfile = () => {
 						gap={"0.13rem"}
 						className={"navbarLogoBox"}
 						p={"0.5rem 1rem"}
-						onClick={
-							() => {
-								router.push("/")
-							}
-						}
+						onClick={() => {
+							router.push("/")
+						}}
 					>
 						<Text component={"p"}>Freshman</Text>
 						<Text component={"span"}>Careers</Text>
@@ -50,8 +47,8 @@ export const NavbarProfile = () => {
 						<Menu.Target>
 							<Box className={s.profileImage}>
 								<Image
-									src={ImageUser}
-									alt={""}
+									src={`${EnvKeys.NEXT_HOST}/${data?.profile_image}`}
+									alt={"profile_image"}
 									width={56}
 									height={56}
 									unoptimized
