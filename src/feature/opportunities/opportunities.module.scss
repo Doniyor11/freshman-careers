@@ -1,14 +1,15 @@
 .opportunitiesWrapper {
-  padding: 4rem 0;
-  background: url('../../shared/assets/images/opportunities-bg.png') center left no-repeat;
-  background-size: auto, auto;
+	padding: 4rem 0;
+	background: url("../../shared/assets/images/opportunities-bg.png") center left
+		no-repeat;
+	background-size: auto, auto;
 }
 
 .opportunitiesGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
-  grid-column-gap: 4rem;
-  grid-row-gap: 1rem;
-  margin: 2.5rem 0;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: auto;
+	grid-column-gap: 4rem;
+	grid-row-gap: 1rem;
+	margin: 2.5rem 0;
 }

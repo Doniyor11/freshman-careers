@@ -1,79 +1,78 @@
 .reviewsWrapper {
-  padding: 4rem 0;
-  position: relative;
+	padding: 4rem 0;
+	position: relative;
 }
 
 .reviewsWrapperImage {
-  border-radius: 0.5rem;
-  overflow: hidden;
-  flex: auto;
-  min-width: 21rem;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	flex: auto;
+	min-width: 21rem;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 }
 
 .reviewsWrapperContent {
-  flex: auto;
+	flex: auto;
 }
 
 .reviewsWrapperTitle {
-  color: #001C31;
-  font-variant-numeric: lining-nums proportional-nums;
-  font-size: 1.5rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 2rem;
-  margin-bottom: 0.75rem;
+	color: #001c31;
+	font-variant-numeric: lining-nums proportional-nums;
+	font-size: 1.5rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 2rem;
+	margin-bottom: 0.75rem;
 }
 
 .reviewsWrapperDescription {
-  color: #848F98;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.5rem;
+	color: #848f98;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.5rem;
 
-  &:not(:last-child) {
-    margin-bottom: 1.5rem;
-  }
+	&:not(:last-child) {
+		margin-bottom: 1.5rem;
+	}
 }
 
 .reviewsWrapperUserName {
-  color: #004C84;
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.5rem;
-  margin-top: 3rem;
+	color: #004c84;
+	font-size: 1.25rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 1.5rem;
+	margin-top: 3rem;
 }
 
 .reviewsWrapperControls {
-  background: rosybrown;
-
+	background: rosybrown;
 }
 
 .reviewsWrapperControl {
-  background: transparent;
-  position: absolute;
+	background: transparent;
+	position: absolute;
 
-  &:nth-child(1) {
-    left: -5%;
-    background: transparent;
-    box-shadow: none;
-  }
+	&:nth-child(1) {
+		left: -5%;
+		background: transparent;
+		box-shadow: none;
+	}
 
-  &:nth-child(2) {
-    background: transparent;
-    box-shadow: none;
-    right: -5%;
-  }
-  svg{
-    path{
-        fill: #848F98;
-    }
-  }
+	&:nth-child(2) {
+		background: transparent;
+		box-shadow: none;
+		right: -5%;
+	}
+	svg {
+		path {
+			fill: #848f98;
+		}
+	}
 }

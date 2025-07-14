@@ -11,8 +11,7 @@ import { useAuthorizationStore } from "@/widgets/auth/model"
 import s from "@/widgets/auth/ui/styles.module.scss"
 
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
-import { InputFilled } from "@/shared/ui/inputs"
-import { PasswordInputFilled } from "@/shared/ui/inputs/password-input-filled"
+import { Input } from "@/shared/ui"
 
 export const SignIn = () => {
 	const router = useRouter()
@@ -29,7 +28,7 @@ export const SignIn = () => {
 		mode: "onChange",
 		resolver: yupResolver(SignInScheme),
 	})
-	const { mutate } = useSignInQuery(() => {
+	const { mutate, isPending } = useSignInQuery(() => {
 		router.push("/profile")
 		setAuthorization(false)
 	})
@@ -65,7 +64,7 @@ export const SignIn = () => {
 							name={"username"}
 							control={control}
 							render={({ field }) => (
-								<InputFilled height={64} placeholder={"Email"} {...field} />
+								<Input height={64} label={"Email"} {...field} />
 							)}
 						/>
 
@@ -73,10 +72,11 @@ export const SignIn = () => {
 							name={"password"}
 							control={control}
 							render={({ field }) => (
-								<PasswordInputFilled
+								<Input
 									height={64}
 									mt={16}
-									placeholder={"Password"}
+									label={"Password"}
+									type={"password"}
 									{...field}
 								/>
 							)}
@@ -91,11 +91,13 @@ export const SignIn = () => {
 							type={"submit"}
 							disabled={!isDirty || !isValid}
 							className={cx(s.formBtn, s.signIn)}
+							loading={isPending}
 						>
 							Sign In
 						</Button>
 						<Button
 							mt={8}
+							disabled={isPending}
 							className={cx(s.formBtn, s.signUp)}
 							onClick={() => setModalType("register")}
 						>

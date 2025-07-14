@@ -12,6 +12,7 @@ import { Controller, useForm } from "react-hook-form"
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
 
 import ImageUser from "@/shared/assets/images/image.png"
+import { EnvKeys } from "@/shared/constants/env.ts"
 import { Input } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
@@ -35,6 +36,7 @@ export const EditProfileModal = () => {
 			if (previewUrl) URL.revokeObjectURL(previewUrl)
 		}
 	}, [previewUrl])
+
 	const {
 		reset,
 		control,
@@ -47,11 +49,9 @@ export const EditProfileModal = () => {
 
 	useEffect(() => {
 		reset({
-			user_update:{
-				email: DefaultValue?.email,
-				login: DefaultValue?.login,
-				phone_number: DefaultValue?.phone_number,
-			}
+			email: DefaultValue?.email,
+			login: DefaultValue?.login,
+			phone_number: DefaultValue?.phone_number,
 		})
 		setPreviewUrl(DefaultValue?.profile_image)
 	}, [reset])
@@ -60,11 +60,9 @@ export const EditProfileModal = () => {
 
 	const onSubmit = (data: IEditProfile) => {
 		mutate({
-			user_update:{
-				email: data.user_update.email,
-				phone_number: data.user_update.phone_number,
-				login: data.user_update.login,
-			},
+			email: data.email,
+			phone_number: data.phone_number,
+			login: data.login,
 			profile_image: selectedImage,
 		})
 	}
@@ -80,7 +78,7 @@ export const EditProfileModal = () => {
 				<Flex direction={"column"} gap={"0.75rem"} mb={"1rem"}>
 					<Box className={s.editModalImageWrapper}>
 						<Image
-							src={previewUrl || ImageUser}
+							src={`${EnvKeys.NEXT_HOST}/${previewUrl}` || ImageUser}
 							alt={""}
 							width={196}
 							height={196}
@@ -110,19 +108,19 @@ export const EditProfileModal = () => {
 				</Flex>
 				<Flex direction={"column"} gap={"1rem"}>
 					<Controller
-						name={"user_update.email"}
+						name={"email"}
 						control={control}
 						render={({ field }) => <Input label={"Mail"} {...field} />}
 					/>
 
 					<Controller
-						name={"user_update.login"}
+						name={"login"}
 						control={control}
 						render={({ field }) => <Input label={"Login"} {...field} />}
 					/>
 
 					<Controller
-						name={"user_update.phone_number"}
+						name={"phone_number"}
 						control={control}
 						render={({ field }) => <Input label={"Phone"} {...field} />}
 					/>

@@ -7,4 +7,5 @@ export enum apiKeys {
 	myApplications = "account/internships",
 	userMe = "account/me",
 	userFiles = "account/files",
+	changePassword = "account/password",
 }

@@ -83,7 +83,7 @@ export const Faq = () => {
 					{items}
 				</Accordion>
 			</Box>
-			<Grid m={"4rem 0 4rem 0"} gutter={'2.5rem'}>
+			<Grid m={"4rem 0 4rem 0"} gutter={"2.5rem"}>
 				<Grid.Col span={4}>
 					<Box className={s.faqImage}>
 						<Image
@@ -98,10 +98,10 @@ export const Faq = () => {
 					<Flex
 						direction={"column"}
 						justify={"space-between"}
-						align={'flex-start'}
+						align={"flex-start"}
 						className={s.faqText}
-						h={'100%'}
-						p={'0.87rem 0'}
+						h={"100%"}
+						p={"0.87rem 0"}
 					>
 						<Flex direction={"column"} gap={"0.75rem"}>
 							<Text className={s.faqTextTitle} component={"h3"}>

@@ -1,6 +1,7 @@
-import React from "react"
-import { Flex, Text } from "@mantine/core"
 import s from "@/feature/form/sign-up/create.module.scss"
+import { Flex, Text } from "@mantine/core"
+import React from "react"
+
 import { Input } from "@/shared/ui"
 import { FilledButton } from "@/shared/ui/buttons"
 
@@ -18,7 +19,9 @@ export const SignIn = () => {
 					<Input label={"Phone Number"} type={"text"} />
 				</Flex>
 				<Flex direction={"column"} gap={"1rem"}>
-					<FilledButton h={'3.5rem'} bg={'#004C84'}>Sign In</FilledButton>
+					<FilledButton h={"3.5rem"} bg={"#004C84"}>
+						Sign In
+					</FilledButton>
 				</Flex>
 			</Flex>
 		</>

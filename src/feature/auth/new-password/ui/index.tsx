@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { ActionIcon, Box, Button, Text } from "@mantine/core"
 import cx from "clsx"
 import Cookies from "js-cookie"
+import { useRouter } from "next/router"
 import { Controller, useForm } from "react-hook-form"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
@@ -12,8 +13,7 @@ import s from "@/widgets/auth/ui/styles.module.scss"
 
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
 import { TOKEN } from "@/shared/constants/env.ts"
-import { PasswordInputFilled } from "@/shared/ui/inputs/password-input-filled"
-import { useRouter } from "next/router"
+import { Input } from "@/shared/ui"
 
 export const NewPassword = () => {
 	const router = useRouter()
@@ -30,7 +30,7 @@ export const NewPassword = () => {
 		mode: "onChange",
 		resolver: yupResolver(NewPasswordScheme),
 	})
-	const { mutate } = useNewPasswordQuery(() => {
+	const { mutate, isPending } = useNewPasswordQuery(() => {
 		router.push("/profile")
 		setModalType("register")
 		setAuthorization(false)
@@ -59,9 +59,10 @@ export const NewPassword = () => {
 					name={"password"}
 					control={control}
 					render={({ field }) => (
-						<PasswordInputFilled
+						<Input
 							height={64}
-							placeholder={"New password"}
+							label={"New password"}
+							type={"password"}
 							{...field}
 						/>
 					)}
@@ -70,10 +71,11 @@ export const NewPassword = () => {
 					name={"password_confirmation"}
 					control={control}
 					render={({ field }) => (
-						<PasswordInputFilled
+						<Input
 							mt={16}
 							height={64}
-							placeholder={"Repeat the password"}
+							type={"password"}
+							label={"Repeat the password"}
 							{...field}
 						/>
 					)}
@@ -86,6 +88,7 @@ export const NewPassword = () => {
 					type="submit"
 					disabled={!isDirty || !isValid}
 					className={cx(s.formBtn, s.signIn)}
+					loading={isPending}
 				>
 					Continue
 				</Button>

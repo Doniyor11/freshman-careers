@@ -1,15 +1,15 @@
 import EyeOff from "@//shared/assets/images/icon/eye-slash.svg"
 import Eye from "@//shared/assets/images/icon/eye.svg"
-import { TextInput } from "@mantine/core"
+import { TextInput, TextInputProps } from "@mantine/core"
 import React, { forwardRef, useEffect, useState } from "react"
 
 import s from "./input.module.scss"
 
-interface InputIProps {
+interface InputIProps extends TextInputProps {
 	label?: string
 	labelProps?: React.ComponentPropsWithoutRef<"label">
-	onFocus?: () => void
-	onBlur?: () => void
+	onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void
+	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
 	value?: string
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 	type?: React.HTMLInputTypeAttribute
@@ -40,7 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputIProps>(
 		const floating = focused || value.length > 0 || undefined
 
 		useEffect(() => {
-			if (props.value){
+			if (props.value) {
 				setFocused(true)
 			}
 		}, [props.value])
@@ -56,10 +56,19 @@ export const Input = forwardRef<HTMLInputElement, InputIProps>(
 						input: `${s.input} ${floating ? s.inputFloating : ""}`,
 						label: s.label,
 					}}
-					onFocus={() => setFocused(true)}
-					onBlur={() => setFocused(false)}
+					onFocus={(e) => {
+						setFocused(true)
+						props.onFocus?.(e)
+					}}
+					onBlur={(e) => {
+						setFocused(false)
+						props.onBlur?.(e)
+					}}
 					value={value}
-					onChange={(event) => setValue(event.currentTarget.value)}
+					onChange={(event) => {
+						setValue(event.currentTarget.value)
+						props.onChange?.(event)
+					}}
 					type={type === "password" && showPassword ? "text" : type}
 					rightSection={
 						type === "password" ? (

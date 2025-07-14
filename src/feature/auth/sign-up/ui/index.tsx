@@ -11,6 +11,7 @@ import { useAuthorizationStore } from "@/widgets/auth/model"
 import s from "@/widgets/auth/ui/styles.module.scss"
 
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
+import { Input } from "@/shared/ui"
 import { InputFilled } from "@/shared/ui/inputs"
 
 export const SignUp = () => {
@@ -27,14 +28,15 @@ export const SignUp = () => {
 		mode: "onChange",
 		resolver: yupResolver(SignUpScheme),
 	})
-	const { mutate } = useSignUpQuery(() => setModalType('new-password'))
+	const { mutate, isPending } = useSignUpQuery(() =>
+		setModalType("new-password"),
+	)
 
 	const onSubmit = (data: ISignUp) => {
 		mutate({
 			email: data?.email,
 			phone_number: data.phone_number,
 		})
-		setModalType('new-password')
 	}
 
 	return (
@@ -53,7 +55,12 @@ export const SignUp = () => {
 					name={"email"}
 					control={control}
 					render={({ field }) => (
-						<InputFilled height={64} placeholder={"Email"} {...field} />
+						<Input
+							height={64}
+							label={"Email"}
+							value={field.value}
+							onChange={field.onChange}
+						/>
 					)}
 				/>
 
@@ -65,9 +72,10 @@ export const SignUp = () => {
 							mt={16}
 							height={64}
 							component={IMaskInput as any}
-							mask='+0 000 000 0000'
+							mask="+0 000 000 0000"
 							placeholder={"Phone Number"}
-							{...field}
+							value={field.value}
+							onChange={field.onChange}
 						/>
 					)}
 				/>
@@ -79,12 +87,14 @@ export const SignUp = () => {
 					m={"32px 0 8px"}
 					className={cx(s.formBtn, s.signUp)}
 					disabled={!isDirty || !isValid}
+					loading={isPending}
 				>
 					Sign Up
 				</Button>
 				<Button
 					fz={20}
 					h={56}
+					disabled={isPending}
 					className={cx(s.formBtn, s.signIn)}
 					onClick={() => setModalType("login")}
 				>

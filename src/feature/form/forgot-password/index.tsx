@@ -1,10 +1,9 @@
+import s from "@/feature/form/sign-up/create.module.scss"
 import { Flex, Text } from "@mantine/core"
 import React from "react"
 
 import { Input } from "@/shared/ui"
 import { FilledButton } from "@/shared/ui/buttons"
-
-import s from "@/feature/form/sign-up/create.module.scss"
 
 export const ForgotPassword = () => {
 	return (
@@ -17,7 +16,7 @@ export const ForgotPassword = () => {
 					Enter your email to continue
 				</Text>
 			</Flex>
-			<Flex w={"100%"} gap={"1rem"} align={'center'} direction={'column'}>
+			<Flex w={"100%"} gap={"1rem"} align={"center"} direction={"column"}>
 				<Input label={"Email"} type={"text"} />
 			</Flex>
 			<FilledButton bg={"#004C84"} h={"3.5rem"} mt={"2rem"}>

@@ -3,6 +3,7 @@ import IconDoc from "@//shared/assets/images/icon/document-text.svg"
 import IconDownload from "@//shared/assets/images/icon/download.svg"
 import IconTrash from "@//shared/assets/images/icon/trash.svg"
 import ImageUser from "@//shared/assets/images/image.png"
+import { ChangePasswordProfileModal } from "@/feature/my-profile/change-password/ui"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
 import {
@@ -14,6 +15,7 @@ import {
 	Grid,
 	Text,
 } from "@mantine/core"
+import cx from "clsx"
 import dayjs from "dayjs"
 import Image from "next/image"
 import { useRouter } from "next/router"
@@ -25,7 +27,7 @@ import { IUserFiles } from "@/entities/user-files/types.ts"
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
 
 import { EnvKeys } from "@/shared/constants/env.ts"
-import { Input, Modal, PricingCard } from "@/shared/ui"
+import { Modal, PricingCard } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./my-profile.module.scss"
@@ -85,7 +87,7 @@ const ProfileCard = () => {
 					</Text>
 					<Box className={s.imageWrapper}>
 						<Image
-							src={ImageUser}
+							src={`${EnvKeys.NEXT_HOST}/${data?.profile_image}`}
 							alt={""}
 							width={64}
 							height={64}
@@ -98,14 +100,14 @@ const ProfileCard = () => {
 						Phone Number:
 					</Text>
 					<Text component={"p"} className={s.titleBig}>
-						{`+${data?.phone_number}` || "-"}
+						{data?.phone_number ? `+${data?.phone_number}` : "-"}
 					</Text>
 				</Flex>
 				<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>
 					<Text component={"p"} className={s.label}>
 						Email
 					</Text>
-					<Text component={"p"} className={s.titleBig}>
+					<Text component={"p"} className={cx(s.titleBig, s.textOverflow)}>
 						{data?.email || "-"}
 					</Text>
 				</Flex>
@@ -313,28 +315,6 @@ const Card = () => {
 				</FilledButton>
 			</Box>
 		</Box>
-	)
-}
-
-const ChangePasswordProfileModal = () => {
-	return (
-		<>
-			<Text className={s.editModalTitle}>Editing a profile</Text>
-			<Text className={s.editModalDescription}>
-				Enter your email and phone number, then click Save to confirm your
-				changes
-			</Text>
-			<Flex direction={"column"} gap={"1rem"}>
-				<Input label={"Mail"} type={"password"} />
-				<Input label={"Phone"} type={"password"} />
-			</Flex>
-			<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
-				<FilledButton bg={"#004C84"} h={"3.5rem"}>
-					Save
-				</FilledButton>
-				<OutlineButton h={"3.5rem"}>Cancel</OutlineButton>
-			</Flex>
-		</>
 	)
 }
 
