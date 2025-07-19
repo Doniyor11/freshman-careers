@@ -9,6 +9,7 @@ export const editProfileApi = async (data: IEditProfile) => {
 	formData.append("email", data?.email)
 	formData.append("login", data?.login)
 	formData.append("phone_number", data?.phone_number)
+
 	if (data?.profile_image) {
 		formData.append("profile_image", data?.profile_image)
 	}

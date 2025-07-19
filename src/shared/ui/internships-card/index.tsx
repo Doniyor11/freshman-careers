@@ -43,7 +43,7 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 	onEdit,
 	onDelete,
 	border = true,
-																																	companyName
+	companyName,
 }) => {
 	return (
 		<Box
@@ -73,9 +73,7 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 								unoptimized
 							/>
 						</Box>
-						<Text className={s.companyName}>
-							{companyName}
-						</Text>
+						<Text className={s.companyName}>{companyName}</Text>
 					</Flex>
 					<Box className={s.internshipsCardDay}>{day}</Box>
 				</Flex>
@@ -99,7 +97,7 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 					className={s.internshipsCardButton}
 					fullWidth
 					onClick={onApply}
-					h={'2.75rem'}
+					h={"2.75rem"}
 				>
 					Apply now
 				</FilledButton>

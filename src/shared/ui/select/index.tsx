@@ -7,10 +7,15 @@ import s from "./select.module.scss"
 export const Select: React.FC<SelectProps> = (props) => {
 	return (
 		<>
-			<MantineSelect {...props} rightSection={<Icon />} className={s.select} classNames={{
-				section: s.selectSection,
-				label: s.selectLabel,
-			}}/>
+			<MantineSelect
+				{...props}
+				rightSection={<Icon />}
+				className={s.select}
+				classNames={{
+					section: s.selectSection,
+					label: s.selectLabel,
+				}}
+			/>
 		</>
 	)
 }

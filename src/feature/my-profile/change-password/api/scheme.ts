@@ -1,6 +1,6 @@
 import * as yup from "yup"
 
-export const NewPasswordScheme = yup.object().shape({
+export const ChangePasswordScheme = yup.object().shape({
 	password: yup.string().required().min(8),
 	password_confirmation: yup
 		.string()

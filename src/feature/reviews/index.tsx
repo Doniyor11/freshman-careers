@@ -82,7 +82,7 @@ export const Reviews = () => {
 						</Carousel.Slide>
 					))}
 				</Carousel>
-				<Banner/>
+				<Banner />
 			</Container>
 		</Box>
 	)

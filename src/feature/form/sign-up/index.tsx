@@ -11,26 +11,24 @@ export const SignUp = () => {
 
 	return (
 		<>
-			{
-				!showPasswordBlock && (
-					<Flex direction={"column"} gap={"2rem"}>
-						<Flex direction={"column"} gap={"1rem"}>
-							<Input label={"Email"} type={"text"} />
-							<Input label={"Phone Number"} type={"text"} />
-						</Flex>
-						<Flex direction={"column"} gap={"1rem"}>
-							<FilledButton h={"3.5rem"}>Sign Up</FilledButton>
-							<FilledButton
-								h={"3.5rem"}
-								bg={"#004C84"}
-								onClick={() => setShowPasswordBlock(true)}
-							>
-								Sign In
-							</FilledButton>
-						</Flex>
+			{!showPasswordBlock && (
+				<Flex direction={"column"} gap={"2rem"}>
+					<Flex direction={"column"} gap={"1rem"}>
+						<Input label={"Email"} type={"text"} />
+						<Input label={"Phone Number"} type={"text"} />
 					</Flex>
-				)
-			}
+					<Flex direction={"column"} gap={"1rem"}>
+						<FilledButton h={"3.5rem"}>Sign Up</FilledButton>
+						<FilledButton
+							h={"3.5rem"}
+							bg={"#004C84"}
+							onClick={() => setShowPasswordBlock(true)}
+						>
+							Sign In
+						</FilledButton>
+					</Flex>
+				</Flex>
+			)}
 			{showPasswordBlock && (
 				<Flex direction={"column"} w={"100%"} gap={"2rem"}>
 					<Flex direction={"column"} gap={"0.25rem"}>

@@ -36,6 +36,7 @@ export const InternshipInnerInfo = () => {
 		setOpened(false)
 		setFile([])
 		setUploaded(false)
+		setSuccess(false)
 	}
 
 	const { mutate, isPending } = useUploadFileQuery(() => setSuccess(true))
