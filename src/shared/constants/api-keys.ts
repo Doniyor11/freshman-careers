@@ -6,6 +6,7 @@ export enum apiKeys {
 	mentorships = "/mentorships",
 	myApplications = "account/internships",
 	userMe = "account/me",
+	userImage = "account/image",
 	userFiles = "account/files",
 	changePassword = "account/password",
 }

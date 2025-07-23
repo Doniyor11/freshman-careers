@@ -5,16 +5,17 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import React from "react"
 
+import { useGetUserImageQuery } from "@/entities/user-image/query.ts"
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
 
-import { EnvKeys, TOKEN } from "@/shared/constants/env.ts"
+import { TOKEN } from "@/shared/constants/env.ts"
 
 import s from "./navbar-profile.module.scss"
 
 export const NavbarProfile = () => {
 	const router = useRouter()
 	const { data } = useGetUserMeQuery()
-
+	const { data: UserImage } = useGetUserImageQuery()
 	const handleLogout = () => {
 		Cookies.remove(TOKEN.AUTH_TOKEN)
 		router.push("/")
@@ -47,7 +48,7 @@ export const NavbarProfile = () => {
 						<Menu.Target>
 							<Box className={s.profileImage}>
 								<Image
-									src={`${EnvKeys.NEXT_HOST}/${data?.profile_image}`}
+									src={UserImage?.src}
 									alt={"profile_image"}
 									width={56}
 									height={56}
