@@ -34,10 +34,13 @@ export const NewPassword = () => {
 		router.push("/profile")
 		setModalType("register")
 		setAuthorization(false)
+		sessionStorage.removeItem("email")
 	})
 	const onSubmit = (data: INewPassword) => {
+		const email = sessionStorage.getItem("email")
+
 		mutate({
-			login: "NewUser",
+			login: email?.split("@")[0],
 			password: data?.password,
 			password_confirmation: data?.password_confirmation,
 			signup_token: SignupToken,

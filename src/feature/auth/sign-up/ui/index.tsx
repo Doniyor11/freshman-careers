@@ -37,6 +37,7 @@ export const SignUp = () => {
 			email: data?.email,
 			phone_number: data.phone_number,
 		})
+		sessionStorage.setItem("email", data?.email)
 	}
 
 	return (
