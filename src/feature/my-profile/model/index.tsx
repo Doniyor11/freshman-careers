@@ -5,6 +5,7 @@ import { IInitialState, IProfileStore } from "./types.ts"
 
 const initialState: IInitialState = {
 	modalType: null,
+	subscriptionModal: null,
 }
 
 export const useProfileStore = create<IProfileStore>()(
@@ -12,6 +13,9 @@ export const useProfileStore = create<IProfileStore>()(
 		...initialState,
 		setModalType: (e) => {
 			set({ modalType: e })
+		},
+		setSubscriptionModal: (e) => {
+			set({ subscriptionModal: e })
 		},
 	})),
 )

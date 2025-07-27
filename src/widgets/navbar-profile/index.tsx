@@ -20,6 +20,7 @@ export const NavbarProfile = () => {
 		Cookies.remove(TOKEN.AUTH_TOKEN)
 		router.push("/")
 	}
+	console.log(UserImage?.src)
 	return (
 		<Box className={s.profileContainer} p={"0.5rem 0"}>
 			<Container size={"1440px"}>
@@ -48,7 +49,7 @@ export const NavbarProfile = () => {
 						<Menu.Target>
 							<Box className={s.profileImage}>
 								<Image
-									src={UserImage?.src}
+									src={`${UserImage?.src}`}
 									alt={"profile_image"}
 									width={56}
 									height={56}

@@ -1,3 +1,4 @@
+import IconCheck from "@//shared/assets/images/icon/check.svg"
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
 import IconDoc from "@//shared/assets/images/icon/document-text.svg"
 import IconDownload from "@//shared/assets/images/icon/download.svg"
@@ -6,13 +7,17 @@ import ImageUser from "@//shared/assets/images/image.png"
 import { ChangePasswordProfileModal } from "@/feature/my-profile/change-password/ui"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
+import { useSubscriptionQuery } from "@/feature/subscription/active/query.ts"
+import { useUnsubscriptionQuery } from "@/feature/subscription/unactive/query.ts"
 import {
 	ActionIcon,
 	Anchor,
 	Box,
+	Button,
 	Container,
 	Flex,
 	Grid,
+	Stack,
 	Text,
 } from "@mantine/core"
 import cx from "clsx"
@@ -27,7 +32,7 @@ import { IUserFiles } from "@/entities/user-files/types.ts"
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
 
 import { EnvKeys } from "@/shared/constants/env.ts"
-import { Modal, PricingCard } from "@/shared/ui"
+import { Modal } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./my-profile.module.scss"
@@ -36,7 +41,7 @@ export const MyProfile = () => {
 	const router = useRouter()
 	return (
 		<Container size={"1440px"} className={s.myProfileWrapper}>
-			<Flex onClick={() => router.push("/profile")}>
+			<Flex onClick={() => router.push("/profile")} align={"center"}>
 				<IconBack />
 				<Text component={"p"} className={s.backText}>
 					Go back
@@ -137,67 +142,6 @@ const ProfileCard = () => {
 			>
 				{modalType === "edit" && <EditProfileModal />}
 				{modalType === "password" && <ChangePasswordProfileModal />}
-			</Modal>
-		</>
-	)
-}
-
-const SubscriptionCard = () => {
-	const [modalType, setModalType] = React.useState<
-		"subscription" | "UnSubscription" | null
-	>(null)
-	return (
-		<>
-			<Box className={s.card}>
-				<Text component={"p"} className={s.cardTitle} mb={"1.5rem"}>
-					Subscription
-				</Text>
-				<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>
-					<Text component={"p"} className={s.label}>
-						Status:
-					</Text>
-					<Text component={"p"} className={s.titleBig}>
-						Active
-					</Text>
-				</Flex>
-				<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>
-					<Text component={"p"} className={s.label}>
-						Tariff:
-					</Text>
-					<Text component={"p"} className={s.titleBig}>
-						Base
-					</Text>
-				</Flex>
-				<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>
-					<Text component={"p"} className={s.label}>
-						Renewal Date:
-					</Text>
-					<Text component={"p"} className={s.titleBig}>
-						24.05.2025
-					</Text>
-				</Flex>
-				<FilledButton
-					bg={"#004C84"}
-					h={"2.75rem"}
-					fullWidth
-					onClick={() => setModalType("subscription")}
-				>
-					Management
-				</FilledButton>
-			</Box>
-			<Modal
-				opened={!!modalType}
-				onClose={() => setModalType(null)}
-				size={modalType === "UnSubscription" ? "36rem" : "54rem"}
-			>
-				{modalType === "subscription" && (
-					<SubscriptionModal
-						handleSubscribe={() => {
-							setModalType("UnSubscription")
-						}}
-					/>
-				)}
-				{modalType === "UnSubscription" && <UnSubscriptionModal />}
 			</Modal>
 		</>
 	)
@@ -318,33 +262,226 @@ const Card = () => {
 	)
 }
 
-const SubscriptionModal = ({
-	handleSubscribe,
-}: {
-	handleSubscribe: () => void
-}) => {
+const SubscriptionCard = () => {
+	const [subscriptionModal, setSubscriptionModal] = useProfileStore((s) => [
+		s.subscriptionModal,
+		s.setSubscriptionModal,
+	])
+
+	return (
+		<>
+			<Box className={s.card}>
+				<Text component={"p"} className={s.cardTitle} mb={"1.5rem"}>
+					Subscription
+				</Text>
+				<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>
+					<Text component={"p"} className={s.label}>
+						Status:
+					</Text>
+					<Text component={"p"} className={s.titleBig}>
+						Not Active
+					</Text>
+				</Flex>
+				{/*<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>*/}
+				{/*	<Text component={"p"} className={s.label}>*/}
+				{/*		Tariff:*/}
+				{/*	</Text>*/}
+				{/*	<Text component={"p"} className={s.titleBig}>*/}
+				{/*		Base*/}
+				{/*	</Text>*/}
+				{/*</Flex>*/}
+				{/*<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>*/}
+				{/*	<Text component={"p"} className={s.label}>*/}
+				{/*		Renewal Date:*/}
+				{/*	</Text>*/}
+				{/*	<Text component={"p"} className={s.titleBig}>*/}
+				{/*		24.05.2025*/}
+				{/*	</Text>*/}
+				{/*</Flex>*/}
+				<FilledButton
+					bg={"#004C84"}
+					h={"2.75rem"}
+					fullWidth
+					onClick={() => {
+						setSubscriptionModal("subscription")
+					}}
+				>
+					Management
+				</FilledButton>
+			</Box>
+			<Modal
+				opened={!!subscriptionModal}
+				onClose={() => setSubscriptionModal(null)}
+				size={subscriptionModal === "un_subscription" ? "36rem" : "54rem"}
+			>
+				{subscriptionModal === "subscription" && <SubscriptionModal />}
+				{subscriptionModal === "un_subscription" && <UnSubscriptionModal />}
+				{subscriptionModal === "pay_subscription" && <PaySubscriptionModal />}
+			</Modal>
+		</>
+	)
+}
+
+const SubscriptionModal = () => {
+	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
+
 	return (
 		<>
 			<Text className={s.editModalTitle} mb={"1.75rem"}>
 				Subscription management
 			</Text>
-			<PricingCard
-				justify={"center"}
-				align={"center"}
-				unsubscribe
-				title={"Base"}
-				description={"Get access to standard platform features for 6 months"}
-				buttonText={"Active until 24.05.2025."}
-				onClickOnUnSubscribe={handleSubscribe}
-			/>
+			<div className={s.pricingCardContainer}>
+				<div className={s.discountHeader}>85% DISCOUNT</div>
+				<Box className={s.pricingCard}>
+					<Stack className={s.cardContent}>
+						<Flex
+							direction={"column"}
+							gap={"1rem"}
+							className={s.cardContentTop}
+							align={"center"}
+						>
+							<Text className={s.cardContentTitle}>Base</Text>
+							<Text className={s.cardContentDescription}>
+								Get access to standard platform features for 6 months
+							</Text>
+						</Flex>
+
+						<Flex align={"center"} gap={"0.5rem"} justify={"center"}>
+							<Text className={s.cardContentPrice}>$5.99</Text>
+							<div className={s.priceSection}>
+								<Text className={s.priceSectionMonth}>for 6 months</Text>
+								<Text className={s.priceSectionInfo}>$47.99</Text>
+							</div>
+						</Flex>
+
+						<Flex direction={"column"} gap={"0.5rem"} mt={"1.80rem"}>
+							<FilledButton
+								fullWidth
+								size="2.75rem"
+								className={s.subscribeButton}
+								disabled
+							>
+								Active until 24.05.2025.
+							</FilledButton>
+
+							<Text className={s.pricingCardBottomText}>
+								<Text
+									className={s.pricingCardUnsubscribe}
+									onClick={() => setSubscriptionModal("un_subscription")}
+								>
+									Unsubscribe
+								</Text>
+							</Text>
+						</Flex>
+					</Stack>
+				</Box>
+			</div>
 			<Flex direction={"column"} gap={"0.75rem"} mt={"2rem"}>
-				<OutlineButton h={"3.5rem"}>Close</OutlineButton>
+				<OutlineButton h={"3.5rem"} onClick={() => setSubscriptionModal(null)}>
+					Close
+				</OutlineButton>
 			</Flex>
 		</>
 	)
 }
 
+const PaySubscriptionModal = () => {
+	const route = useRouter()
+	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
+
+	const { mutate, isPending, isSuccess } = useSubscriptionQuery()
+	return (
+		<div className={s.paySubscription}>
+			{!isSuccess ? (
+				<>
+					<div className={s.modalHead}>
+						<Text className={s.logoText}>INTERNSHIP PLATFORM</Text>
+						<Text className={s.modalTitle}>
+							Get full access to platform by subscribing
+						</Text>
+						<Text className={s.modalSubtitle}>
+							Tired of waiting for success to come to you? Take matters into
+							your own hands and we'll help you.
+						</Text>
+					</div>
+					<div className={s.pricingCardContainer}>
+						<div className={s.discountHeader}>85% DISCOUNT</div>
+						<Box className={s.pricingCard}>
+							<Stack className={s.cardContent}>
+								<Flex
+									direction={"column"}
+									gap={"1rem"}
+									className={s.cardContentTop}
+									align={"center"}
+								>
+									<Text className={s.cardContentTitle}>Base</Text>
+									<Text className={s.cardContentDescription}>
+										Get access to standard platform features for 6 months
+									</Text>
+								</Flex>
+
+								<Flex align={"center"} gap={"0.5rem"} justify={"center"}>
+									<Text className={s.cardContentPrice}>$5.99</Text>
+									<div className={s.priceSection}>
+										<Text className={s.priceSectionMonth}>for 6 months</Text>
+										<Text className={s.priceSectionInfo}>$47.99</Text>
+									</div>
+								</Flex>
+
+								<Flex direction={"column"} gap={"0.5rem"} mt={"1.80rem"}>
+									<FilledButton
+										fullWidth
+										size="2.75rem"
+										className={s.subscribeButton}
+										onClick={() => mutate()}
+										disabled={isPending}
+										loading={isPending}
+									>
+										Subscribe
+									</FilledButton>
+									<Text className={s.priceText}>
+										$7.99 per month after 6-month offer
+									</Text>
+								</Flex>
+							</Stack>
+						</Box>
+					</div>
+				</>
+			) : (
+				<>
+					<Flex direction={"column"} align={"center"} justify={"center"}>
+						<IconCheck />
+						<div className={s.modalHead}>
+							<Text className={s.logoText}>INTERNSHIP PLATFORM</Text>
+							<Text className={s.modalTitle}>
+								Subscription successfully subscribed
+							</Text>
+							<Text className={s.modalSubtitle}>
+								Fill out the form to be able to send applications to <br />
+								companies for internships
+							</Text>
+						</div>
+						<Button
+							className={s.toBtn}
+							onClick={() => {
+								route.push("/profile")
+								setSubscriptionModal(null)
+							}}
+						>
+							To internships
+						</Button>
+					</Flex>
+				</>
+			)}
+		</div>
+	)
+}
+
 const UnSubscriptionModal = () => {
+	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
+	const { mutate, isPending } = useUnsubscriptionQuery(() =>
+		setSubscriptionModal(null),
+	)
 	return (
 		<>
 			<Text className={s.editModalTitle}>Unsubscribe?</Text>
@@ -354,10 +491,20 @@ const UnSubscriptionModal = () => {
 				submitted will be deleted.
 			</Text>
 			<Flex direction={"column"} gap={"0.75rem"} mt={"2rem"}>
-				<FilledButton bg={"#004C84"} h={"3.5rem"}>
+				<FilledButton
+					bg={"#004C84"}
+					h={"3.5rem"}
+					onClick={() => setSubscriptionModal(null)}
+				>
 					Do not unsubscribe
 				</FilledButton>
-				<OutlineButton h={"3.5rem"}>Unsubscribe</OutlineButton>
+				<OutlineButton
+					h={"3.5rem"}
+					loading={isPending}
+					onClick={() => mutate()}
+				>
+					Unsubscribe
+				</OutlineButton>
 			</Flex>
 		</>
 	)
