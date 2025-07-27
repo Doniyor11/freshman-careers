@@ -11,5 +11,6 @@ export enum apiKeys {
 	changePassword = "account/password",
 	subscription = "/account/subscribe",
 	unSubscription = "/account/unsubscribe",
-	accountSuccess = "/account/subscription/renewal",
+	accountSuccess = "/account/success/",
+	subscriptionRenewal = "/account/subscription/renewal",
 }
