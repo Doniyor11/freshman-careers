@@ -8,6 +8,10 @@ import { ChangePasswordProfileModal } from "@/feature/my-profile/change-password
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
 import { useSubscriptionQuery } from "@/feature/subscription/active/query.ts"
+import {
+	useGetAccountSuccessQuery,
+	useSubscriptionRenewalQuery,
+} from "@/feature/subscription/success/query.ts"
 import { useUnsubscriptionQuery } from "@/feature/subscription/unactive/query.ts"
 import {
 	ActionIcon,
@@ -268,6 +272,11 @@ const SubscriptionCard = () => {
 		s.setSubscriptionModal,
 	])
 
+	const { data: RenewalData } = useSubscriptionRenewalQuery()
+	const { data: SuccessData } = useGetAccountSuccessQuery()
+	console.log(`RenewalData:${RenewalData}`)
+	console.log(`SuccessData:${SuccessData}`)
+
 	return (
 		<>
 			<Box className={s.card}>
@@ -303,7 +312,7 @@ const SubscriptionCard = () => {
 					h={"2.75rem"}
 					fullWidth
 					onClick={() => {
-						setSubscriptionModal("subscription")
+						setSubscriptionModal("pay_subscription")
 					}}
 				>
 					Management
