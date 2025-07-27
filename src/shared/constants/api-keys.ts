@@ -9,4 +9,7 @@ export enum apiKeys {
 	userImage = "account/image",
 	userFiles = "account/files",
 	changePassword = "account/password",
+	subscription = "/account/subscribe",
+	unSubscription = "/account/unsubscribe",
+	accountSuccess = "/account/subscription/renewal",
 }
