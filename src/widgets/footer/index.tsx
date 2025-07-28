@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Text } from "@mantine/core"
+import { Anchor, Box, Container, Flex, Text } from "@mantine/core"
 import React from "react"
 
 import s from "./footer.module.scss"
@@ -40,15 +40,27 @@ export const Footer = () => {
 						<Text component={"h2"} className={s.footerTitle}>
 							SOCIAL MEDIA
 						</Text>
-						<Text component={"p"} className={s.footerDescription}>
+						<Anchor
+							href={"https://t.me/freshmancareers"}
+							target={"_blank"}
+							className={s.footerDescription}
+						>
 							Telegram
-						</Text>
-						<Text component={"p"} className={s.footerDescription}>
+						</Anchor>
+						<Anchor
+							href={"https://www.instagram.com/freshman.careers"}
+							target={"_blank"}
+							className={s.footerDescription}
+						>
 							Instagram
-						</Text>
-						<Text component={"p"} className={s.footerDescription}>
+						</Anchor>
+						<Anchor
+							href={"#"}
+							target={"_blank"}
+							className={s.footerDescription}
+						>
 							YouTube
-						</Text>
+						</Anchor>
 					</Flex>
 				</Flex>
 				<Flex justify={"center"} align={"center"} mt={"5rem"}>
