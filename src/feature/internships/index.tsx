@@ -24,7 +24,7 @@ export const Internships = () => {
 					info={"Internships"}
 					title={"Available Internships"}
 					description={
-						"Explore internships that will allow you to be truly successful"
+						"Gain Industry Expertise as a High School or University Student"
 					}
 				/>
 				<Grid gutter={"3rem"} m={"2.5rem 0 2.5rem"}>
