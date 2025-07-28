@@ -1,49 +1,70 @@
 import Icon from "@//shared/assets/images/icon/add.svg"
-import ImageInfo from "@//shared/assets/images/image4.png"
-import {
-	Accordion,
-	Box,
-	Container,
-	Flex,
-	Grid,
-	Text,
-	Title,
-} from "@mantine/core"
-import Image from "next/image"
+import { Accordion, Box, Container, Title } from "@mantine/core"
 import React from "react"
 
 import { TitleHead } from "@/shared/ui"
-import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./faq.module.scss"
 
 const groceries = [
 	{
-		value: "Will I be expelled if I miss a lesson or homework submission?",
+		value: "Who can apply for Freshman Careers internships?",
 		description:
-			"Crisp and refreshing fruit. Apples are known for their versatility and nutritional benefits. They come in a variety of flavors and are great for snacking, baking, or adding to salads.",
+			"Our programs are designed for high school and university students aged 14-24. We don't have strict application restrictions, but some internships might have them. ",
 	},
 	{
-		value: "Why is the Admissions Program so cheap or expensive?",
+		value: "How competitive are the internships?",
 		description:
-			"Naturally sweet and potassium-rich fruit. Bananas are a popular choice for their energy-boosting properties and can be enjoyed as a quick snack, added to smoothies, or used in baking.",
+			"Most programs will be competitive, while others will admit you if you meet basic requirements. Prepare a strong application regardless of the program.",
 	},
 	{
-		value: "How do you select students?",
+		value: "What kinds of skills or experience do I need to apply?",
 		description:
-			"Nutrient-packed green vegetable. Broccoli is packed with vitamins, minerals, and fiber. It has a distinct flavor and can be enjoyed steamed, roasted, or added to stir-fries.",
+			"Most internships don't require prior work experience. We look for curiosity, motivation, and the ability to learn quickly. Some roles may require skills listed in the internship description.",
+	},
+	{
+		value: "Are the internships remote or in-person?",
+		description:
+			"We offer both online and offline opportunities. Learn more in the internship description. ",
+	},
+	{
+		value: "Can I apply to more than one opportunity?",
+		description:
+			"Yes! You’re welcome to apply to multiple internships that match your interests and strengths.",
+	},
+	{
+		value: "Do these internships help with college applications?",
+		description:
+			"Absolutely! Many students we mentored used their experiences in essays and interviews to stand out at top global universities, including the Ivy League. ",
+	},
+	{
+		value: "Are internships paid?",
+		description:
+			"We offer both free and paid internships. Some companies may offer full-time positions upon the internship completion.",
+	},
+	{
+		value: "Will I get a certificate or letter of recommendation?",
+		description:
+			"Many opportunities provide certificates and recommendation letters, which will be available upon request based on your performance.",
+	},
+	{
+		value: "Still have questions? ",
+		description:
+			"Contact us directly via email <a href='mailto:careers@freshman.sg'>careers@freshman.sg</a> We’re here to help you take the next step.",
 	},
 ]
 
 export const Faq = () => {
-	// See groceries data above
 	const items = groceries.map((item) => (
 		<Accordion.Item key={item.value} value={item.value}>
 			<Accordion.Control>
 				<Title className={s.accordionTitle}>{item.value}</Title>
 			</Accordion.Control>
 			<Accordion.Panel>
-				<Title className={s.accordionDescription}>{item.description}</Title>
+				<Title
+					className={s.accordionDescription}
+					dangerouslySetInnerHTML={{ __html: item.description }}
+				/>
 			</Accordion.Panel>
 		</Accordion.Item>
 	))
@@ -83,44 +104,6 @@ export const Faq = () => {
 					{items}
 				</Accordion>
 			</Box>
-			<Grid m={"4rem 0 4rem 0"} gutter={"2.5rem"}>
-				<Grid.Col span={4}>
-					<Box className={s.faqImage}>
-						<Image
-							src={ImageInfo}
-							alt={"Image Info"}
-							width={416}
-							height={416}
-						/>
-					</Box>
-				</Grid.Col>
-				<Grid.Col span={8}>
-					<Flex
-						direction={"column"}
-						justify={"space-between"}
-						align={"flex-start"}
-						className={s.faqText}
-						h={"100%"}
-						p={"0.87rem 0"}
-					>
-						<Flex direction={"column"} gap={"0.75rem"}>
-							<Text className={s.faqTextTitle} component={"h3"}>
-								Still unsure about the Admissions Program?
-							</Text>
-							<Text className={s.faqTextDescription} component={"p"}>
-								You can submit your application regardless. And our team will
-								evaluate which Freshman program fits you best.
-							</Text>
-							<Text className={s.faqTextDescription} component={"p"}>
-								Our team will contact you within 72 hours.
-							</Text>
-						</Flex>
-						<FilledButton h={"3.5rem"} bg={"#004C84"}>
-							Apply Now
-						</FilledButton>
-					</Flex>
-				</Grid.Col>
-			</Grid>
 		</Container>
 	)
 }

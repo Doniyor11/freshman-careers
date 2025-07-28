@@ -1,7 +1,12 @@
-import Image1 from "@//shared/assets/images/image1.png"
 import { Box, Container } from "@mantine/core"
 import React from "react"
 
+import Image5 from "@/shared/assets/images/internship-images/image-five.png"
+import Image4 from "@/shared/assets/images/internship-images/image-four.png"
+import Image1 from "@/shared/assets/images/internship-images/image-one.png"
+import Image6 from "@/shared/assets/images/internship-images/image-six.png"
+import Image3 from "@/shared/assets/images/internship-images/image-three.png"
+import Image2 from "@/shared/assets/images/internship-images/image-two.png"
 import { Banner, OpportunitiesCard, TitleHead } from "@/shared/ui"
 
 import s from "./opportunities.module.scss"
@@ -11,25 +16,56 @@ export const Opportunities = () => {
 		<Box className={s.opportunitiesWrapper}>
 			<Container size={"1440px"}>
 				<TitleHead
-					info={"Opportunities"}
-					title={"Internship Program"}
-					description={
-						"The fastest and highest quality approach to the internship of your dreams"
-					}
+					info={"Process"}
+					title={"6 Steps to Land Your Dream Internship:"}
+					description={"Follow those steps to follow your dreams!"}
 				/>
 
 				<Box className={s.opportunitiesGrid}>
-					{Array.from({ length: 6 }).map((_, index) => (
-						<OpportunitiesCard
-							key={index}
-							imageSrc={Image1}
-							title={"Internship Program"}
-							description={
-								"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-							}
-							icon={(index + 1) % 3 !== 0}
-						/>
-					))}
+					<OpportunitiesCard
+						imageSrc={Image1}
+						title={"Explore Internships"}
+						description={
+							"Browse the list of exclusive global internships and find a project or organization that excites you."
+						}
+					/>
+					<OpportunitiesCard
+						imageSrc={Image2}
+						title={"Prepare Your Portfolio"}
+						description={
+							"Build your resume, highlight your strengths, and tailor your application to the role. We provide templates, feedback, and guidance."
+						}
+					/>
+					<OpportunitiesCard
+						imageSrc={Image3}
+						title={"Apply via Freshman Careers"}
+						description={
+							"Submit your application through our platform and wait till our team reaches out to you with an update of your application."
+						}
+						icon={false}
+					/>
+					<OpportunitiesCard
+						imageSrc={Image4}
+						title={"Pass the Interview"}
+						description={
+							"If you pass to the next stage, you will receive an interview invite. Be ready to share more about your aspirations and career goals."
+						}
+					/>
+					<OpportunitiesCard
+						imageSrc={Image5}
+						title={"Receive a Final Application Update"}
+						description={
+							"Congratulations! Whether it’s a think tank, lab, or startup, you’re in! If you got rejected, heads up as there are more internships on our platform."
+						}
+					/>
+					<OpportunitiesCard
+						imageSrc={Image6}
+						title={"Grow Professionally"}
+						description={
+							"Gain and reflect on your new experiences. Leverage them in your next job applications or admissions for Bachelor’s or Master’s Programs."
+						}
+						icon={false}
+					/>
 				</Box>
 				<Banner />
 			</Container>

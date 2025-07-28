@@ -56,12 +56,7 @@ export const SignUp = () => {
 					name={"email"}
 					control={control}
 					render={({ field }) => (
-						<Input
-							height={64}
-							label={"Email"}
-							value={field.value}
-							onChange={field.onChange}
-						/>
+						<Input height={64} label={"Email"} {...field} />
 					)}
 				/>
 
@@ -75,8 +70,7 @@ export const SignUp = () => {
 							component={IMaskInput as any}
 							mask="+0 000 000 0000"
 							placeholder={"Phone Number"}
-							value={field.value}
-							onChange={field.onChange}
+							{...field}
 						/>
 					)}
 				/>
