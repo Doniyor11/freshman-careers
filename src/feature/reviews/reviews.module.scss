@@ -56,20 +56,21 @@
 }
 
 .reviewsWrapperControl {
-	background: transparent;
+	border: none;
+	border-radius: 0;
 	position: absolute;
+	box-shadow: none;
+	padding: 0;
+	background: transparent;
 
 	&:nth-child(1) {
-		left: -5%;
-		background: transparent;
-		box-shadow: none;
+		left: -4%;
 	}
 
 	&:nth-child(2) {
-		background: transparent;
-		box-shadow: none;
-		right: -5%;
+		right: -4%;
 	}
+
 	svg {
 		path {
 			fill: #848f98;

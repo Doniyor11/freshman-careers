@@ -68,7 +68,7 @@ export const SignUp = () => {
 							mt={16}
 							height={64}
 							component={IMaskInput as any}
-							mask="+0 000 000 0000"
+							mask="+0000000000000"
 							placeholder={"Phone Number"}
 							{...field}
 						/>

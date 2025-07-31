@@ -28,7 +28,7 @@ const listItem = [
 
 export const Mentorship = () => {
 	return (
-		<Container size={"1440px"}>
+		<Container size={"1440px"} id={"Mentorship"}>
 			<Box className={s.mentorshipWrapper}>
 				<TitleHead
 					info={"Mentorship"}
