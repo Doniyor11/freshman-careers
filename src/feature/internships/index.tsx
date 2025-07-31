@@ -18,7 +18,7 @@ export const Internships = () => {
 	])
 	const { data } = useGetInternshipsQuery()
 	return (
-		<Box className={s.internshipsWrapper}>
+		<Box className={s.internshipsWrapper} id={"Internship"}>
 			<Container size={"1440px"}>
 				<TitleHead
 					info={"Internships"}

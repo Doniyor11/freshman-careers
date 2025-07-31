@@ -13,7 +13,7 @@ import s from "./opportunities.module.scss"
 
 export const Opportunities = () => {
 	return (
-		<Box className={s.opportunitiesWrapper}>
+		<Box className={s.opportunitiesWrapper} id={"Process"}>
 			<Container size={"1440px"}>
 				<TitleHead
 					info={"Process"}

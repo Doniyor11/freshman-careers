@@ -13,7 +13,7 @@ import s from "./reviews.module.scss"
 
 export const Reviews = () => {
 	return (
-		<Box className={s.reviewsWrapper}>
+		<Box className={s.reviewsWrapper} id={"Reviews"}>
 			<Container size={"1440px"}>
 				<TitleHead
 					info={"REVIEWS"}

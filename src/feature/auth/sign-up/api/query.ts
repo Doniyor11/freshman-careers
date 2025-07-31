@@ -17,8 +17,8 @@ export const useSignUpQuery = (onSuccess: () => void) => {
 				onSuccess && onSuccess()
 			}
 		},
-		onError: (err) => {
-			toast.error(err.message)
+		onError: (err: any) => {
+			toast.error(err.detail)
 		},
 	})
 }

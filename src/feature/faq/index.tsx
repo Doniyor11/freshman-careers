@@ -70,7 +70,7 @@ export const Faq = () => {
 	))
 
 	return (
-		<Container size={"1440px"}>
+		<Container size={"1440px"} id={"FAQ"}>
 			<Box className={s.faqWrapper}>
 				<TitleHead
 					info={"FAQ"}

@@ -15,12 +15,12 @@ const navbarLink = [
 		href: "/",
 	},
 	{
-		label: "Mentorship",
-		href: "/",
+		label: "Process",
+		href: "/ ",
 	},
 	{
-		label: "Opportunities",
-		href: "/ ",
+		label: "Mentorship",
+		href: "/",
 	},
 	{
 		label: "Reviews",
@@ -29,22 +29,32 @@ const navbarLink = [
 ]
 
 export const Navbar = () => {
+	const router = useRouter()
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
 		s.setAuthorization,
 		s.setModalType,
 	])
-	const router = useRouter()
+
+	const onLinkClick = (id: string) => {
+		const block = document.querySelector(`#${id}`)
+		if (!block) return
+		block.scrollIntoView(true)
+	}
 
 	return (
 		<>
 			<Box className={s.navbarWrapper}>
 				<Container size={"1440px"}>
 					<Flex className={s.navbar} justify="space-between" align="center">
-						<Flex pl={"2rem"}>
-							{navbarLink.map((link) => (
-								<a key={link.label} href={link.href} className={s.navbarLink}>
+						<Flex maw={420} w={"100%"}>
+							{navbarLink.map((link, index) => (
+								<Text
+									key={index}
+									className={s.navbarLink}
+									onClick={() => onLinkClick(link.label)}
+								>
 									{link.label}
-								</a>
+								</Text>
 							))}
 						</Flex>
 						<Flex
@@ -53,7 +63,6 @@ export const Navbar = () => {
 							justify={"center"}
 							gap={"0.13rem"}
 							className={"navbarLogoBox"}
-							pr={"7rem"}
 							onClick={() => {
 								router.push("/")
 							}}
@@ -61,7 +70,7 @@ export const Navbar = () => {
 							<Text component={"p"}>Freshman</Text>
 							<Text component={"span"}>Careers</Text>
 						</Flex>
-						<Flex gap={"1rem"} className={s.navbarButtons}>
+						<Flex maw={420} w={"100%"} gap={"1rem"} className={s.navbarButtons}>
 							<FilledButton
 								onClick={() => {
 									setAuthorization(true)
