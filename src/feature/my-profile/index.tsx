@@ -320,6 +320,7 @@ const SubscriptionCard = () => {
 
 export const SubscriptionModal = () => {
 	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
+	const { data: RenewalData } = useSubscriptionRenewalQuery()
 
 	return (
 		<>
@@ -357,7 +358,8 @@ export const SubscriptionModal = () => {
 								className={s.subscribeButton}
 								disabled
 							>
-								Active until 24.05.2025.
+								Active until{" "}
+								{RenewalData ? dayjs(RenewalData).format("DD.MM.YYYY") : "-"}
 							</FilledButton>
 
 							<Text className={s.pricingCardBottomText}>

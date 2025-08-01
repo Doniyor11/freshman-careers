@@ -39,3 +39,30 @@
 		object-fit: cover;
 	}
 }
+
+.reviewsWrapperControls {
+	background: rosybrown;
+}
+
+.reviewsWrapperControl {
+	border: none;
+	border-radius: 0;
+	position: absolute;
+	box-shadow: none;
+	padding: 0;
+	background: transparent;
+
+	&:nth-child(1) {
+		left: -4%;
+	}
+
+	&:nth-child(2) {
+		right: -4%;
+	}
+
+	svg {
+		path {
+			fill: #848f98;
+		}
+	}
+}

@@ -1,50 +1,33 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
+import { SubmitInternship } from "@/feature/internship-inner-info/submit-internship/ui"
 import {
 	ActionIcon,
 	Box,
 	Container,
 	Flex,
-	Group,
 	List,
 	Modal,
 	Text,
 } from "@mantine/core"
-import { Dropzone, FileWithPath, MIME_TYPES } from "@mantine/dropzone"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import React, { useState } from "react"
 
-import { useUploadFileQuery } from "@/entities/file-upload/query.ts"
 import { useGetInternshipQuery } from "@/entities/internships/query.ts"
 
-import ImageModal from "@/shared/assets/images/icon/document-text2.svg"
-import ImageModal1 from "@/shared/assets/images/icon/document-text3.svg"
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
-import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
+import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./internship-inner-info.module.scss"
 
 export const InternshipInnerInfo = () => {
 	const [opened, setOpened] = useState(false)
-	const [success, setSuccess] = useState(false)
-	const [uploaded, setUploaded] = useState(false)
-	const [file, setFile] = useState<FileWithPath[]>([])
+
 	const handleOpenModal = () => {
 		setOpened(true)
 	}
 	const handleCloseModal = () => {
 		setOpened(false)
-		setFile([])
-		setUploaded(false)
-		setSuccess(false)
-	}
-
-	const { mutate, isPending } = useUploadFileQuery(() => setSuccess(true))
-
-	const handleUploadFile = () => {
-		mutate({
-			file: file[0],
-		})
 	}
 
 	const params = useParams()
@@ -176,7 +159,7 @@ export const InternshipInnerInfo = () => {
 			<Modal
 				opened={opened}
 				onClose={handleCloseModal}
-				size={"43rem"}
+				size={"50rem"}
 				centered
 				withCloseButton={false}
 				padding={24}
@@ -190,80 +173,82 @@ export const InternshipInnerInfo = () => {
 						<IconClose />
 					</ActionIcon>
 					<Text component={"h3"} className={s.titleModal}>
-						Upload document
+						Uzbekistan's Club Internship
 					</Text>
-					<Text component={"p"} className={s.titleDescription}>
-						To upload a document, click on the upload button
-					</Text>
-
-					{!success ? (
-						<>
-							<Dropzone
-								onDrop={(files) => {
-									setFile(files)
-									setUploaded(true)
-								}}
-								onReject={(files) => console.log("rejected files", files)}
-								maxFiles={1}
-								multiple={false}
-								// maxSize={10 * 1024 ** 2}
-								accept={[MIME_TYPES.pdf, MIME_TYPES.doc]}
-								className={s.dropzone}
-							>
-								<Group
-									gap="xl"
-									justify="center"
-									style={{ pointerEvents: "none" }}
-									mih={300}
-								>
-									<Dropzone.Accept>
-										<ImageModal />
-									</Dropzone.Accept>
-
-									<Dropzone.Idle>
-										{!uploaded ? (
-											<ImageModal1 />
-										) : (
-											<Flex direction={"column"} align={"center"} gap={12}>
-												<ImageModal />
-												<Text className={s.imageDesciption}>
-													{file[0]?.name}
-												</Text>
-											</Flex>
-										)}
-									</Dropzone.Idle>
-								</Group>
-							</Dropzone>
-							<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
-								<FilledButton
-									h={"3.5rem"}
-									bg={"#004C84"}
-									onClick={handleUploadFile}
-									loading={isPending}
-									disabled={!(file.length > 0)}
-								>
-									Upload the document
-								</FilledButton>
-								<OutlineButton onClick={handleCloseModal} h={"3.5rem"}>
-									Cancel
-								</OutlineButton>
-							</Flex>
-						</>
-					) : (
-						<div className={s.successBox}>
-							<Flex direction={"column"}>
-								<ImageModal />
-								<Text component={"p"} className={s.imageName}>
-									{file[0]?.name}
-								</Text>
-								<Text component={"p"} className={s.imageDesciption}>
-									Successfully uploaded
-								</Text>
-							</Flex>
-						</div>
-					)}
+					{/*<Text component={"p"} className={s.titleDescription}>*/}
+					{/*	To upload a document, click on the upload button*/}
+					{/*</Text>*/}
+					<SubmitInternship />
 				</div>
 			</Modal>
 		</Container>
 	)
 }
+
+//
+// {!success ? (
+// 	<>
+// 		<Dropzone
+// 			onDrop={(files) => {
+// 				setFile(files)
+// 				setUploaded(true)
+// 			}}
+// 			onReject={(files) => console.log("rejected files", files)}
+// 			maxFiles={1}
+// 			multiple={false}
+// 			// maxSize={10 * 1024 ** 2}
+// 			accept={[MIME_TYPES.pdf, MIME_TYPES.doc]}
+// 			className={s.dropzone}
+// 		>
+// 			<Group
+// 				gap="xl"
+// 				justify="center"
+// 				style={{ pointerEvents: "none" }}
+// 				mih={300}
+// 			>
+// 				<Dropzone.Accept>
+// 					<ImageModal />
+// 				</Dropzone.Accept>
+//
+// 				<Dropzone.Idle>
+// 					{!uploaded ? (
+// 						<ImageModal1 />
+// 					) : (
+// 						<Flex direction={"column"} align={"center"} gap={12}>
+// 							<ImageModal />
+// 							<Text className={s.imageDesciption}>
+// 								{file[0]?.name}
+// 							</Text>
+// 						</Flex>
+// 					)}
+// 				</Dropzone.Idle>
+// 			</Group>
+// 		</Dropzone>
+// 		<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
+// 			<FilledButton
+// 				h={"3.5rem"}
+// 				bg={"#004C84"}
+// 				onClick={handleUploadFile}
+// 				loading={isPending}
+// 				disabled={!(file.length > 0)}
+// 			>
+// 				Upload the document
+// 			</FilledButton>
+// 			<OutlineButton onClick={handleCloseModal} h={"3.5rem"}>
+// 				Cancel
+// 			</OutlineButton>
+// 		</Flex>
+// 	</>
+// ) : (
+// 	<div className={s.successBox}>
+// 		<Flex direction={"column"}>
+// 			<ImageModal />
+// 			<Text component={"p"} className={s.imageName}>
+// 				{file[0]?.name}
+// 			</Text>
+// 			<Text component={"p"} className={s.imageDesciption}>
+// 				Successfully uploaded
+// 			</Text>
+// 		</Flex>
+// 	</div>
+// )}

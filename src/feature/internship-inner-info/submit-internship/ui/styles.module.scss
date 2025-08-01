@@ -1,0 +1,70 @@
+.inputWrapper {
+	margin-top: 24px;
+
+	label {
+		font-size: 18px;
+		letter-spacing: 0.2px;
+		line-height: 24px;
+		color: rgb(32, 33, 36);
+		font-weight: 400;
+	}
+
+	input {
+		height: 45px;
+		border-radius: 0;
+		border: none;
+		border-bottom: 1px solid #e2eaff;
+		background: #fafbff;
+
+		font-size: 20px;
+		font-weight: 400;
+		letter-spacing: 0.2px;
+		line-height: 20px;
+		color: rgb(32, 33, 36);
+
+		&::placeholder {
+			font-size: 16px;
+		}
+	}
+
+	.fileBtn {
+		border: 1px solid #e2eaff;
+		background: #fafbff;
+		color: rgb(32, 33, 36);
+
+		&.success {
+			border: 1px solid #004c84;
+			color: #004c84;
+
+			svg {
+				path {
+					stroke: #004c84;
+					&:nth-child(1) {
+						stroke: transparent;
+					}
+				}
+			}
+		}
+	}
+
+	.fileLabel {
+	}
+}
+
+.btnSubmit {
+	width: 100%;
+	height: 44px;
+	border-radius: 8px;
+
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 20px;
+
+	&.btnSend {
+		background: #ff6a00;
+	}
+
+	&.btnClear {
+		background: #004c84;
+	}
+}
