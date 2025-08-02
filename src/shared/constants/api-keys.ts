@@ -13,4 +13,5 @@ export enum apiKeys {
 	unSubscription = "/account/unsubscribe",
 	accountSuccess = "/account/check-status",
 	subscriptionRenewal = "/account/subscription/renewal",
+	responses = "/account/responses",
 }

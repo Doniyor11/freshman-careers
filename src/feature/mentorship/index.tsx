@@ -34,9 +34,8 @@ export const Mentorship = () => {
 					previousControlIcon={<IconArrowRight size={16} />}
 					onSlideChange={(e) => setIndex(e)}
 					classNames={{
-						control: s.reviewsWrapperControl,
-						controls: s.reviewsWrapperControls,
-						indicator: s.reviewsWrapperIndicator,
+						control: s.mentorshipWrapperControl,
+						controls: s.mentorshipWrapperControls,
 					}}
 				>
 					<Carousel.Slide>
