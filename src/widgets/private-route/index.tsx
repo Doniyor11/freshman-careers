@@ -17,10 +17,10 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 		s.subscriptionModal,
 		s.setSubscriptionModal,
 	])
-	const { data: SuccessData } = useGetAccountSuccessQuery()
+	const { data: SuccessData, isPending } = useGetAccountSuccessQuery()
 
 	useEffect(() => {
-		if (SuccessData?.success) {
+		if (isPending || SuccessData?.success) {
 			setSubscriptionModal(null)
 		} else {
 			setSubscriptionModal("pay_subscription")

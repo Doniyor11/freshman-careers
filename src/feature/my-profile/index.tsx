@@ -28,6 +28,7 @@ import { useRouter } from "next/router"
 import React from "react"
 
 import { useDeleteFilesQuery } from "@/entities/file-delete/query.ts"
+import { useGetResponsesQuery } from "@/entities/responses/query.ts"
 import { useGetUserFilesQuery } from "@/entities/user-files/query.ts"
 import { IUserFiles } from "@/entities/user-files/types.ts"
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
@@ -199,6 +200,8 @@ export const Documents = () => {
 }
 
 const Card = () => {
+	const { data } = useGetResponsesQuery()
+	console.log(data)
 	return (
 		<Box className={s.internshipsCardWrapper}>
 			<Flex
@@ -320,6 +323,7 @@ const SubscriptionCard = () => {
 
 export const SubscriptionModal = () => {
 	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
+	const { data: RenewalData } = useSubscriptionRenewalQuery()
 
 	return (
 		<>
@@ -357,7 +361,8 @@ export const SubscriptionModal = () => {
 								className={s.subscribeButton}
 								disabled
 							>
-								Active until 24.05.2025.
+								Active until{" "}
+								{RenewalData ? dayjs(RenewalData).format("DD.MM.YYYY") : "-"}
 							</FilledButton>
 
 							<Text className={s.pricingCardBottomText}>
