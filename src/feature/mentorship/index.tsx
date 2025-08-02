@@ -19,7 +19,7 @@ export const Mentorship = () => {
 		<Container size={"1440px"} id={"Mentorship"}>
 			<Box className={s.mentorshipWrapper}>
 				<TitleHead
-					info={"Mentorship"}
+					info={"Companies"}
 					title={`Become ${companyName[index]}’s mentee`}
 					description={"Join our ranks and save your time on internships"}
 				/>
