@@ -2,6 +2,7 @@ import { Flex, Text } from "@mantine/core"
 import React, { FC } from "react"
 
 import s from "./title-head.module.scss"
+import { useMediaQuery } from "@mantine/hooks"
 
 interface TitleHeadIProps {
 	info?: string
@@ -14,11 +15,15 @@ export const TitleHead: FC<TitleHeadIProps> = ({
 	title,
 	description,
 }) => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+
 	return (
 		<>
 			<Flex
 				direction={"column"}
-				gap={"0.75rem"}
+				gap={
+					matches ? "0.5rem" : "0.75rem"
+				}
 				align={"center"}
 				className={s.titleHeadWrapper}
 			>

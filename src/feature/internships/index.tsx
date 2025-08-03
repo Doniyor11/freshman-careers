@@ -10,8 +10,11 @@ import { IGetInternship } from "@/entities/internships/types.ts"
 import { Banner, InternshipsCard, TitleHead } from "@/shared/ui"
 
 import s from "./internships.module.scss"
+import { useMediaQuery } from "@mantine/hooks"
 
 export const Internships = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
 		s.setAuthorization,
 		s.setModalType,
@@ -27,10 +30,14 @@ export const Internships = () => {
 						"Gain Industry Expertise as a High School or University Student"
 					}
 				/>
-				<Grid gutter={"3rem"} m={"2.5rem 0 2.5rem"}>
+				<Grid gutter={
+					matches ? '1rem' : '3rem'
+				} m={"2.5rem 0 2.5rem"}>
 					{data ? (
 						data.map((i: IGetInternship, index: number) => (
-							<Grid.Col span={4} key={index}>
+							<Grid.Col span={
+								matches ? 12 : 4
+							} key={index}>
 								<InternshipsCard
 									companyName={i?.company?.title}
 									imageSrc={i?.picture as any}
