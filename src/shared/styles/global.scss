@@ -6,8 +6,13 @@
 	box-sizing: border-box;
 	font-family: "Graphik Trial", sans-serif !important;
 }
+
+html {
+	scroll-behavior: smooth;
+}
+
 body {
-	background-color: #fafbff !important;
+	background-color: #ffffff !important;
 }
 
 a {

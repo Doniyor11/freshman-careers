@@ -1,77 +1,168 @@
 import IconList from "@//shared/assets/images/icon/tick-circle.svg"
-import Image1 from "@//shared/assets/images/image2.png"
+import Image1 from "@//shared/assets/images/mentorship1.png"
+import Image2 from "@//shared/assets/images/mentorship2.png"
+import { Carousel } from "@mantine/carousel"
 import { Box, Container, Grid, List, Text, ThemeIcon } from "@mantine/core"
 import Image from "next/image"
-import React from "react"
+import React, { useState } from "react"
 
+import IconArrowLeft from "@/shared/assets/images/icon/chevron_backward2.svg"
+import IconArrowRight from "@/shared/assets/images/icon/chevron_backward.svg"
 import { Banner, TitleHead } from "@/shared/ui"
 
 import s from "./mentorship.module.scss"
 
-const listItem = [
-	{
-		title: "What Should You Expect?",
-		description:
-			"Be it general academic planning, admissions preparation, or motivational essay revision, we will tailor our approach to your individual needs.",
-	},
-	{
-		title: "Application Timeline and Strategy",
-		description:
-			"Depending on the requirements of your desired program, our team will access your current research proposal and help you strengthen your main thesis.",
-	},
-	{
-		title: "Overall Profile Assessment",
-		description:
-			"A successful application is always internally consistent and relatable to the goals of the Master's program. In this course, our team will help you achieve both by carefully evaluating your application as a whole.",
-	},
-]
-
 export const Mentorship = () => {
+	const [index, setIndex] = useState<number>(1)
+	const companyName = ["Center for Progressive Reforms", "NazarX R&D"]
 	return (
-		<Container size={"1440px"}>
+		<Container size={"1440px"} id={"Mentorship"}>
 			<Box className={s.mentorshipWrapper}>
 				<TitleHead
-					info={"Mentorship"}
-					title={"Become Jahongir Tursunov’s mentee"}
+					info={"Companies"}
+					title={`Become ${companyName[index]}’s mentee`}
 					description={"Join our ranks and save your time on internships"}
 				/>
-				<Grid m={"2.5rem 0 2.5rem 0"} gutter={"2.5rem"}>
-					<Grid.Col span={8}>
-						<List
-							classNames={{
-								itemWrapper: s.mentorshipItemWrapper,
-								root: s.mentorshipListRoot,
-							}}
-							icon={
-								<ThemeIcon bg={"#fff"} size={40}>
-									<IconList />
-								</ThemeIcon>
-							}
-						>
-							{listItem.map((item, index) => (
-								<List.Item key={index}>
-									<Text component={"h3"} className={s.mentorshipTitle}>
-										{item.title}
-									</Text>
-									<Text component={"p"} className={s.mentorshipDescription}>
-										{item.description}
-									</Text>
-								</List.Item>
-							))}
-						</List>
-					</Grid.Col>
-					<Grid.Col span={4}>
-						<Box className={s.mentorshipImage}>
-							<Image
-								src={Image1}
-								alt={"Mentorship Image"}
-								width={526}
-								height={526}
-								unoptimized
-							/>
-						</Box>
-					</Grid.Col>
-				</Grid>
+				<Carousel
+					height={"auto"}
+					controlsOffset="-120px"
+					controlSize={31}
+					withControls
+					withIndicators={false}
+					m={"2.5rem 0"}
+					nextControlIcon={<IconArrowLeft size={16} />}
+					previousControlIcon={<IconArrowRight size={16} />}
+					onSlideChange={(e) => setIndex(e)}
+					classNames={{
+						control: s.mentorshipWrapperControl,
+						controls: s.mentorshipWrapperControls,
+					}}
+				>
+					<Carousel.Slide>
+						<Grid m={"2.5rem 0 2.5rem 0"} gutter={"2.5rem"}>
+							<Grid.Col span={8}>
+								<List
+									classNames={{
+										itemWrapper: s.mentorshipItemWrapper,
+										root: s.mentorshipListRoot,
+									}}
+									icon={
+										<ThemeIcon bg={"#fff"} size={40}>
+											<IconList />
+										</ThemeIcon>
+									}
+								>
+									<List.Item>
+										<Text component={"h3"} className={s.mentorshipTitle}>
+											About
+										</Text>
+										<Text component={"p"} className={s.mentorshipDescription}>
+											Center for Progressive Reforms is an independent think
+											tank dedicated to addressing existing challenges in
+											Uzbekistan through innovative research and policy
+											analysis.
+										</Text>
+									</List.Item>
+									<List.Item>
+										<Text component={"h3"} className={s.mentorshipTitle}>
+											Positions
+										</Text>
+										<Text component={"p"} className={s.mentorshipDescription}>
+											Accepting one Project Management Intern and one Analytical
+											Writing Intern specializing in international relations and
+											economics
+										</Text>
+									</List.Item>
+									<List.Item>
+										<Text component={"h3"} className={s.mentorshipTitle}>
+											Benefits
+										</Text>
+										<Text component={"p"} className={s.mentorshipDescription}>
+											Located adjacent to Tashkent city with access to public
+											transport (metro and bus) and offers flexible schedules
+											for students,
+										</Text>
+									</List.Item>
+								</List>
+							</Grid.Col>
+							<Grid.Col span={4}>
+								<Box className={s.mentorshipImage}>
+									<Image
+										src={Image1}
+										alt={"Mentorship Image"}
+										width={526}
+										height={526}
+										unoptimized
+										objectFit={"cover"}
+									/>
+								</Box>
+							</Grid.Col>
+						</Grid>
+					</Carousel.Slide>
+
+					<Carousel.Slide>
+						<Grid m={"2.5rem 0 2.5rem 0"} gutter={"2.5rem"}>
+							<Grid.Col span={8}>
+								<List
+									classNames={{
+										itemWrapper: s.mentorshipItemWrapper,
+										root: s.mentorshipListRoot,
+									}}
+									icon={
+										<ThemeIcon bg={"#fff"} size={40}>
+											<IconList />
+										</ThemeIcon>
+									}
+								>
+									<List.Item>
+										<Text component={"h3"} className={s.mentorshipTitle}>
+											About
+										</Text>
+										<Text component={"p"} className={s.mentorshipDescription}>
+											NazarX is a leading aeronautical laboratory within Turin
+											University with international recognition, working on
+											cutting-edge satellites, drones, and more.
+										</Text>
+									</List.Item>
+									<List.Item>
+										<Text component={"h3"} className={s.mentorshipTitle}>
+											Positions
+										</Text>
+										<Text component={"p"} className={s.mentorshipDescription}>
+											Accepting one Mechanical Engineering Intern, two Software
+											Engineering Interns, and one Electrical Engineering Intern
+											to work on Can-Satellites.
+										</Text>
+									</List.Item>
+									<List.Item>
+										<Text component={"h3"} className={s.mentorshipTitle}>
+											Benefits
+										</Text>
+										<Text component={"p"} className={s.mentorshipDescription}>
+											Access to laboratory equipment (3D printer, circuitry,
+											etc) for personal projects, ability to collaborate on
+											other NazarX projects, and further employment based on
+											merit
+										</Text>
+									</List.Item>
+								</List>
+							</Grid.Col>
+							<Grid.Col span={4}>
+								<Box className={s.mentorshipImage}>
+									<Image
+										src={Image2}
+										alt={"Mentorship Image"}
+										width={526}
+										height={526}
+										unoptimized
+										objectFit={"cover"}
+									/>
+								</Box>
+							</Grid.Col>
+						</Grid>
+					</Carousel.Slide>
+				</Carousel>
+
 				<Banner />
 			</Box>
 		</Container>

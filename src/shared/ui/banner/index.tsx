@@ -7,8 +7,12 @@ import { FilledButton } from "@/shared/ui/buttons"
 import s from "./banner.module.scss"
 
 export const Banner = () => {
-	const [setModalType] = useAuthorizationStore((s) => [s.setModalType])
+	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
+		s.setAuthorization,
+		s.setModalType,
+	])
 	const handleOpen = () => {
+		setAuthorization(true)
 		setModalType("login")
 	}
 

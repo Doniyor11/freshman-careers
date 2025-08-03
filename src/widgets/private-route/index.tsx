@@ -1,13 +1,31 @@
-import { Center, Loader } from "@mantine/core"
+import { SubscriptionModal, UnSubscriptionModal } from "@/feature"
+import { useProfileStore } from "@/feature/my-profile/model"
+import { PaySubscriptionModal } from "@/feature/my-profile/pay-subscription"
+import { useGetAccountSuccessQuery } from "@/feature/subscription/success/query.ts"
+import { Box, Center, Loader } from "@mantine/core"
 import Cookies from "js-cookie"
 import { useRouter } from "next/router"
-import { ReactNode, useEffect } from "react"
+import React, { ReactNode, useEffect } from "react"
 
 import { TOKEN } from "@/shared/constants/env.ts"
+import { Modal } from "@/shared/ui"
 
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
 	const router = useRouter()
 	const token = Cookies.get(TOKEN.AUTH_TOKEN)
+	const [subscriptionModal, setSubscriptionModal] = useProfileStore((s) => [
+		s.subscriptionModal,
+		s.setSubscriptionModal,
+	])
+	const { data: SuccessData, isPending } = useGetAccountSuccessQuery()
+
+	useEffect(() => {
+		if (isPending || SuccessData?.success) {
+			setSubscriptionModal(null)
+		} else {
+			setSubscriptionModal("pay_subscription")
+		}
+	}, [SuccessData?.success])
 
 	useEffect(() => {
 		if (!token) {
@@ -24,7 +42,21 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 		)
 	}
 
-	return <>{children}</>
+	return (
+		<>
+			<Box bg={"#FAFBFF"}>{children}</Box>
+
+			<Modal
+				opened={!!subscriptionModal}
+				onClose={() => setSubscriptionModal(null)}
+				size={subscriptionModal === "un_subscription" ? "36rem" : "54rem"}
+			>
+				{subscriptionModal === "subscription" && <SubscriptionModal />}
+				{subscriptionModal === "un_subscription" && <UnSubscriptionModal />}
+				{subscriptionModal === "pay_subscription" && <PaySubscriptionModal />}
+			</Modal>
+		</>
+	)
 }
 
 export default PrivateRoute

@@ -4,6 +4,11 @@ import React from "react"
 import s from "./footer.module.scss"
 
 export const Footer = () => {
+	const onLinkClick = (id: string) => {
+		const block = document.querySelector(`#${id}`)
+		if (!block) return
+		block.scrollIntoView(true)
+	}
 	return (
 		<Box className={s.footerWrapper}>
 			<Container size={"1440px"}>
@@ -12,10 +17,16 @@ export const Footer = () => {
 						<Text component={"h2"} className={s.footerTitle}>
 							PROGRAMS
 						</Text>
-						<Text component={"p"} className={s.footerDescription}>
+						<Text
+							className={s.footerDescription}
+							onClick={() => onLinkClick("Internship")}
+						>
 							Internship
 						</Text>
-						<Text component={"p"} className={s.footerDescription}>
+						<Text
+							className={s.footerDescription}
+							onClick={() => onLinkClick("Mentorship")}
+						>
 							Mentorship
 						</Text>
 					</Flex>
@@ -23,16 +34,28 @@ export const Footer = () => {
 						<Text component={"h2"} className={s.footerTitle}>
 							INFORMATION
 						</Text>
-						<Text component={"p"} className={s.footerDescription}>
-							Opportunities
+						<Text
+							className={s.footerDescription}
+							onClick={() => onLinkClick("Process")}
+						>
+							Process
 						</Text>
-						<Text component={"p"} className={s.footerDescription}>
+						<Text
+							className={s.footerDescription}
+							onClick={() => onLinkClick("Reviews")}
+						>
 							Reviews
 						</Text>
-						<Text component={"p"} className={s.footerDescription}>
+						<Text
+							className={s.footerDescription}
+							onClick={() => onLinkClick("Webinars")}
+						>
 							Webinars
 						</Text>
-						<Text component={"p"} className={s.footerDescription}>
+						<Text
+							className={s.footerDescription}
+							onClick={() => onLinkClick("FAQ")}
+						>
 							FAQ
 						</Text>
 					</Flex>

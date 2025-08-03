@@ -181,3 +181,32 @@
 		}
 	}
 }
+
+.socialsWrapper {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: auto;
+	gap: 12px;
+	margin-top: 24px;
+
+	.socialAuth {
+		width: 100%;
+		padding: 12px;
+		border-radius: 8px;
+		border: 1px solid #e2eaff;
+		background: #fafbff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 12px;
+		text-decoration: none !important;
+
+		p {
+			color: #001c31;
+			font-size: 16px;
+			font-weight: 500;
+			line-height: 20px;
+			letter-spacing: -0.32px;
+		}
+	}
+}

@@ -1,4 +1,3 @@
-import IconCheck from "@//shared/assets/images/icon/check.svg"
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
 import IconDoc from "@//shared/assets/images/icon/document-text.svg"
 import IconDownload from "@//shared/assets/images/icon/download.svg"
@@ -7,7 +6,6 @@ import ImageUser from "@//shared/assets/images/image.png"
 import { ChangePasswordProfileModal } from "@/feature/my-profile/change-password/ui"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
-import { useSubscriptionQuery } from "@/feature/subscription/active/query.ts"
 import {
 	useGetAccountSuccessQuery,
 	useSubscriptionRenewalQuery,
@@ -17,7 +15,6 @@ import {
 	ActionIcon,
 	Anchor,
 	Box,
-	Button,
 	Container,
 	Flex,
 	Grid,
@@ -31,6 +28,7 @@ import { useRouter } from "next/router"
 import React from "react"
 
 import { useDeleteFilesQuery } from "@/entities/file-delete/query.ts"
+import { useGetResponsesQuery } from "@/entities/responses/query.ts"
 import { useGetUserFilesQuery } from "@/entities/user-files/query.ts"
 import { IUserFiles } from "@/entities/user-files/types.ts"
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
@@ -61,7 +59,7 @@ export const MyProfile = () => {
 					<Flex direction={"column"} gap={"1.5rem"}>
 						<ProfileCard />
 						<SubscriptionCard />
-						<Documents />
+						{/*<Documents />*/}
 					</Flex>
 				</Grid.Col>
 				<Grid.Col span={9}>
@@ -151,7 +149,7 @@ const ProfileCard = () => {
 	)
 }
 
-const Documents = () => {
+export const Documents = () => {
 	const { data } = useGetUserFilesQuery()
 	const { mutate, isPending } = useDeleteFilesQuery()
 	if (!(data?.length > 0)) return <></>
@@ -202,6 +200,8 @@ const Documents = () => {
 }
 
 const Card = () => {
+	const { data } = useGetResponsesQuery()
+	console.log(data)
 	return (
 		<Box className={s.internshipsCardWrapper}>
 			<Flex
@@ -267,15 +267,10 @@ const Card = () => {
 }
 
 const SubscriptionCard = () => {
-	const [subscriptionModal, setSubscriptionModal] = useProfileStore((s) => [
-		s.subscriptionModal,
-		s.setSubscriptionModal,
-	])
+	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
 
 	const { data: RenewalData } = useSubscriptionRenewalQuery()
 	const { data: SuccessData } = useGetAccountSuccessQuery()
-	console.log(`RenewalData:${RenewalData}`)
-	console.log(`SuccessData:${SuccessData}`)
 
 	return (
 		<>
@@ -288,7 +283,7 @@ const SubscriptionCard = () => {
 						Status:
 					</Text>
 					<Text component={"p"} className={s.titleBig}>
-						Not Active
+						{!SuccessData?.success ? "Not Active" : "Active"}
 					</Text>
 				</Flex>
 				{/*<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>*/}
@@ -299,40 +294,36 @@ const SubscriptionCard = () => {
 				{/*		Base*/}
 				{/*	</Text>*/}
 				{/*</Flex>*/}
-				{/*<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>*/}
-				{/*	<Text component={"p"} className={s.label}>*/}
-				{/*		Renewal Date:*/}
-				{/*	</Text>*/}
-				{/*	<Text component={"p"} className={s.titleBig}>*/}
-				{/*		24.05.2025*/}
-				{/*	</Text>*/}
-				{/*</Flex>*/}
+				{RenewalData && (
+					<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>
+						<Text component={"p"} className={s.label}>
+							Renewal Date:
+						</Text>
+						<Text component={"p"} className={s.titleBig}>
+							{RenewalData ? dayjs(RenewalData).format("DD.MM.YYYY") : "-"}
+						</Text>
+					</Flex>
+				)}
 				<FilledButton
 					bg={"#004C84"}
 					h={"2.75rem"}
 					fullWidth
 					onClick={() => {
-						setSubscriptionModal("pay_subscription")
+						setSubscriptionModal(
+							!SuccessData?.success ? "pay_subscription" : "subscription",
+						)
 					}}
 				>
 					Management
 				</FilledButton>
 			</Box>
-			<Modal
-				opened={!!subscriptionModal}
-				onClose={() => setSubscriptionModal(null)}
-				size={subscriptionModal === "un_subscription" ? "36rem" : "54rem"}
-			>
-				{subscriptionModal === "subscription" && <SubscriptionModal />}
-				{subscriptionModal === "un_subscription" && <UnSubscriptionModal />}
-				{subscriptionModal === "pay_subscription" && <PaySubscriptionModal />}
-			</Modal>
 		</>
 	)
 }
 
-const SubscriptionModal = () => {
+export const SubscriptionModal = () => {
 	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
+	const { data: RenewalData } = useSubscriptionRenewalQuery()
 
 	return (
 		<>
@@ -370,7 +361,8 @@ const SubscriptionModal = () => {
 								className={s.subscribeButton}
 								disabled
 							>
-								Active until 24.05.2025.
+								Active until{" "}
+								{RenewalData ? dayjs(RenewalData).format("DD.MM.YYYY") : "-"}
 							</FilledButton>
 
 							<Text className={s.pricingCardBottomText}>
@@ -394,99 +386,7 @@ const SubscriptionModal = () => {
 	)
 }
 
-const PaySubscriptionModal = () => {
-	const route = useRouter()
-	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
-
-	const { mutate, isPending, isSuccess } = useSubscriptionQuery()
-	return (
-		<div className={s.paySubscription}>
-			{!isSuccess ? (
-				<>
-					<div className={s.modalHead}>
-						<Text className={s.logoText}>INTERNSHIP PLATFORM</Text>
-						<Text className={s.modalTitle}>
-							Get full access to platform by subscribing
-						</Text>
-						<Text className={s.modalSubtitle}>
-							Tired of waiting for success to come to you? Take matters into
-							your own hands and we'll help you.
-						</Text>
-					</div>
-					<div className={s.pricingCardContainer}>
-						<div className={s.discountHeader}>85% DISCOUNT</div>
-						<Box className={s.pricingCard}>
-							<Stack className={s.cardContent}>
-								<Flex
-									direction={"column"}
-									gap={"1rem"}
-									className={s.cardContentTop}
-									align={"center"}
-								>
-									<Text className={s.cardContentTitle}>Base</Text>
-									<Text className={s.cardContentDescription}>
-										Get access to standard platform features for 6 months
-									</Text>
-								</Flex>
-
-								<Flex align={"center"} gap={"0.5rem"} justify={"center"}>
-									<Text className={s.cardContentPrice}>$5.99</Text>
-									<div className={s.priceSection}>
-										<Text className={s.priceSectionMonth}>for 6 months</Text>
-										<Text className={s.priceSectionInfo}>$47.99</Text>
-									</div>
-								</Flex>
-
-								<Flex direction={"column"} gap={"0.5rem"} mt={"1.80rem"}>
-									<FilledButton
-										fullWidth
-										size="2.75rem"
-										className={s.subscribeButton}
-										onClick={() => mutate()}
-										disabled={isPending}
-										loading={isPending}
-									>
-										Subscribe
-									</FilledButton>
-									<Text className={s.priceText}>
-										$7.99 per month after 6-month offer
-									</Text>
-								</Flex>
-							</Stack>
-						</Box>
-					</div>
-				</>
-			) : (
-				<>
-					<Flex direction={"column"} align={"center"} justify={"center"}>
-						<IconCheck />
-						<div className={s.modalHead}>
-							<Text className={s.logoText}>INTERNSHIP PLATFORM</Text>
-							<Text className={s.modalTitle}>
-								Subscription successfully subscribed
-							</Text>
-							<Text className={s.modalSubtitle}>
-								Fill out the form to be able to send applications to <br />
-								companies for internships
-							</Text>
-						</div>
-						<Button
-							className={s.toBtn}
-							onClick={() => {
-								route.push("/profile")
-								setSubscriptionModal(null)
-							}}
-						>
-							To internships
-						</Button>
-					</Flex>
-				</>
-			)}
-		</div>
-	)
-}
-
-const UnSubscriptionModal = () => {
+export const UnSubscriptionModal = () => {
 	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
 	const { mutate, isPending } = useUnsubscriptionQuery(() =>
 		setSubscriptionModal(null),

@@ -1,9 +1,14 @@
 import { NewPassword, SignIn, SignUp } from "@/feature/auth"
-import { Modal } from "@mantine/core"
+import { Anchor, Modal, Text } from "@mantine/core"
 import React, { useEffect } from "react"
 import { Case, Switch } from "react-if"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
+
+import IconFacebook from "@/shared/assets/images/icon/icon-facebook.svg"
+import IconGoogle from "@/shared/assets/images/icon/icon-google.svg"
+
+import s from "./styles.module.scss"
 
 export const AuthWrapper = () => {
 	const [authorization, modalType, setAuthorization, setModalType] =
@@ -25,6 +30,28 @@ export const AuthWrapper = () => {
 		)
 	}, [])
 
+	const socials = (
+		<div className={s.socialsWrapper}>
+			<Anchor
+				className={s.socialAuth}
+				href="https://api.freshman.careers/account/login/google"
+				target={"_blank"}
+			>
+				<IconGoogle />
+				<Text>Continue with Google</Text>
+			</Anchor>
+
+			<Anchor
+				className={s.socialAuth}
+				href="https://api.freshman.careers/account/login/facebook"
+				target={"_blank"}
+			>
+				<IconFacebook />
+				<Text>Continue with Facebook</Text>
+			</Anchor>
+		</div>
+	)
+
 	return (
 		<Modal
 			centered
@@ -38,9 +65,11 @@ export const AuthWrapper = () => {
 			<Switch>
 				<Case condition={modalType === "login"}>
 					<SignIn />
+					{socials}
 				</Case>
 				<Case condition={modalType === "register"}>
 					<SignUp />
+					{socials}
 				</Case>
 				<Case condition={modalType === "new-password"}>
 					<NewPassword />
