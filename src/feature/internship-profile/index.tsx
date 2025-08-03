@@ -11,6 +11,7 @@ import { IGetInternship } from "@/entities/my-applications/types.ts"
 
 import Icon2 from "@/shared/assets/images/icon/chevron_backward3.svg"
 import Icon3 from "@/shared/assets/images/icon/chevron_backward-small.svg"
+import { EnvKeys } from "@/shared/constants/env.ts"
 import { InternshipsCard } from "@/shared/ui"
 
 import s from "./internship-profile.module.scss"
@@ -89,11 +90,11 @@ export const InternshipProfile = () => {
 						{data?.map((i: IGetInternship, index: number) => (
 							<Grid.Col span={4} key={index}>
 								<InternshipsCard
-									companyName={i?.company?.title}
-									imageSrc={i?.picture as any}
+									companyName={i?.company_title}
+									imageSrc={`${EnvKeys.NEXT_HOST}/${i?.picture}`}
 									imageAlt={i?.title}
-									iconSrc={i?.company?.image as any}
-									iconAlt={i?.company?.title}
+									iconSrc={`${EnvKeys.NEXT_HOST}/${i?.company_image}`}
+									iconAlt={i?.company_title}
 									day={
 										i?.date_posted &&
 										dayjs(i.date_posted).isSame(dayjs(), "day")
