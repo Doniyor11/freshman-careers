@@ -1,4 +1,5 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
+import { useInternshipInfoStore } from "@/feature/internship-inner-info/submit-internship/model"
 import { SubmitInternship } from "@/feature/internship-inner-info/submit-internship/ui"
 import {
 	ActionIcon,
@@ -11,23 +12,28 @@ import {
 } from "@mantine/core"
 import Image from "next/image"
 import { useParams } from "next/navigation"
-import React, { useState } from "react"
+import { useRouter } from "next/router"
 
 import { useGetInternshipQuery } from "@/entities/internships/query.ts"
 
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
+import { EnvKeys } from "@/shared/constants/env.ts"
 import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./internship-inner-info.module.scss"
 
 export const InternshipInnerInfo = () => {
-	const [opened, setOpened] = useState(false)
+	const router = useRouter()
+	const [submitModal, setSubmitModal] = useInternshipInfoStore((s) => [
+		s.submitModal,
+		s.setSubmitModal,
+	])
 
 	const handleOpenModal = () => {
-		setOpened(true)
+		setSubmitModal(true)
 	}
 	const handleCloseModal = () => {
-		setOpened(false)
+		setSubmitModal(false)
 	}
 
 	const params = useParams()
@@ -62,11 +68,9 @@ export const InternshipInnerInfo = () => {
 
 	return (
 		<Container size={"1440px"} className={s.internshipInnerInfoWrapper}>
-			<Flex>
+			<Flex onClick={() => router.push("/profile")} align={"center"} mb={12}>
 				<IconBack />
-				<Text component={"p"} className={s.backText}>
-					Go back
-				</Text>
+				<Text className={s.backText}>Go back</Text>
 			</Flex>
 			<Flex mb={"2.5rem"}>
 				<Text component={"h1"} className={s.title}>
@@ -110,7 +114,7 @@ export const InternshipInnerInfo = () => {
 				{/* 2 */}
 				<Box className={s.imageWrapper}>
 					<Image
-						src={`${data?.picture}`}
+						src={`${EnvKeys.NEXT_HOST}/${data?.picture}`}
 						alt={""}
 						width={850}
 						height={515}
@@ -157,7 +161,7 @@ export const InternshipInnerInfo = () => {
 			</Flex>
 			{/* Modal Upload document	*/}
 			<Modal
-				opened={opened}
+				opened={submitModal}
 				onClose={handleCloseModal}
 				size={"50rem"}
 				centered

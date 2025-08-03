@@ -14,4 +14,5 @@ export enum apiKeys {
 	accountSuccess = "/account/check-status",
 	subscriptionRenewal = "/account/subscription/renewal",
 	responses = "/account/responses",
+	applicationsSubmit = "/applications/submit",
 }
