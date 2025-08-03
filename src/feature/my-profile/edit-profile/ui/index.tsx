@@ -31,12 +31,6 @@ export const EditProfileModal = () => {
 		}
 	}
 
-	useEffect(() => {
-		return () => {
-			if (previewUrl) URL.revokeObjectURL(previewUrl)
-		}
-	}, [previewUrl])
-
 	const {
 		reset,
 		control,
@@ -53,7 +47,7 @@ export const EditProfileModal = () => {
 			login: DefaultValue?.login,
 			phone_number: DefaultValue?.phone_number,
 		})
-		setPreviewUrl(DefaultValue?.profile_image)
+		setPreviewUrl(`${EnvKeys.NEXT_HOST}/${DefaultValue?.profile_image}`)
 	}, [reset])
 
 	const { mutate } = useEditProfileQuery(() => setModalType(null))
@@ -78,7 +72,7 @@ export const EditProfileModal = () => {
 				<Flex direction={"column"} gap={"0.75rem"} mb={"1rem"}>
 					<Box className={s.editModalImageWrapper}>
 						<Image
-							src={`${EnvKeys.NEXT_HOST}/${previewUrl}` || ImageUser}
+							src={previewUrl || ImageUser}
 							alt={""}
 							width={196}
 							height={196}

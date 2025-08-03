@@ -107,7 +107,7 @@ const ProfileCard = () => {
 						Phone Number:
 					</Text>
 					<Text component={"p"} className={s.titleBig}>
-						{data?.phone_number ? `+${data?.phone_number}` : "-"}
+						{data?.phone_number || "-"}
 					</Text>
 				</Flex>
 				<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>

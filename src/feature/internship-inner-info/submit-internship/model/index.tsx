@@ -1,25 +1,17 @@
 import { create } from "zustand"
 import { devtools } from "zustand/middleware"
 
-import { IAuthorizationStore, IInitialState } from "./types.ts"
+import { IInitialState, IInternshipInfoStore } from "./types.ts"
 
 const initialState: IInitialState = {
-	authorization: false,
-	authSuccess: null,
-	modalType: "login",
+	submitModal: false,
 }
 
-export const useAuthorizationStore = create<IAuthorizationStore>()(
+export const useInternshipInfoStore = create<IInternshipInfoStore>()(
 	devtools((set) => ({
 		...initialState,
-		setAuthorization: (e) => {
-			set({ authorization: e })
-		},
-		setAuthSuccess: (e) => {
-			set({ authSuccess: e })
-		},
-		setModalType: (e) => {
-			set({ modalType: e })
+		setSubmitModal: (e) => {
+			set({ submitModal: e })
 		},
 	})),
 )
