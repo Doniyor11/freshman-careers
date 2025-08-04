@@ -157,7 +157,10 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 						<Text
 							key={index}
 							className={s.navbarLink}
-							onClick={() => onLinkClick(link.label)}
+							onClick={() => {
+								onLinkClick(link.label)
+								close()
+							}}
 							p={0}
 						>
 							{link.label}
@@ -174,6 +177,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 						onClick={() => {
 							setAuthorization(true)
 							setModalType("login")
+							close()
 						}}
 						className={s.navbarButton}
 						bg={"#004C84"}
@@ -185,6 +189,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 						onClick={() => {
 							setAuthorization(true)
 							setModalType("register")
+							close()
 						}}
 						className={s.navbarButton}
 						h={'2.5rem'}

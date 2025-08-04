@@ -2,7 +2,8 @@ import IconList from "@//shared/assets/images/icon/tick-circle.svg"
 import Image1 from "@//shared/assets/images/mentorship1.png"
 import Image2 from "@//shared/assets/images/mentorship2.png"
 import { Carousel } from "@mantine/carousel"
-import { Box, Container, Grid, List, Text, ThemeIcon } from "@mantine/core"
+import { Box, Container, Flex, List, Text, ThemeIcon } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import Image from "next/image"
 import React, { useState } from "react"
 
@@ -13,6 +14,8 @@ import { Banner, TitleHead } from "@/shared/ui"
 import s from "./mentorship.module.scss"
 
 export const Mentorship = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+
 	const [index, setIndex] = useState<number>(1)
 	const companyName = ["Center for Progressive Reforms", "NazarX R&D"]
 	return (
@@ -29,7 +32,9 @@ export const Mentorship = () => {
 					controlSize={31}
 					withControls
 					withIndicators={false}
-					m={"2.5rem 0"}
+					m={
+					matches ? "1.5rem 0" : "2.5rem 0"
+					}
 					nextControlIcon={<IconArrowLeft size={16} />}
 					previousControlIcon={<IconArrowRight size={16} />}
 					onSlideChange={(e) => setIndex(e)}
@@ -39,8 +44,12 @@ export const Mentorship = () => {
 					}}
 				>
 					<Carousel.Slide>
-						<Grid m={"2.5rem 0 2.5rem 0"} gutter={"2.5rem"}>
-							<Grid.Col span={8}>
+						<Flex
+							m={"2.5rem 0 2.5rem 0"}
+							gap={"2.5rem"}
+							direction={matches ? "column-reverse" : "row"}
+						>
+							<Box w={matches ? "100%" : "70%"}>
 								<List
 									classNames={{
 										itemWrapper: s.mentorshipItemWrapper,
@@ -84,8 +93,8 @@ export const Mentorship = () => {
 										</Text>
 									</List.Item>
 								</List>
-							</Grid.Col>
-							<Grid.Col span={4}>
+							</Box>
+							<Box w={matches ? "100%" : "30%"}>
 								<Box className={s.mentorshipImage}>
 									<Image
 										src={Image1}
@@ -96,13 +105,17 @@ export const Mentorship = () => {
 										objectFit={"cover"}
 									/>
 								</Box>
-							</Grid.Col>
-						</Grid>
+							</Box>
+						</Flex>
 					</Carousel.Slide>
 
 					<Carousel.Slide>
-						<Grid m={"2.5rem 0 2.5rem 0"} gutter={"2.5rem"}>
-							<Grid.Col span={8}>
+						<Flex
+							m={"2.5rem 0 2.5rem 0"}
+							gap={"2.5rem"}
+							direction={matches ? "column-reverse" : "row"}
+						>
+							<Box w={matches ? "100%" : "70%"}>
 								<List
 									classNames={{
 										itemWrapper: s.mentorshipItemWrapper,
@@ -146,8 +159,8 @@ export const Mentorship = () => {
 										</Text>
 									</List.Item>
 								</List>
-							</Grid.Col>
-							<Grid.Col span={4}>
+							</Box>
+							<Box w={matches ? "100%" : "30%"}>
 								<Box className={s.mentorshipImage}>
 									<Image
 										src={Image2}
@@ -158,8 +171,8 @@ export const Mentorship = () => {
 										objectFit={"cover"}
 									/>
 								</Box>
-							</Grid.Col>
-						</Grid>
+							</Box>
+						</Flex>
 					</Carousel.Slide>
 				</Carousel>
 

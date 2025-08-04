@@ -34,7 +34,7 @@ export const Internships = () => {
 				<Grid gutter={
 					matches ? '1rem' : '3rem'
 				} m={"2.5rem 0 2.5rem"}>
-					{data.map((i: IGetInternship, index: number) => (
+					{data?.map((i: IGetInternship, index: number) => (
 						<Grid.Col span={
 								matches ? 12 : 4
 							} key={index}>

@@ -100,7 +100,7 @@ export const InternshipInnerInfo = () => {
 							</Text>
 						</Flex>
 						<Flex direction={"column"} gap={"0.5rem"}>
-							{dataPriceInfo.map((item, index) => (
+							{dataPriceInfo?.map((item, index) => (
 								<Text component={"p"} className={s.priceInfoText} key={index}>
 									{item.title}: <b>{item.info}</b>
 								</Text>

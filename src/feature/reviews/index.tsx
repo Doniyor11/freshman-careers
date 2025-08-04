@@ -10,8 +10,11 @@ import React from "react"
 import { Banner, TitleHead } from "@/shared/ui"
 
 import s from "./reviews.module.scss"
+import { useMediaQuery } from "@mantine/hooks"
 
 export const Reviews = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+
 	return (
 		<Box className={s.reviewsWrapper} id={"Reviews"}>
 			<Container size={"1440px"}>
@@ -37,7 +40,9 @@ export const Reviews = () => {
 				>
 					{[1, 2, 3, 4].map((item) => (
 						<Carousel.Slide key={item}>
-							<Flex h={"100%"} bg={"#FAFBFF"}>
+							<Flex h={"100%"} bg={"#FAFBFF"} direction={
+								matches ? "column" : "row"
+							}>
 								<Box className={s.reviewsWrapperImage}>
 									<Image
 										src={Image1}
@@ -47,7 +52,9 @@ export const Reviews = () => {
 										unoptimized
 									/>
 								</Box>
-								<Box className={s.reviewsWrapperContent} p={"3rem"}>
+								<Box className={s.reviewsWrapperContent} p={
+									matches ? "1rem" : "3rem"
+								}>
 									<Text component={"h3"} className={s.reviewsWrapperTitle}>
 										From E-Commerce Startups to Acceptance to Top #1 U.S.
 										Entrepreneurship University

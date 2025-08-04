@@ -1,5 +1,6 @@
 import IconArrow from "@//shared/assets/images/icon/double_arrow.svg"
 import { Box, Flex, Text } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import Image, { StaticImageData } from "next/image"
 import React, { FC } from "react"
 
@@ -18,8 +19,16 @@ export const OpportunitiesCard: FC<OpportunitiesCardIProps> = ({
 	description,
 	icon = true,
 }) => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+
 	return (
-		<Flex align={"center"} justify={"center"}>
+		<Flex
+			align={matches ? "flex-start" : "center"}
+			justify={"center"}
+			direction={"column"}
+			w={"100%"}
+
+		>
 			<Box className={s.opportunitiesCard}>
 				<Box className={s.opportunitiesCardImage}>
 					<Image src={imageSrc} alt={""} width={128} height={128} unoptimized />
