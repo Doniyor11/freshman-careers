@@ -53,7 +53,7 @@ export const Reviews = () => {
 									/>
 								</Box>
 								<Box className={s.reviewsWrapperContent} p={
-									matches ? "1rem" : "3rem"
+									matches ? "0.5rem" : "3rem"
 								}>
 									<Text component={"h3"} className={s.reviewsWrapperTitle}>
 										From E-Commerce Startups to Acceptance to Top #1 U.S.

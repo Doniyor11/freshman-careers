@@ -1,4 +1,5 @@
 import { Box, Container } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import React from "react"
 
 import Image5 from "@/shared/assets/images/internship-images/image-five.png"
@@ -10,10 +11,10 @@ import Image2 from "@/shared/assets/images/internship-images/image-two.png"
 import { Banner, OpportunitiesCard, TitleHead } from "@/shared/ui"
 
 import s from "./opportunities.module.scss"
-import { useMediaQuery } from "@mantine/hooks"
 
 export const Opportunities = () => {
 	const matches = useMediaQuery("(max-width: 1024px)")
+	const matchesMobile = useMediaQuery("(max-width: 576px)")
 
 	return (
 		<Box className={s.opportunitiesWrapper} id={"Process"}>
@@ -45,9 +46,7 @@ export const Opportunities = () => {
 						description={
 							"Submit your application through our platform and wait till our team reaches out to you with an update of your application."
 						}
-						icon={
-							matches
-						}
+						icon={matches}
 					/>
 					<OpportunitiesCard
 						imageSrc={Image4}
@@ -62,6 +61,7 @@ export const Opportunities = () => {
 						description={
 							"Congratulations! Whether it’s a think tank, lab, or startup, you’re in! If you got rejected, heads up as there are more internships on our platform."
 						}
+						icon={!matches || matchesMobile}
 					/>
 					<OpportunitiesCard
 						imageSrc={Image6}

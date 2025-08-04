@@ -1,4 +1,5 @@
 import { Box, Container, Grid } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import dayjs from "dayjs"
 import React from "react"
 
@@ -11,10 +12,11 @@ import { EnvKeys } from "@/shared/constants/env.ts"
 import { Banner, InternshipsCard, TitleHead } from "@/shared/ui"
 
 import s from "./internships.module.scss"
-import { useMediaQuery } from "@mantine/hooks"
 
 export const Internships = () => {
 	const matches = useMediaQuery("(max-width: 1024px)")
+	const matchesSmall = useMediaQuery("(max-width: 845px)")
+	const matchesMobile = useMediaQuery("(max-width: 576px)")
 
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
 		s.setAuthorization,
@@ -31,13 +33,9 @@ export const Internships = () => {
 						"Gain Industry Expertise as a High School or University Student"
 					}
 				/>
-				<Grid gutter={
-					matches ? '1rem' : '3rem'
-				} m={"2.5rem 0 2.5rem"}>
+				<Grid gutter={matches ? "1rem" : "3rem"} m={"2.5rem 0 2.5rem"}>
 					{data?.map((i: IGetInternship, index: number) => (
-						<Grid.Col span={
-								matches ? 12 : 4
-							} key={index}>
+						<Grid.Col span={matchesMobile ? 12 : matchesSmall ? 6 : matches ? 6 : 4} key={index}>
 							<InternshipsCard
 								companyName={i?.company_title}
 								imageSrc={`${EnvKeys.NEXT_HOST}/${i?.picture}`}
