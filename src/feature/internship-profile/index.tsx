@@ -1,7 +1,7 @@
 import { Filter } from "@/feature"
 import { useApplicationFilterStore } from "@/feature/filter/model"
 import { Container, Flex, Grid, Menu, Text } from "@mantine/core"
-import { useDebouncedValue } from "@mantine/hooks"
+import { useDebouncedValue, useMediaQuery } from "@mantine/hooks"
 import dayjs from "dayjs"
 import { useRouter } from "next/router"
 import React from "react"
@@ -17,6 +17,8 @@ import { InternshipsCard } from "@/shared/ui"
 import s from "./internship-profile.module.scss"
 
 export const InternshipProfile = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+	const matchesSmall = useMediaQuery("(max-width: 576px)")
 	const router = useRouter()
 	const [format, education, salary, search, date] = useApplicationFilterStore(
 		(s) => [s.format, s.education, s.salary, s.search, s.date],
@@ -35,14 +37,18 @@ export const InternshipProfile = () => {
 		<Container
 			size={"1440px"}
 			className={s.profileContainer}
-			p={"3rem 0 7.25rem 0"}
+			p={"3rem 2rem 7.25rem 2rem"}
 			bg={"#FAFBFF"}
 		>
 			<Grid>
-				<Grid.Col span={3}>
+				<Grid.Col span={
+					matches ? 12 : matchesSmall ? 12 : 3
+				}>
 					<Filter />
 				</Grid.Col>
-				<Grid.Col span={9}>
+				<Grid.Col span={
+					matches ? 12 : matchesSmall ? 12 : 9
+				}>
 					<Flex justify={"space-between"} align={"center"}>
 						<Text component={"h3"} className={s.myApplicationsTitle}>
 							My Applications
@@ -88,7 +94,9 @@ export const InternshipProfile = () => {
 					{/* ------------ Card -------------	*/}
 					<Grid mt={"1.5rem"} gutter={"1.5rem"}>
 						{data?.map((i: IGetInternship, index: number) => (
-							<Grid.Col span={4} key={index}>
+							<Grid.Col span={
+								matchesSmall ? 12 : matches ? 6 : 4
+							} key={index}>
 								<InternshipsCard
 									companyName={i?.company_title}
 									imageSrc={`${EnvKeys.NEXT_HOST}/${i?.picture}`}

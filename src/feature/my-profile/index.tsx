@@ -38,8 +38,10 @@ import { Modal } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./my-profile.module.scss"
+import { useMediaQuery } from "@mantine/hooks"
 
 export const MyProfile = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
 	const router = useRouter()
 	return (
 		<Container size={"1440px"} className={s.myProfileWrapper}>
@@ -55,17 +57,23 @@ export const MyProfile = () => {
 				</Text>
 			</Flex>
 			<Grid gutter={"1.5rem"}>
-				<Grid.Col span={3}>
+				<Grid.Col span={
+					matches ? 12 : 3
+				}>
 					<Flex direction={"column"} gap={"1.5rem"}>
 						<ProfileCard />
 						<SubscriptionCard />
 						{/*<Documents />*/}
 					</Flex>
 				</Grid.Col>
-				<Grid.Col span={9}>
+				<Grid.Col span={
+					matches ? 12 : 9
+				}>
 					{/*	 -----------  Grid start ------------ */}
 					<Grid>
-						<Grid.Col span={4}>
+						<Grid.Col span={
+							matches ? 12 : 4
+						}>
 							<Card />
 						</Grid.Col>
 					</Grid>
@@ -286,14 +294,6 @@ const SubscriptionCard = () => {
 						{!SuccessData?.success ? "Not Active" : "Active"}
 					</Text>
 				</Flex>
-				{/*<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>*/}
-				{/*	<Text component={"p"} className={s.label}>*/}
-				{/*		Tariff:*/}
-				{/*	</Text>*/}
-				{/*	<Text component={"p"} className={s.titleBig}>*/}
-				{/*		Base*/}
-				{/*	</Text>*/}
-				{/*</Flex>*/}
 				{RenewalData && (
 					<Flex direction={"column"} gap={"0.25rem"} mb={"1.5rem"}>
 						<Text component={"p"} className={s.label}>
@@ -324,7 +324,6 @@ const SubscriptionCard = () => {
 export const SubscriptionModal = () => {
 	const setSubscriptionModal = useProfileStore((s) => s.setSubscriptionModal)
 	const { data: RenewalData } = useSubscriptionRenewalQuery()
-
 	return (
 		<>
 			<Text className={s.editModalTitle} mb={"1.75rem"}>
