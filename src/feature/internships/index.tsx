@@ -29,7 +29,7 @@ export const Internships = () => {
 					}
 				/>
 				<Grid gutter={"3rem"} m={"2.5rem 0 2.5rem"}>
-					{data.map((i: IGetInternship, index: number) => (
+					{data?.map((i: IGetInternship, index: number) => (
 						<Grid.Col span={4} key={index}>
 							<InternshipsCard
 								companyName={i?.company_title}
