@@ -103,7 +103,7 @@ const BadgeGroup: React.FC<{
 			{label}
 		</Text>
 		<Flex gap={"0.38rem"} wrap={"wrap"}>
-			{options.map((option, idx) => (
+			{options?.map((option, idx) => (
 				<Badge
 					key={idx}
 					color="#848F98"

@@ -9,8 +9,11 @@ import IconFacebook from "@/shared/assets/images/icon/icon-facebook.svg"
 import IconGoogle from "@/shared/assets/images/icon/icon-google.svg"
 
 import s from "./styles.module.scss"
+import { useMediaQuery } from "@mantine/hooks"
 
 export const AuthWrapper = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+
 	const [authorization, modalType, setAuthorization, setModalType] =
 		useAuthorizationStore((s) => [
 			s.authorization,
@@ -56,7 +59,9 @@ export const AuthWrapper = () => {
 		<Modal
 			centered
 			radius={8}
-			padding={24}
+			padding={
+				matches ? "0.75rem" : 24
+			}
 			size={"auto"}
 			opened={authorization}
 			withCloseButton={false}

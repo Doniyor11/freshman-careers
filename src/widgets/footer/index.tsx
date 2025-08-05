@@ -1,9 +1,12 @@
 import { Anchor, Box, Container, Flex, Text } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import React from "react"
 
 import s from "./footer.module.scss"
 
 export const Footer = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+
 	const onLinkClick = (id: string) => {
 		const block = document.querySelector(`#${id}`)
 		if (!block) return
@@ -12,7 +15,10 @@ export const Footer = () => {
 	return (
 		<Box className={s.footerWrapper}>
 			<Container size={"1440px"}>
-				<Flex gap={"4.5rem"}>
+				<Flex
+					gap={matches ? "1rem" : "4.5rem"}
+					direction={matches ? "column" : "row"}
+				>
 					<Flex direction={"column"} gap={"0.75rem"}>
 						<Text component={"h2"} className={s.footerTitle}>
 							PROGRAMS
@@ -86,7 +92,11 @@ export const Footer = () => {
 						</Anchor>
 					</Flex>
 				</Flex>
-				<Flex justify={"center"} align={"center"} mt={"5rem"}>
+				<Flex
+					justify={"center"}
+					align={"center"}
+					mt={matches ? "1.5rem" : "5rem"}
+				>
 					<Text className={s.footerInfo}>
 						© {new Date().getFullYear()} Internship Platform. All Rights
 						Reserved

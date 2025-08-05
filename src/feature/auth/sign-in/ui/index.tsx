@@ -3,6 +3,7 @@ import { SignInScheme } from "@/feature/auth/sign-in/api/scheme.ts"
 import { ISignIn } from "@/feature/auth/sign-in/api/types.ts"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { ActionIcon, Box, Button, Flex, Text } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import cx from "clsx"
 import { useRouter } from "next/router"
 import { Controller, useForm } from "react-hook-form"
@@ -14,6 +15,8 @@ import IconClose from "@/shared/assets/images/icon/icon-close.svg"
 import { Input } from "@/shared/ui"
 
 export const SignIn = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
+
 	const router = useRouter()
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
 		s.setAuthorization,
@@ -41,7 +44,7 @@ export const SignIn = () => {
 	}
 
 	return (
-		<Box w={850} className={s.boxWrapper}>
+		<Box w={matches ? "100%" : 850} className={s.boxWrapper}>
 			<ActionIcon className={s.close} onClick={() => setAuthorization(false)}>
 				<IconClose />
 			</ActionIcon>
@@ -112,7 +115,7 @@ export const SignIn = () => {
 						<Text className={s.discountSubtitle}>
 							Get access to standard platform features for 6 months
 						</Text>
-						<Flex mt={24} gap={8} align={"center"}>
+						<Flex mt={matches ? "0.5rem" : 24} gap={8} align={"center"}>
 							<Text className={s.discountPrice}>$5.99</Text>
 							<Box>
 								<Text className={s.sup}>for 6 Months</Text>
@@ -120,7 +123,7 @@ export const SignIn = () => {
 							</Box>
 						</Flex>
 						<Button
-							m={"32px 0 8px"}
+							m={matches ? "0.5rem" : '32px 0 8px'}
 							className={cx(s.formBtn, s.signUp)}
 							onClick={() => setModalType("register")}
 						>

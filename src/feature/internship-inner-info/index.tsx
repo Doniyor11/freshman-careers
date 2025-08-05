@@ -10,6 +10,7 @@ import {
 	Modal,
 	Text,
 } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useRouter } from "next/router"
@@ -23,6 +24,7 @@ import { FilledButton } from "@/shared/ui/buttons"
 import s from "./internship-inner-info.module.scss"
 
 export const InternshipInnerInfo = () => {
+	const matches = useMediaQuery("(max-width: 1024px)")
 	const router = useRouter()
 	const [submitModal, setSubmitModal] = useInternshipInfoStore((s) => [
 		s.submitModal,
@@ -68,18 +70,27 @@ export const InternshipInnerInfo = () => {
 
 	return (
 		<Container size={"1440px"} className={s.internshipInnerInfoWrapper}>
-			<Flex onClick={() => router.push("/profile")} align={"center"} mb={12}>
+			<Flex onClick={() => router.push("/profile")} align={"center"} mb={12} p={
+				matches ? "0 2rem" : ""
+			}>
 				<IconBack />
 				<Text className={s.backText}>Go back</Text>
 			</Flex>
-			<Flex mb={"2.5rem"}>
+			<Flex mb={matches ? "1rem" : "2.5rem"} p={
+				matches ? "0 2rem" : ""
+			}>
 				<Text component={"h1"} className={s.title}>
 					{data?.title}
 				</Text>
 			</Flex>
-			<Flex gap={"2rem"}>
+			<Flex
+				gap={matches ? "1.5rem" : "2rem"}
+				direction={matches ? "column-reverse" : "row"}
+			>
 				{/* 1 */}
-				<Flex direction={"column"} flex={"auto"} justify={"space-between"}>
+				<Flex direction={"column"} flex={"auto"} justify={"space-between"} p={
+					matches ? "0 2rem" : ""
+				}>
 					<Box>
 						<Flex gap={"0.69rem"} mb={"0.5rem"} align={"center"}>
 							<Image
@@ -100,14 +111,19 @@ export const InternshipInnerInfo = () => {
 							</Text>
 						</Flex>
 						<Flex direction={"column"} gap={"0.5rem"}>
-							{dataPriceInfo.map((item, index) => (
+							{dataPriceInfo?.map((item, index) => (
 								<Text component={"p"} className={s.priceInfoText} key={index}>
 									{item.title}: <b>{item.info}</b>
 								</Text>
 							))}
 						</Flex>
 					</Box>
-					<FilledButton fullWidth h={"3.5rem"} onClick={handleOpenModal}>
+					<FilledButton
+						fullWidth
+						h={"3.5rem"}
+						onClick={handleOpenModal}
+						mt={matches ? "1.5rem" : "auto"}
+					>
 						Submit an application
 					</FilledButton>
 				</Flex>
@@ -123,7 +139,9 @@ export const InternshipInnerInfo = () => {
 				</Box>
 			</Flex>
 			{/* ----------------- Bottom info ----------------- */}
-			<Flex direction={"column"} m={"5rem 0 2.5rem 0"} gap={"0.5rem"}>
+			<Flex direction={"column"} m={"5rem 0 2.5rem 0"} gap={"0.5rem"} p={
+				matches ? "0 2rem" : ""
+			}>
 				<Text component={"p"} className={s.descriptionTitle}>
 					Description
 				</Text>
@@ -131,7 +149,14 @@ export const InternshipInnerInfo = () => {
 					{data?.description}
 				</Text>
 			</Flex>
-			<Flex m={"2.5rem 0 4rem 0"} gap={"2.5rem"}>
+			<Flex
+				m={"2.5rem 0 4rem 0"}
+				gap={"2.5rem"}
+				direction={matches ? "column" : "row"}
+				p={
+					matches ? "0 2rem" : ""
+				}
+			>
 				{/* 1 */}
 				<Flex direction={"column"} flex={1} gap={"0.5rem"}>
 					<Text component={"p"} className={s.descriptionTitle}>

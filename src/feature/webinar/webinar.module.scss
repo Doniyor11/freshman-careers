@@ -7,4 +7,11 @@
 	border-radius: 0.5rem;
 	height: 45rem;
 	margin: 2.5rem 0 2.5rem;
+	@media screen and (max-width: 1024px) {
+		height: 30rem;
+	}
+	@media screen and (max-width: 845px) {
+		height: 10rem;
+	}
+
 }

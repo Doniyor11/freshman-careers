@@ -1,68 +1,95 @@
 .mentorshipWrapper {
-	padding: 4rem 0;
+  padding: 4rem 0;
 }
 
 .mentorshipListRoot {
-	display: flex;
-	flex-direction: column;
-	gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
 .mentorshipItemWrapper {
-	align-items: flex-start;
+  align-items: flex-start;
 }
 
 .mentorshipTitle {
-	color: #004b84;
-	font-size: 1.5rem;
-	font-style: normal;
-	font-weight: 500;
-	line-height: 2rem;
+  color: #004b84;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
 }
 
 .mentorshipDescription {
-	color: #848f98;
-	font-size: 1.25rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1.75rem;
-	letter-spacing: 0.05rem;
+  color: #848f98;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.75rem;
+  letter-spacing: 0.05rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1rem;
+    letter-spacing: 0.035rem;
+  }
 }
 
 .mentorshipImage {
-	border-radius: 0.5rem;
-	overflow: hidden;
+  border-radius: 0.5rem;
+  overflow: hidden;
 
-	img {
-		width: 100%;
-		height: auto;
-		object-fit: cover;
-	}
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
 }
 
 .reviewsWrapperControls {
-	background: transparent;
+  background: transparent;
 }
 
 .mentorshipWrapperControl {
-	border: none;
-	border-radius: 0;
-	position: absolute;
-	box-shadow: none;
-	padding: 0;
-	background: transparent;
+  border: none;
+  border-radius: 0;
+  position: absolute;
+  box-shadow: none;
+  padding: 0;
+  background: transparent;
 
-	&:nth-child(1) {
-		left: -4%;
-	}
+  &:nth-child(1) {
+    left: -4%;
+    @media screen and (max-width: 1024px) {
+      left: 2%;
+    }
 
-	&:nth-child(2) {
-		right: -4%;
-	}
+    @media screen and (max-width: 845px) {
+      display: none;
+    }
+  }
 
-	svg {
-		path {
-			fill: #848f98;
-		}
-	}
+  &:nth-child(2) {
+    right: -4%;
+    @media screen and (max-width: 1024px) {
+      right: 2%;
+    }
+
+    @media screen and (max-width: 845px) {
+      display: none;
+    }
+  }
+
+  svg {
+    path {
+      fill: #848f98;
+    }
+  }
+
 }
