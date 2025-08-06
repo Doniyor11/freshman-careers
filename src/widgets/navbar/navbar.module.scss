@@ -4,7 +4,7 @@
 
 .navbar {
 	padding: 0.75rem 1.5rem;
-	@media screen and (max-width: 1024px){
+	@media screen and (max-width: 1024px) {
 		padding: 0.25rem 1rem;
 	}
 }
@@ -24,12 +24,11 @@
 	justify-content: flex-end;
 	.navbarButton {
 		border-radius: 2rem;
-		@media screen and (max-width: 1024px){
+		@media screen and (max-width: 1024px) {
 			border-radius: 0.5rem;
 		}
 	}
 }
-
 
 .navbarDrawerInner {
 	top: 4.4rem;
@@ -42,9 +41,7 @@
 .navbarDrawerBody {
 	padding: 2rem 1rem;
 	height: 100%;
-
 }
 
 .navbarDrawerContent {
-
 }

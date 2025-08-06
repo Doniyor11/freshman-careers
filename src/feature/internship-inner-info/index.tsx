@@ -44,41 +44,44 @@ export const InternshipInnerInfo = () => {
 	const dataPriceInfo = [
 		{
 			title: "Payments",
-			info: data?.payment_status,
+			info: data?.payment_status || "-",
 		},
 		{
 			title: "Education",
-			info: data?.education,
+			info: data?.education || "-",
 		},
 		{
 			title: "Format",
-			info: data?.format,
+			info: data?.format || "-",
 		},
 		{
 			title: "Schedule",
-			info: data?.schedule,
+			info: data?.schedule || "-",
 		},
 		{
 			title: "Working hours",
-			info: data?.working_hours,
+			info: data?.working_hours || "-",
 		},
 		{
 			title: "Internship dates",
-			info: `${data?.internship_start_date} - ${data?.internship_end_date}`,
+			info: `${data?.internship_start_date || "-"} - ${
+				data?.internship_end_date || "-"
+			}`,
 		},
 	]
 
 	return (
 		<Container size={"1440px"} className={s.internshipInnerInfoWrapper}>
-			<Flex onClick={() => router.push("/profile")} align={"center"} mb={12} p={
-				matches ? "0 2rem" : ""
-			}>
+			<Flex
+				onClick={() => router.push("/profile")}
+				align={"center"}
+				mb={12}
+				p={matches ? "0 2rem" : ""}
+			>
 				<IconBack />
 				<Text className={s.backText}>Go back</Text>
 			</Flex>
-			<Flex mb={matches ? "1rem" : "2.5rem"} p={
-				matches ? "0 2rem" : ""
-			}>
+			<Flex mb={matches ? "1rem" : "2.5rem"} p={matches ? "0 2rem" : ""}>
 				<Text component={"h1"} className={s.title}>
 					{data?.title}
 				</Text>
@@ -88,13 +91,16 @@ export const InternshipInnerInfo = () => {
 				direction={matches ? "column-reverse" : "row"}
 			>
 				{/* 1 */}
-				<Flex direction={"column"} flex={"auto"} justify={"space-between"} p={
-					matches ? "0 2rem" : ""
-				}>
+				<Flex
+					direction={"column"}
+					flex={"auto"}
+					justify={"space-between"}
+					p={matches ? "0 2rem" : ""}
+				>
 					<Box>
 						<Flex gap={"0.69rem"} mb={"0.5rem"} align={"center"}>
 							<Image
-								src={`${data?.company?.image}`}
+								src={`${EnvKeys.NEXT_HOST}/${data?.company_image}`}
 								alt={"apple"}
 								width={42}
 								height={42}
@@ -102,7 +108,7 @@ export const InternshipInnerInfo = () => {
 								unoptimized
 							/>
 							<Text component={"p"} className={s.infoText}>
-								{data?.company?.name}
+								{data?.company_title}
 							</Text>
 						</Flex>
 						<Flex mb={"2rem"}>
@@ -139,23 +145,24 @@ export const InternshipInnerInfo = () => {
 				</Box>
 			</Flex>
 			{/* ----------------- Bottom info ----------------- */}
-			<Flex direction={"column"} m={"5rem 0 2.5rem 0"} gap={"0.5rem"} p={
-				matches ? "0 2rem" : ""
-			}>
+			<Flex
+				direction={"column"}
+				m={"5rem 0 2.5rem 0"}
+				gap={"0.5rem"}
+				p={matches ? "0 2rem" : ""}
+			>
 				<Text component={"p"} className={s.descriptionTitle}>
 					Description
 				</Text>
 				<Text component={"p"} className={s.description}>
-					{data?.description}
+					{data?.description || "-"}
 				</Text>
 			</Flex>
 			<Flex
 				m={"2.5rem 0 4rem 0"}
 				gap={"2.5rem"}
 				direction={matches ? "column" : "row"}
-				p={
-					matches ? "0 2rem" : ""
-				}
+				p={matches ? "0 2rem" : ""}
 			>
 				{/* 1 */}
 				<Flex direction={"column"} flex={1} gap={"0.5rem"}>
@@ -165,7 +172,7 @@ export const InternshipInnerInfo = () => {
 					<List className={s.list}>
 						<List.Item>
 							<Text component={"p"} className={s.description}>
-								{data?.requirements}
+								{data?.requirements || "-"}
 							</Text>
 						</List.Item>
 					</List>
@@ -178,7 +185,7 @@ export const InternshipInnerInfo = () => {
 					<List className={s.list}>
 						<List.Item>
 							<Text component={"p"} className={s.description}>
-								{data?.conditions}
+								{data?.conditions || "-"}
 							</Text>
 						</List.Item>
 					</List>

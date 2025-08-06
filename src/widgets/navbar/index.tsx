@@ -181,7 +181,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 						}}
 						className={s.navbarButton}
 						bg={"#004C84"}
-						h={'2.5rem'}
+						h={"2.5rem"}
 					>
 						Войти
 					</FilledButton>
@@ -192,8 +192,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 							close()
 						}}
 						className={s.navbarButton}
-						h={'2.5rem'}
-
+						h={"2.5rem"}
 					>
 						Зарегистрироваться
 					</FilledButton>

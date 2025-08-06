@@ -15,11 +15,11 @@
 		object-fit: cover;
 		border-radius: 0.5rem;
 	}
-	@media screen and (max-width: 1024px){
+	@media screen and (max-width: 1024px) {
 		height: 20rem;
 		overflow: inherit;
 	}
-	@media screen and (max-width: 845px){
+	@media screen and (max-width: 845px) {
 		height: 12.25rem;
 	}
 }
@@ -53,7 +53,7 @@
 	&:not(:last-child) {
 		margin-bottom: 1.5rem;
 	}
-	@media screen and (max-width: 1024px){
+	@media screen and (max-width: 1024px) {
 		font-size: 0.75rem;
 		font-weight: 400;
 		line-height: 1rem;
@@ -88,14 +88,14 @@
 
 	&:nth-child(1) {
 		left: -4%;
-		@media screen and (max-width: 1024px){
+		@media screen and (max-width: 1024px) {
 			display: none;
 		}
 	}
 
 	&:nth-child(2) {
 		right: -4%;
-		@media screen and (max-width: 1024px){
+		@media screen and (max-width: 1024px) {
 			display: none;
 		}
 	}

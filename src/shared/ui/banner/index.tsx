@@ -33,9 +33,7 @@ export const Banner = () => {
 					Start your path to an internship today!
 				</Text>
 				<FilledButton
-					h={
-						matches ? "2.5rem" : "3.75rem"
-					}
+					h={matches ? "2.5rem" : "3.75rem"}
 					p={"0rem 1.5rem"}
 					onClick={handleOpen}
 					fullWidth={matches}

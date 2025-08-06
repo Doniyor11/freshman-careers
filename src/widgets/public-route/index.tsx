@@ -2,6 +2,7 @@ import { Center, Loader } from "@mantine/core"
 import Cookies from "js-cookie"
 import { useRouter } from "next/router"
 import { ReactNode, useEffect } from "react"
+import { toast } from "react-toastify"
 
 import { TOKEN } from "@/shared/constants/env"
 
@@ -14,6 +15,19 @@ const PublicRoute = ({ children }: { children: ReactNode }) => {
 			router.push("/profile")
 		}
 	}, [token, router])
+
+	useEffect(() => {
+		const url = new URL(window.location.href)
+		const accessToken = url.searchParams.get("access_token")
+
+		if (accessToken) {
+			Cookies.set(TOKEN.AUTH_TOKEN, accessToken)
+			router.push("/profile")
+			toast.success("Authorization successful")
+		} else {
+			console.error("Access token topilmadi")
+		}
+	}, [])
 
 	if (token) {
 		return (
