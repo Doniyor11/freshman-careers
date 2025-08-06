@@ -205,7 +205,7 @@ const Card = () => {
 	const router = useRouter()
 	const { data } = useGetResponsesQuery()
 
-	return data.length > 0 ? (
+	return data?.length > 0 ? (
 		data?.map((i: IResponse, index: number) => (
 			<Box className={s.internshipsCardWrapper} key={index}>
 				<Flex
