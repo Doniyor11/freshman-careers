@@ -183,7 +183,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 						bg={"#004C84"}
 						h={"2.5rem"}
 					>
-						Войти
+						Sign In
 					</FilledButton>
 					<FilledButton
 						onClick={() => {
@@ -194,7 +194,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 						className={s.navbarButton}
 						h={"2.5rem"}
 					>
-						Зарегистрироваться
+						Sign Up
 					</FilledButton>
 				</Flex>
 			</Flex>
