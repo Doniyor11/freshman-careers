@@ -13,7 +13,7 @@ export const PaySubscriptionModal = () => {
 	const { mutate, isPending, data } = useSubscriptionQuery()
 	useEffect(() => {
 		if (data?.checkout_url) {
-			window.open(data.checkout_url, "_blank")
+			window.open(data.checkout_url)
 			setSubscriptionModal(null)
 		}
 	}, [data?.checkout_url])

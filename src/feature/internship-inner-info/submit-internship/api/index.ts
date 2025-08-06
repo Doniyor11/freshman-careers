@@ -15,12 +15,16 @@ export const submitApi = async (data: ISubmit) => {
 	formData.append("past_experience", data?.past_experience)
 	formData.append("additional_circumstances", data?.additional_circumstances)
 
+	if (data?.internship_id) {
+		formData.append("internship_id", data?.internship_id.toString())
+	}
+
 	if (data?.cv) {
 		formData.append("cv", data?.cv)
 	}
 
 	if (data?.supporting_documents) {
-		formData.append("cv", data?.supporting_documents)
+		formData.append("supporting_documents", data?.supporting_documents)
 	}
 
 	const response = await clientApi.post(apiKeys.applicationsSubmit, formData)

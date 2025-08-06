@@ -13,14 +13,14 @@
 }
 
 .title {
-	color: #001c31;
-	text-align: center;
-	font-size: 2.5rem;
-	font-style: normal;
-	font-weight: 600;
-	line-height: 3rem;
-	@media screen and (max-width: 1024px) {
-		font-size: 1.75rem;
+  color: #001c31;
+  text-align: center;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 3rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1.75rem;
     font-weight: 600;
     line-height: 2rem;
   }
@@ -55,6 +55,7 @@
   height: 4rem;
   border-radius: 0.5rem;
   overflow: hidden;
+  background: rgb(250, 251, 255);
 
   img {
     width: 100%;
@@ -210,7 +211,7 @@
   line-height: 1.25rem;
   letter-spacing: 0.04rem;
   margin-bottom: 2rem;
-  @media screen and (max-width: 1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 0.75rem;
     font-style: normal;
     font-weight: 400;
