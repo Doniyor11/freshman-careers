@@ -12,7 +12,7 @@ import { Controller, useForm } from "react-hook-form"
 
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
 
-import ImageUser from "@/shared/assets/images/image.png"
+import ImageUser from "@/shared/assets/images/user-profile.png"
 import { EnvKeys } from "@/shared/constants/env.ts"
 import { Input } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
@@ -49,8 +49,12 @@ export const EditProfileModal = () => {
 			login: DefaultValue?.login,
 			phone_number: DefaultValue?.phone_number,
 		})
-		setPreviewUrl(`${EnvKeys.NEXT_HOST}/${DefaultValue?.profile_image}`)
-	}, [reset])
+		setPreviewUrl(
+			DefaultValue?.profile_image
+				? `${EnvKeys.NEXT_HOST}/${DefaultValue?.profile_image}`
+				: `${ImageUser.src}`,
+		)
+	}, [reset, DefaultValue])
 
 	const { mutate } = useEditProfileQuery(() => setModalType(null))
 
@@ -74,7 +78,7 @@ export const EditProfileModal = () => {
 				<Flex direction={"column"} gap={"0.75rem"} mb={"1rem"}>
 					<Box className={s.editModalImageWrapper}>
 						<Image
-							src={previewUrl || ImageUser}
+							src={previewUrl as any}
 							alt={""}
 							width={196}
 							height={196}

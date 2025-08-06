@@ -38,7 +38,6 @@ export const AuthWrapper = () => {
 			<Anchor
 				className={s.socialAuth}
 				href="https://api.freshman.careers/account/login/google"
-				target={"_blank"}
 			>
 				<IconGoogle />
 				<Text>Continue with Google</Text>
@@ -47,7 +46,6 @@ export const AuthWrapper = () => {
 			<Anchor
 				className={s.socialAuth}
 				href="https://api.freshman.careers/account/login/facebook"
-				target={"_blank"}
 			>
 				<IconFacebook />
 				<Text>Continue with Facebook</Text>

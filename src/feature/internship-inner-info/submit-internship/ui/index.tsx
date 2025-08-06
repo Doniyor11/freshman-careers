@@ -5,14 +5,18 @@ import { useInternshipInfoStore } from "@/feature/internship-inner-info/submit-i
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Button, FileButton, Flex, Input, Text } from "@mantine/core"
 import cx from "clsx"
+import { useParams } from "next/navigation"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
+import { toast } from "react-toastify"
 
 import IconUpload from "@/shared/assets/images/icon/upload.svg"
+import { handleFileUpload } from "@/shared/libs/functions.ts"
 
 import s from "./styles.module.scss"
 
 export const SubmitInternship = () => {
+	const params = useParams()
 	const setSubmitModal = useInternshipInfoStore((s) => s.setSubmitModal)
 
 	const [cvFile, setCvFile] = useState<File | null>(null)
@@ -36,6 +40,7 @@ export const SubmitInternship = () => {
 	const onSubmit = (data: ISubmit) => {
 		mutate({
 			...data,
+			internship_id: Number(params?.id),
 			cv: cvFile ? cvFile : undefined,
 			supporting_documents: documents ? documents : undefined,
 		})
@@ -183,10 +188,16 @@ export const SubmitInternship = () => {
 						}
 					>
 						<FileButton
-							onChange={(e) => {
-								setCvFile(e)
-								field.onChange(e)
-							}}
+							onChange={(file) =>
+								handleFileUpload(
+									file,
+									(f) => {
+										setCvFile(f)
+										field.onChange(f)
+									},
+									{ onError: (msg) => toast.error(msg) },
+								)
+							}
 							accept="application/pdf"
 						>
 							{(props) => (
@@ -226,10 +237,16 @@ export const SubmitInternship = () => {
 						}
 					>
 						<FileButton
-							onChange={(e) => {
-								setDocuments(e)
-								field.onChange(e)
-							}}
+							onChange={(file) =>
+								handleFileUpload(
+									file,
+									(f) => {
+										setDocuments(f)
+										field.onChange(f)
+									},
+									{ onError: (msg) => toast.error(msg) },
+								)
+							}
 							accept="application/pdf"
 						>
 							{(props) => (

@@ -2,6 +2,7 @@ import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
 import IconDoc from "@//shared/assets/images/icon/document-text.svg"
 import IconDownload from "@//shared/assets/images/icon/download.svg"
 import IconTrash from "@//shared/assets/images/icon/trash.svg"
+import UserImage from "@//shared/assets/images/user-profile.png"
 import { ChangePasswordProfileModal } from "@/feature/my-profile/change-password/ui"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
@@ -96,12 +97,17 @@ const ProfileCard = () => {
 					</Text>
 					<Box className={s.imageWrapper}>
 						<Image
-							src={`${EnvKeys.NEXT_HOST}/${data?.profile_image}`}
+							src={
+								data?.profile_image
+									? `${EnvKeys.NEXT_HOST}/${data?.profile_image}`
+									: UserImage
+							}
 							alt={""}
 							width={64}
 							height={64}
 							unoptimized
 						/>
+						aaa
 					</Box>
 				</Flex>
 				<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>
@@ -205,7 +211,7 @@ const Card = () => {
 	const router = useRouter()
 	const { data } = useGetResponsesQuery()
 
-	return data.length > 0 ? (
+	return data?.length > 0 ? (
 		data?.map((i: IResponse, index: number) => (
 			<Box className={s.internshipsCardWrapper} key={index}>
 				<Flex
