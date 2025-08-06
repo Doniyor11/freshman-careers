@@ -96,7 +96,7 @@ const ProfileCard = () => {
 					<Text component={"p"} className={s.label}>
 						Profile Image
 					</Text>
-					<Box className={s.imageWrapper}>s
+					<Box className={s.imageWrapper}>
 						<Image
 							src={`${EnvKeys.NEXT_HOST}/${data?.profile_image}`}
 							alt={""}
