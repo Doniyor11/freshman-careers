@@ -72,7 +72,7 @@ export const Navbar = () => {
 								router.push("/")
 							}}
 							flex={matches ? "1" : "unset"}
-							p={"0.375rem 0.75rem"}
+							p={"0.375rem 0"}
 						>
 							<Text component={"p"}>Freshman</Text>
 							<Text component={"span"}>Careers</Text>
@@ -107,7 +107,7 @@ export const Navbar = () => {
 						) : null}
 						{matches ? (
 							<>
-								<Burger color={"#004C84"} opened={opened} onClick={toggle} />
+								<Burger color={"#004C84"} opened={opened} onClick={toggle} size={'sm'}/>
 								<MobileDrawer opened={opened} close={toggle} />
 							</>
 						) : null}
@@ -183,7 +183,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 						bg={"#004C84"}
 						h={'2.5rem'}
 					>
-						Войти
+						Sign In
 					</FilledButton>
 					<FilledButton
 						onClick={() => {
@@ -195,7 +195,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
 						h={'2.5rem'}
 
 					>
-						Зарегистрироваться
+						Sign Up
 					</FilledButton>
 				</Flex>
 			</Flex>

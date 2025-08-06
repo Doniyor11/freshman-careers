@@ -51,7 +51,9 @@ export const MyProfile = () => {
 					Go back
 				</Text>
 			</Flex>
-			<Flex mb={"2.5rem"}>
+			<Flex mb={
+				matches ? "1.5rem" : "2.5rem"
+			}>
 				<Text component={"h1"} className={s.title}>
 					My profile
 				</Text>
@@ -100,7 +102,7 @@ const ProfileCard = () => {
 					<Text component={"p"} className={s.label}>
 						Profile Image
 					</Text>
-					<Box className={s.imageWrapper}>
+					<Box className={s.imageWrapper}>s
 						<Image
 							src={`${EnvKeys.NEXT_HOST}/${data?.profile_image}`}
 							alt={""}
