@@ -15,7 +15,8 @@ import s from "./styles.module.scss"
 export const SubmitInternship = () => {
 	const setSubmitModal = useInternshipInfoStore((s) => s.setSubmitModal)
 
-	const [file, setFile] = useState<File | null>(null)
+	const [cvFile, setCvFile] = useState<File | null>(null)
+	const [documents, setDocuments] = useState<File | null>(null)
 
 	const {
 		reset,
@@ -27,11 +28,16 @@ export const SubmitInternship = () => {
 		resolver: yupResolver(SubmitScheme),
 	})
 
-	const { mutate, isPending } = useSubmitQuery(() => setSubmitModal(false))
+	const { mutate, isPending } = useSubmitQuery(() => {
+		setSubmitModal(false)
+		reset({})
+	})
+
 	const onSubmit = (data: ISubmit) => {
 		mutate({
 			...data,
-			cv: file ? file : undefined,
+			cv: cvFile ? cvFile : undefined,
+			supporting_documents: documents ? documents : undefined,
 		})
 	}
 
@@ -178,7 +184,7 @@ export const SubmitInternship = () => {
 					>
 						<FileButton
 							onChange={(e) => {
-								setFile(e)
+								setCvFile(e)
 								field.onChange(e)
 							}}
 							accept="application/pdf"
@@ -187,15 +193,15 @@ export const SubmitInternship = () => {
 								<Flex align={"center"} gap={12} mt={8}>
 									<Button
 										leftSection={<IconUpload />}
-										className={cx(s.fileBtn, { [s.success]: !!file })}
+										className={cx(s.fileBtn, { [s.success]: !!cvFile })}
 										{...props}
 									>
 										Add file
 									</Button>
 
-									{file && (
+									{cvFile && (
 										<Text className={s.fileLabel}>
-											Picked file: {file.name}
+											Picked file: {cvFile.name}
 										</Text>
 									)}
 								</Flex>
@@ -205,34 +211,49 @@ export const SubmitInternship = () => {
 				)}
 			/>
 
-			{/*<Input.Wrapper*/}
-			{/*	className={s.inputWrapper}*/}
-			{/*	required*/}
-			{/*	label={*/}
-			{/*		"Attach other supporting documents (IELTS certificates, awards, recommendation letters, etc.) "*/}
-			{/*	}*/}
-			{/*	description={*/}
-			{/*		"Upload 1 file of supported type. File size – no more than 10 MB."*/}
-			{/*	}*/}
-			{/*>*/}
-			{/*	<FileButton onChange={setFile} accept="application/pdf">*/}
-			{/*		{(props) => (*/}
-			{/*			<Flex align={"center"} gap={12} mt={8}>*/}
-			{/*				<Button*/}
-			{/*					leftSection={<IconUpload />}*/}
-			{/*					className={cx(s.fileBtn, { [s.success]: !!file })}*/}
-			{/*					{...props}*/}
-			{/*				>*/}
-			{/*					Add file*/}
-			{/*				</Button>*/}
+			<Controller
+				name={"supporting_documents"}
+				control={control}
+				render={({ field }) => (
+					<Input.Wrapper
+						className={s.inputWrapper}
+						required
+						label={
+							"Attach other supporting documents (IELTS certificates, awards, recommendation letters, etc.) "
+						}
+						description={
+							"Upload 1 file of supported type. File size – no more than 10 MB."
+						}
+					>
+						<FileButton
+							onChange={(e) => {
+								setDocuments(e)
+								field.onChange(e)
+							}}
+							accept="application/pdf"
+						>
+							{(props) => (
+								<Flex align={"center"} gap={12} mt={8}>
+									<Button
+										leftSection={<IconUpload />}
+										className={cx(s.fileBtn, { [s.success]: !!documents })}
+										{...props}
+									>
+										Add file
+									</Button>
 
-			{/*				{file && (*/}
-			{/*					<Text className={s.fileLabel}>Picked file: {file.name}</Text>*/}
-			{/*				)}*/}
-			{/*			</Flex>*/}
-			{/*		)}*/}
-			{/*	</FileButton>*/}
-			{/*</Input.Wrapper>*/}
+									{documents && (
+										<Text className={s.fileLabel}>
+											Picked file: {documents.name}
+										</Text>
+									)}
+								</Flex>
+							)}
+						</FileButton>
+					</Input.Wrapper>
+				)}
+			/>
+
 			<Flex align={"center"} gap={16} mt={24}>
 				<Button
 					type={"submit"}
@@ -245,7 +266,8 @@ export const SubmitInternship = () => {
 				<Button
 					className={cx(s.btnSubmit, s.btnClear)}
 					onClick={() => {
-						setFile(null)
+						setDocuments(null)
+						setCvFile(null)
 						reset({})
 					}}
 				>

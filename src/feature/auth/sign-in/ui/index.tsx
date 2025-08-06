@@ -26,9 +26,9 @@ export const SignIn = () => {
 	const {
 		control,
 		handleSubmit,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 	} = useForm<ISignIn>({
-		mode: "onChange",
+		mode: "onBlur",
 		resolver: yupResolver(SignInScheme),
 	})
 	const { mutate, isPending } = useSignInQuery(() => {
@@ -67,7 +67,12 @@ export const SignIn = () => {
 							name={"username"}
 							control={control}
 							render={({ field }) => (
-								<Input height={64} label={"Email"} {...field} />
+								<Input
+									error={errors?.username?.message}
+									height={64}
+									label={"Email"}
+									{...field}
+								/>
 							)}
 						/>
 
@@ -80,6 +85,7 @@ export const SignIn = () => {
 									mt={16}
 									label={"Password"}
 									type={"password"}
+									error={errors?.password?.message}
 									{...field}
 								/>
 							)}
@@ -123,7 +129,7 @@ export const SignIn = () => {
 							</Box>
 						</Flex>
 						<Button
-							m={matches ? "0.5rem" : '32px 0 8px'}
+							m={matches ? "0.5rem" : "32px 0 8px"}
 							className={cx(s.formBtn, s.signUp)}
 							onClick={() => setModalType("register")}
 						>

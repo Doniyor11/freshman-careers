@@ -8,4 +8,5 @@ export interface ISubmit {
 	past_experience: string
 	additional_circumstances: string
 	cv?: File | null
+	supporting_documents?: File | null
 }

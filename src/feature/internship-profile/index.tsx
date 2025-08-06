@@ -1,6 +1,6 @@
 import { Filter } from "@/feature"
 import { useApplicationFilterStore } from "@/feature/filter/model"
-import { Container, Flex, Grid, Menu, Text } from "@mantine/core"
+import { Box, Container, Flex, Grid, Menu, Text } from "@mantine/core"
 import { useDebouncedValue, useMediaQuery } from "@mantine/hooks"
 import dayjs from "dayjs"
 import { useRouter } from "next/router"
@@ -41,14 +41,10 @@ export const InternshipProfile = () => {
 			bg={"#FAFBFF"}
 		>
 			<Grid>
-				<Grid.Col span={
-					matches ? 12 : matchesSmall ? 12 : 3
-				}>
+				<Grid.Col span={matches ? 12 : matchesSmall ? 12 : 3}>
 					<Filter />
 				</Grid.Col>
-				<Grid.Col span={
-					matches ? 12 : matchesSmall ? 12 : 9
-				}>
+				<Grid.Col span={matches ? 12 : matchesSmall ? 12 : 9}>
 					<Flex justify={"space-between"} align={"center"}>
 						<Text component={"h3"} className={s.myApplicationsTitle}>
 							My Applications
@@ -92,34 +88,41 @@ export const InternshipProfile = () => {
 						</Menu>
 					</Flex>
 					{/* ------------ Card -------------	*/}
-					<Grid mt={"1.5rem"} gutter={"1.5rem"}>
-						{data?.map((i: IGetInternship, index: number) => (
-							<Grid.Col span={
-								matchesSmall ? 12 : matches ? 6 : 4
-							} key={index}>
-								<InternshipsCard
-									companyName={i?.company_title}
-									imageSrc={`${EnvKeys.NEXT_HOST}/${i?.picture}`}
-									imageAlt={i?.title}
-									iconSrc={`${EnvKeys.NEXT_HOST}/${i?.company_image}`}
-									iconAlt={i?.company_title}
-									day={
-										i?.date_posted &&
-										dayjs(i.date_posted).isSame(dayjs(), "day")
-											? "today"
-											: dayjs(i.date_posted).format("DD.MM.YYYY")
-									}
-									title={i?.title}
-									description={i?.description}
-									datesLabel={"Internship Dates:"}
-									dates={`${dayjs(i?.internship_start_date).format(
-										"DD.MM.YYYY",
-									)} - ${dayjs(i?.internship_end_date).format("DD.MM.YYYY")}`}
-									onApply={() => router.push(`/internship-inner/${i?.id}`)}
-								/>
-							</Grid.Col>
-						))}
-					</Grid>
+					{data?.length > 0 ? (
+						<Grid mt={"1.5rem"} gutter={"1.5rem"}>
+							{data?.map((i: IGetInternship, index: number) => (
+								<Grid.Col
+									span={matchesSmall ? 12 : matches ? 6 : 4}
+									key={index}
+								>
+									<InternshipsCard
+										companyName={i?.company_title}
+										imageSrc={`${EnvKeys.NEXT_HOST}/${i?.picture}`}
+										imageAlt={i?.title}
+										iconSrc={`${EnvKeys.NEXT_HOST}/${i?.company_image}`}
+										iconAlt={i?.company_title}
+										day={
+											i?.date_posted &&
+											dayjs(i.date_posted).isSame(dayjs(), "day")
+												? "today"
+												: dayjs(i.date_posted).format("DD.MM.YYYY")
+										}
+										title={i?.title}
+										description={i?.description}
+										datesLabel={"Internship Dates:"}
+										dates={`${dayjs(i?.internship_start_date).format(
+											"DD.MM.YYYY",
+										)} - ${dayjs(i?.internship_end_date).format("DD.MM.YYYY")}`}
+										onApply={() => router.push(`/internship-inner/${i?.id}`)}
+									/>
+								</Grid.Col>
+							))}
+						</Grid>
+					) : (
+						<Box className={"no-data"}>
+							<Text>No data available</Text>
+						</Box>
+					)}
 					{/* ------------ Card -------------	*/}
 				</Grid.Col>
 			</Grid>

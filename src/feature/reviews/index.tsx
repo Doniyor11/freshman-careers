@@ -4,13 +4,13 @@ import Image1 from "@//shared/assets/images/image3.png"
 import { Carousel } from "@mantine/carousel"
 import "@mantine/carousel/styles.css"
 import { Box, Container, Flex, Text } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import Image from "next/image"
 import React from "react"
 
 import { Banner, TitleHead } from "@/shared/ui"
 
 import s from "./reviews.module.scss"
-import { useMediaQuery } from "@mantine/hooks"
 
 export const Reviews = () => {
 	const matches = useMediaQuery("(max-width: 1024px)")
@@ -40,9 +40,11 @@ export const Reviews = () => {
 				>
 					{[1, 2, 3, 4].map((item) => (
 						<Carousel.Slide key={item}>
-							<Flex h={"100%"} bg={"#FAFBFF"} direction={
-								matches ? "column" : "row"
-							}>
+							<Flex
+								h={"100%"}
+								bg={"#FAFBFF"}
+								direction={matches ? "column" : "row"}
+							>
 								<Box className={s.reviewsWrapperImage}>
 									<Image
 										src={Image1}
@@ -52,9 +54,10 @@ export const Reviews = () => {
 										unoptimized
 									/>
 								</Box>
-								<Box className={s.reviewsWrapperContent} p={
-									matches ? "0.5rem" : "3rem"
-								}>
+								<Box
+									className={s.reviewsWrapperContent}
+									p={matches ? "0.5rem" : "3rem"}
+								>
 									<Text component={"h3"} className={s.reviewsWrapperTitle}>
 										From E-Commerce Startups to Acceptance to Top #1 U.S.
 										Entrepreneurship University

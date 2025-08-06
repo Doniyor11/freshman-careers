@@ -32,9 +32,7 @@ export const Mentorship = () => {
 					controlSize={31}
 					withControls
 					withIndicators={false}
-					m={
-					matches ? "1.5rem 0" : "2.5rem 0"
-					}
+					m={matches ? "1.5rem 0" : "2.5rem 0"}
 					nextControlIcon={<IconArrowLeft size={16} />}
 					previousControlIcon={<IconArrowRight size={16} />}
 					onSlideChange={(e) => setIndex(e)}

@@ -13,14 +13,14 @@
 }
 
 .title {
-  color: #001c31;
-  text-align: center;
-  font-size: 2.5rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 3rem;
-  @media screen and (max-width: 1024px) {
-    font-size: 1.75rem;
+	color: #001c31;
+	text-align: center;
+	font-size: 2.5rem;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 3rem;
+	@media screen and (max-width: 1024px) {
+		font-size: 1.75rem;
     font-weight: 600;
     line-height: 2rem;
   }
