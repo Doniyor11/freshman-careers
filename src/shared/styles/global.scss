@@ -43,6 +43,12 @@ a {
 		letter-spacing: 0.58rem;
 		text-transform: uppercase;
 	}
+	@media screen and (max-width: 768px){
+		padding-left: 6.5% !important;
+	}
+	@media screen and (max-width: 414px){
+		padding-left: 11% !important;
+	}
 }
 
 .input-custom {

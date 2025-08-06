@@ -1,409 +1,410 @@
 .myProfileWrapper {
-	padding: 3rem 2rem 4rem 2rem;
+  padding: 3rem 2rem 4rem 2rem;
 }
 
 .backText {
-	color: #004b84;
-	font-size: 1rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1.25rem;
-	letter-spacing: -0.02rem;
-	cursor: pointer;
+  color: #004b84;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  letter-spacing: -0.02rem;
+  cursor: pointer;
 }
 
 .title {
-	color: #001c31;
-	text-align: center;
-	font-size: 2.5rem;
-	font-style: normal;
-	font-weight: 600;
-	line-height: 3rem;
-	@media screen and (max-width: 1024px) {
-		font-weight: 600;
-		line-height: 2rem;
-	}
+  color: #001c31;
+  text-align: center;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 3rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 2rem;
+  }
 }
 
 .card {
-	border-radius: 0.5rem;
-	background: #fff;
-	padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 1.5rem;
 }
 
 .cardTitle {
-	color: #000;
-	font-size: 1rem;
-	font-style: normal;
-	font-weight: 500;
-	line-height: 1.25rem;
-	letter-spacing: -0.02rem;
+  color: #000;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+  letter-spacing: -0.02rem;
 }
 
 .label {
-	color: #848f98;
-	font-size: 0.875rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1.25rem;
-	letter-spacing: 0.0175rem;
+  color: #848f98;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  letter-spacing: 0.0175rem;
 }
 
 .imageWrapper {
-	width: 4rem;
-	height: 4rem;
-	border-radius: 0.5rem;
-	overflow: hidden;
-	background: rgb(250, 251, 255);
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: rgb(250, 251, 255);
 
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .titleBig {
-	color: #001c31;
-	font-variant-numeric: lining-nums proportional-nums;
-	font-size: 1.25rem;
-	font-style: normal;
-	font-weight: 500;
-	line-height: 1.5rem;
+  color: #001c31;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem;
 
-	&.textOverflow {
-		text-overflow: ellipsis;
-		width: 100%;
-		overflow: hidden;
-		white-space: nowrap;
-	}
+  &.textOverflow {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 
 .documentList {
-	padding: 0.75rem 0;
-	border-bottom: 1px solid #e2eaff;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e2eaff;
 
-	&:last-child {
-		border-bottom: none;
-	}
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .documentTitle {
-	color: #001c31;
-	font-size: 1rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1.25rem;
-	letter-spacing: 0.02rem;
+  color: #001c31;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  letter-spacing: 0.02rem;
 }
 
 .documentLabel {
-	color: #848f98;
-	font-size: 0.75rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1rem;
+  color: #848f98;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
 }
 
 .internshipsCardWrapper {
-	border-radius: 0.5rem;
-	background: #fff;
+  border-radius: 0.5rem;
+  background: #fff;
 }
 
 .internshipsCardHead {
-	border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
 }
 
 .internshipsCardContent {
-	padding: 1.5rem;
+  padding: 1.5rem;
 
-	.companyName {
-		color: #001c31;
-		font-size: 16px;
-		font-weight: 400;
-		line-height: 20px;
-		letter-spacing: 0.32px;
-	}
+  .companyName {
+    color: #001c31;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.32px;
+  }
 }
 
 .internshipsCardIcon {
-	width: 2rem;
-	height: 2rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-	}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 }
 
 .internshipsCardDay {
-	color: #848f98;
-	font-size: 0.875rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1rem;
-	font-family: "Inter", sans-serif;
+  color: #848f98;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+  font-family: "Inter", sans-serif;
 }
 
 .internshipsCardTitle {
-	color: #001c31;
-	font-size: 1.25rem;
-	font-style: normal;
-	font-weight: 500;
-	line-height: 1.5rem;
+  color: #001c31;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem;
 }
 
 .status {
-	font-size: 0.875rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1rem;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
 }
 
 .internshipsCardDescription {
-	overflow: hidden;
-	color: #848f98;
-	text-overflow: ellipsis;
-	font-size: 0.875rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1.25rem;
+  overflow: hidden;
+  color: #848f98;
+  text-overflow: ellipsis;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
 
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .internshipsCardDate {
-	color: #001c31;
-	font-family: "Inter", sans-serif;
-	font-size: 0.875rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1.25rem;
-	letter-spacing: 0.0175rem;
+  color: #001c31;
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  letter-spacing: 0.0175rem;
 }
 
 .editModalTitle {
-	color: #001c31;
-	font-size: 2.5rem;
-	font-style: normal;
-	font-weight: 500;
-	line-height: 3rem;
-	margin-bottom: 0.25rem;
-	@media screen and (max-width: 1024px) {
-		font-size: 1rem;
-		font-weight: 500;
-		line-height: 1.25rem;
-	}
+  color: #001c31;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 3rem;
+  margin-bottom: 0.25rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
 }
 
 .editModalDescription {
-	color: #848f98;
-	font-size: 1rem;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 1.25rem;
-	letter-spacing: 0.04rem;
-	margin-bottom: 2rem;
-	@media screen and (max-width: 1024px) {
-		font-size: 0.75rem;
-		font-style: normal;
-		font-weight: 400;
-		line-height: 1rem;
-		margin-bottom: 1rem;
-	}
+  color: #848f98;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  letter-spacing: 0.04rem;
+  margin-bottom: 2rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .editModalImageWrapper {
-	width: 12.25rem;
-	height: 12.25rem;
-	border-radius: 0.5rem;
-	overflow: hidden;
+  width: 12.25rem;
+  height: 12.25rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
 
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .pricingCardContainer {
-	padding: 0.75rem 0.25rem 0.25rem 0.25rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	border-radius: 0.5rem;
-	background: #ff6a00;
+  padding: 0.75rem 0.25rem 0.25rem 0.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: #ff6a00;
 
-	.pricingCard {
-		overflow: hidden;
-		background: #fafbff;
-		border-radius: 0.5rem;
-		padding: 1.5rem 1.5rem 2.75rem 1rem;
-		@media screen and (max-width: 1024px) {
-			padding: 1rem;
-		}
-	}
+  .pricingCard {
+    overflow: hidden;
+    background: #fafbff;
+    border-radius: 0.5rem;
+    padding: 1.5rem 1.5rem 2.75rem 1rem;
+    @media screen and (max-width: 1024px) {
+      padding: 1rem;
+    }
+  }
 
-	.discountHeader {
-		background-color: #ff6a00;
-		padding: 0 0 0.75rem 0;
-		color: #fff;
-		font-variant-numeric: lining-nums proportional-nums;
-		font-size: 1rem;
-		text-align: center;
-		font-style: normal;
-		font-weight: 600;
-		line-height: 1.25rem;
-		letter-spacing: 0.1rem;
-		text-transform: uppercase;
-	}
+  .discountHeader {
+    background-color: #ff6a00;
+    padding: 0 0 0.75rem 0;
+    color: #fff;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-size: 1rem;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.25rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+  }
 
-	.cardContent {
-	}
+  .cardContent {
+  }
 
-	.cardContentTop {
-		border-bottom: 1px solid #e2eaff;
-		padding-bottom: 1.5rem;
-	}
+  .cardContentTop {
+    border-bottom: 1px solid #e2eaff;
+    padding-bottom: 1.5rem;
+  }
 
-	.cardContentTitle {
-		color: #001c31;
-		font-variant-numeric: lining-nums proportional-nums;
-		font-size: 1.5rem;
-		font-style: normal;
-		font-weight: 500;
-		line-height: 1.75rem;
-	}
+  .cardContentTitle {
+    color: #001c31;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.75rem;
+  }
 
-	.cardContentDescription {
-		overflow: hidden;
-		color: #848f98;
-		text-overflow: ellipsis;
-		font-size: 1rem;
-		font-style: normal;
-		font-weight: 400;
-		line-height: 1.25rem;
-	}
+  .cardContentDescription {
+    overflow: hidden;
+    color: #848f98;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25rem;
+  }
 
-	.cardContentPrice {
-		color: #001c31;
-		font-size: 3rem;
-		font-style: normal;
-		font-weight: 500;
-		line-height: 3.5rem;
-	}
+  .cardContentPrice {
+    color: #001c31;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 3.5rem;
+  }
 
-	.priceSectionMonth {
-		color: #848f98;
-		font-size: 1.25rem;
-		font-style: normal;
-		font-weight: 400;
-		line-height: 1.5rem;
-	}
+  .priceSectionMonth {
+    color: #848f98;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+  }
 
-	.priceSectionInfo {
-		color: #001c31;
-		font-size: 1.25rem;
-		font-weight: 600;
-		line-height: 1.5rem;
-		text-decoration: line-through #ff6a00;
-	}
+  .priceSectionInfo {
+    color: #001c31;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    text-decoration: line-through #ff6a00;
+  }
 
-	.pricingCardBottomText {
-		overflow: hidden;
-		color: #848f98;
-		text-align: center;
-		text-overflow: ellipsis;
-		font-size: 1rem;
-		font-style: normal;
-		font-weight: 400;
-		line-height: 1.25rem;
-	}
+  .pricingCardBottomText {
+    overflow: hidden;
+    color: #848f98;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25rem;
+  }
 
-	.pricingCardUnsubscribe {
-		color: #004b84;
-		font-size: 0.875rem;
-		font-style: normal;
-		font-weight: 500;
-		line-height: 1.25rem;
-		cursor: pointer;
-	}
+  .pricingCardUnsubscribe {
+    color: #004b84;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem;
+    cursor: pointer;
+  }
 }
 
 .paySubscription {
-	.modalHead {
-		p {
-			text-align: center;
-		}
+  .modalHead {
+    p {
+      text-align: center;
+    }
 
-		.logoText {
-			color: #004c84;
-			font-size: 16px;
-			font-weight: 400;
-			line-height: 16px;
-			letter-spacing: 4px;
-			@media screen and (max-width: 1024px) {
-				font-size: 0.75rem;
-				font-weight: 400;
-				line-height: 1rem;
-				letter-spacing: 0.1875rem;
-			}
-		}
+    .logoText {
+      color: #004c84;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 4px;
+      @media screen and (max-width: 1024px) {
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1rem;
+        letter-spacing: 0.1875rem;
+      }
+    }
 
-		.modalTitle {
-			color: #001c31;
-			font-size: 32px;
-			font-weight: 500;
-			line-height: 40px;
-			margin: 4px 0 12px;
-			@media screen and (max-width: 1024px) {
-				font-size: 1.25rem;
-				font-weight: 500;
-				line-height: 1.5rem;
-				margin: 0.25rem 0 0.5rem 0;
-			}
-		}
+    .modalTitle {
+      color: #001c31;
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 40px;
+      margin: 4px 0 12px;
+      @media screen and (max-width: 1024px) {
+        font-size: 1.25rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        margin: 0.25rem 0 0.5rem 0;
+      }
+    }
 
-		.modalSubtitle {
-			color: #848f98;
-			font-size: 20px;
-			font-weight: 400;
-			line-height: 28px;
-			letter-spacing: 0.8px;
-			margin-bottom: 32px;
-			@media screen and (max-width: 1024px) {
-				font-size: 0.75rem;
-				font-weight: 400;
-				line-height: 1rem;
-				letter-spacing: 0.03rem;
-			}
-		}
-	}
+    .modalSubtitle {
+      color: #848f98;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 28px;
+      letter-spacing: 0.8px;
+      margin-bottom: 32px;
+      @media screen and (max-width: 1024px) {
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1rem;
+        letter-spacing: 0.03rem;
+      }
+    }
+  }
 
-	.priceText {
-		color: #848f98;
-		text-align: center;
-		font-size: 16px;
-		font-weight: 400;
-		line-height: 20px;
-	}
+  .priceText {
+    color: #848f98;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+  }
 
-	.toBtn {
-		height: 56px;
-		padding: 4px 32px;
+  .toBtn {
+    height: 56px;
+    padding: 4px 32px;
 
-		color: #fff;
-		font-size: 20px;
-		font-weight: 600;
-		line-height: normal;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: normal;
 
-		border-radius: 8px;
-		background: #004c84;
-	}
+    border-radius: 8px;
+    background: #004c84;
+  }
 }

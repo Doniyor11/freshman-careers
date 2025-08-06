@@ -68,7 +68,7 @@ export const NavbarProfile = () => {
 								gap={"1rem"}
 							>
 								<Flex align={"flex-start"} direction={"column"} w={"11rem"}>
-									<Text component={"h3"} className={s.profileItemName}>
+									<Text component={"h3"} className={s.profileItemName} >
 										{data?.login}
 									</Text>
 									<Text component={"p"} className={s.profileItemEmail}>

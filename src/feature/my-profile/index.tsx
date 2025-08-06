@@ -52,7 +52,9 @@ export const MyProfile = () => {
 					Go back
 				</Text>
 			</Flex>
-			<Flex mb={"2.5rem"}>
+			<Flex mb={
+				matches ? "1.5rem" : "2.5rem"
+			}>
 				<Text component={"h1"} className={s.title}>
 					My profile
 				</Text>
