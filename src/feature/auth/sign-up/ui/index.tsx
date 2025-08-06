@@ -5,14 +5,12 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { ActionIcon, Box, Button, Text } from "@mantine/core"
 import cx from "clsx"
 import { Controller, useForm } from "react-hook-form"
-import { IMaskInput } from "react-imask"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
 import s from "@/widgets/auth/ui/styles.module.scss"
 
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
 import { Input } from "@/shared/ui"
-import { InputFilled } from "@/shared/ui/inputs"
 
 export const SignUp = () => {
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
@@ -23,7 +21,7 @@ export const SignUp = () => {
 	const {
 		control,
 		handleSubmit,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 	} = useForm<ISignUp>({
 		mode: "onChange",
 		resolver: yupResolver(SignUpScheme),
@@ -56,7 +54,12 @@ export const SignUp = () => {
 					name={"email"}
 					control={control}
 					render={({ field }) => (
-						<Input height={64} label={"Email"} {...field} />
+						<Input
+							error={errors?.email?.message}
+							height={64}
+							label={"Email"}
+							{...field}
+						/>
 					)}
 				/>
 
@@ -64,12 +67,12 @@ export const SignUp = () => {
 					name={"phone_number"}
 					control={control}
 					render={({ field }) => (
-						<InputFilled
+						<Input
+							error={errors?.phone_number?.message}
 							mt={16}
 							height={64}
-							component={IMaskInput as any}
-							mask="+0000000000000"
-							placeholder={"Phone Number"}
+							type={"number"}
+							label={"Phone Number"}
 							{...field}
 						/>
 					)}

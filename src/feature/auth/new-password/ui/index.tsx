@@ -25,7 +25,7 @@ export const NewPassword = () => {
 	const {
 		control,
 		handleSubmit,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 	} = useForm<INewPassword>({
 		mode: "onChange",
 		resolver: yupResolver(NewPasswordScheme),
@@ -63,6 +63,7 @@ export const NewPassword = () => {
 					control={control}
 					render={({ field }) => (
 						<Input
+							error={errors?.password?.message}
 							height={64}
 							label={"New password"}
 							type={"password"}
@@ -75,6 +76,7 @@ export const NewPassword = () => {
 					control={control}
 					render={({ field }) => (
 						<Input
+							error={errors?.password_confirmation?.message}
 							mt={16}
 							height={64}
 							type={"password"}

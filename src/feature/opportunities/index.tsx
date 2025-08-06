@@ -46,7 +46,7 @@ export const Opportunities = () => {
 						description={
 							"Submit your application through our platform and wait till our team reaches out to you with an update of your application."
 						}
-						icon={!matches}
+						icon={matches}
 					/>
 					<OpportunitiesCard
 						imageSrc={Image4}
@@ -69,7 +69,7 @@ export const Opportunities = () => {
 						description={
 							"Gain and reflect on your new experiences. Leverage them in your next job applications or admissions for Bachelor’s or Master’s Programs."
 						}
-						icon={!matches}
+						icon={matches}
 					/>
 				</Box>
 				<Banner />

@@ -1,5 +1,6 @@
 import { NewPassword, SignIn, SignUp } from "@/feature/auth"
 import { Anchor, Modal, Text } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import React, { useEffect } from "react"
 import { Case, Switch } from "react-if"
 
@@ -9,7 +10,6 @@ import IconFacebook from "@/shared/assets/images/icon/icon-facebook.svg"
 import IconGoogle from "@/shared/assets/images/icon/icon-google.svg"
 
 import s from "./styles.module.scss"
-import { useMediaQuery } from "@mantine/hooks"
 
 export const AuthWrapper = () => {
 	const matches = useMediaQuery("(max-width: 1024px)")
@@ -59,9 +59,7 @@ export const AuthWrapper = () => {
 		<Modal
 			centered
 			radius={8}
-			padding={
-				matches ? "0.75rem" : 24
-			}
+			padding={matches ? "0.75rem" : 24}
 			size={"auto"}
 			opened={authorization}
 			withCloseButton={false}

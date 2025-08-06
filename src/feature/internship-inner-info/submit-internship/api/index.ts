@@ -19,6 +19,10 @@ export const submitApi = async (data: ISubmit) => {
 		formData.append("cv", data?.cv)
 	}
 
+	if (data?.supporting_documents) {
+		formData.append("cv", data?.supporting_documents)
+	}
+
 	const response = await clientApi.post(apiKeys.applicationsSubmit, formData)
 	return response.data
 }

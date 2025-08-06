@@ -35,7 +35,10 @@ export const Internships = () => {
 				/>
 				<Grid gutter={matches ? "1rem" : "3rem"} m={"2.5rem 0 2.5rem"}>
 					{data?.map((i: IGetInternship, index: number) => (
-						<Grid.Col span={matchesMobile ? 12 : matchesSmall ? 6 : matches ? 6 : 4} key={index}>
+						<Grid.Col
+							span={matchesMobile ? 12 : matchesSmall ? 6 : matches ? 6 : 4}
+							key={index}
+						>
 							<InternshipsCard
 								companyName={i?.company_title}
 								imageSrc={`${EnvKeys.NEXT_HOST}/${i?.picture}`}

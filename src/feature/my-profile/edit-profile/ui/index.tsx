@@ -5,6 +5,7 @@ import { useProfileStore } from "@/feature/my-profile/model"
 import s from "@/feature/my-profile/my-profile.module.scss"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Box, FileButton, Flex, Text } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
@@ -15,10 +16,9 @@ import ImageUser from "@/shared/assets/images/image.png"
 import { EnvKeys } from "@/shared/constants/env.ts"
 import { Input } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
-import { useMediaQuery } from "@mantine/hooks"
 
 export const EditProfileModal = () => {
-	const matches = useMediaQuery('max-width: 1024px')
+	const matches = useMediaQuery("max-width: 1024px")
 	const [selectedImage, setSelectedImage] = useState<File | null>(null)
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 	const setModalType = useProfileStore((s) => s.setModalType)
@@ -121,9 +121,11 @@ export const EditProfileModal = () => {
 						render={({ field }) => <Input label={"Phone"} {...field} />}
 					/>
 				</Flex>
-				<Flex direction={"column"} gap={"0.75rem"} mt={
-					matches ? "4rem" : "1rem"
-				}>
+				<Flex
+					direction={"column"}
+					gap={"0.75rem"}
+					mt={matches ? "4rem" : "1rem"}
+				>
 					<FilledButton
 						bg={"#004C84"}
 						h={"3.5rem"}

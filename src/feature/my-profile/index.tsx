@@ -2,7 +2,6 @@ import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
 import IconDoc from "@//shared/assets/images/icon/document-text.svg"
 import IconDownload from "@//shared/assets/images/icon/download.svg"
 import IconTrash from "@//shared/assets/images/icon/trash.svg"
-import ImageUser from "@//shared/assets/images/image.png"
 import { ChangePasswordProfileModal } from "@/feature/my-profile/change-password/ui"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
@@ -21,6 +20,7 @@ import {
 	Stack,
 	Text,
 } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import cx from "clsx"
 import dayjs from "dayjs"
 import Image from "next/image"
@@ -29,6 +29,7 @@ import React from "react"
 
 import { useDeleteFilesQuery } from "@/entities/file-delete/query.ts"
 import { useGetResponsesQuery } from "@/entities/responses/query.ts"
+import { IResponse } from "@/entities/responses/types.ts"
 import { useGetUserFilesQuery } from "@/entities/user-files/query.ts"
 import { IUserFiles } from "@/entities/user-files/types.ts"
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
@@ -38,7 +39,6 @@ import { Modal } from "@/shared/ui"
 import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./my-profile.module.scss"
-import { useMediaQuery } from "@mantine/hooks"
 
 export const MyProfile = () => {
 	const matches = useMediaQuery("(max-width: 1024px)")
@@ -57,23 +57,17 @@ export const MyProfile = () => {
 				</Text>
 			</Flex>
 			<Grid gutter={"1.5rem"}>
-				<Grid.Col span={
-					matches ? 12 : 3
-				}>
+				<Grid.Col span={matches ? 12 : 3}>
 					<Flex direction={"column"} gap={"1.5rem"}>
 						<ProfileCard />
 						<SubscriptionCard />
 						{/*<Documents />*/}
 					</Flex>
 				</Grid.Col>
-				<Grid.Col span={
-					matches ? 12 : 9
-				}>
+				<Grid.Col span={matches ? 12 : 9}>
 					{/*	 -----------  Grid start ------------ */}
 					<Grid>
-						<Grid.Col span={
-							matches ? 12 : 4
-						}>
+						<Grid.Col span={matches ? 12 : 4}>
 							<Card />
 						</Grid.Col>
 					</Grid>
@@ -208,69 +202,83 @@ export const Documents = () => {
 }
 
 const Card = () => {
+	const router = useRouter()
 	const { data } = useGetResponsesQuery()
-	console.log(data)
-	return (
-		<Box className={s.internshipsCardWrapper}>
-			<Flex
-				justify={"space-between"}
-				align={"flex-start"}
-				p={"1.5rem"}
-				className={s.internshipsCardHead}
-			>
-				<Flex direction={"column"}>
-					<Text component={"h3"} className={s.internshipsCardTitle}>
-						Response #1
-					</Text>
-					<Text component={"h3"} className={s.status} c={"#004B84"}>
-						Pending
-					</Text>
-				</Flex>
-				<Box className={s.internshipsCardDay}>Today</Box>
-			</Flex>
-			<Box className={s.internshipsCardContent}>
-				<Flex justify={"space-between"} align={"center"}>
-					<Flex align={"center"} gap={10}>
-						<Box className={s.internshipsCardIcon}>
-							<Image
-								src={ImageUser}
-								alt={"iconAlt"}
-								width={32}
-								height={32}
-								unoptimized
-							/>
-						</Box>
-						<Text className={s.companyName}>Microsoft</Text>
-					</Flex>
-				</Flex>
-				<Flex direction={"column"} m={"1.5rem 0 1.5rem"} gap={"0.75rem"}>
-					<Text component={"h3"} className={s.internshipsCardTitle}>
-						Trainee designer
-					</Text>
-					<Text component={"p"} className={s.internshipsCardDescription}>
-						Internship at Microsoft is a unique experience of working in an
-						international team, participation in real projects and the
-						opportunity to learn the best practices of one of the most
-						innovative corporations in the world.
-					</Text>
-				</Flex>
-				<Flex direction={"column"} mb={"1.5rem"}>
-					<Text component={"p"} className={s.internshipsCardDescription}>
-						Internship Dates:
-					</Text>
-					<Text component={"p"} className={s.internshipsCardDate}>
-						25.05.2025 - 25.08.2025
-					</Text>
-				</Flex>
-				<FilledButton
-					className={s.internshipsCardButton}
-					fullWidth
-					h={"2.75rem"}
+
+	return data.length > 0 ? (
+		data?.map((i: IResponse, index: number) => (
+			<Box className={s.internshipsCardWrapper} key={index}>
+				<Flex
+					justify={"space-between"}
+					align={"flex-start"}
+					p={"1.5rem"}
+					className={s.internshipsCardHead}
 				>
-					Open an internship
-				</FilledButton>
+					<Flex direction={"column"}>
+						<Text component={"h3"} className={s.internshipsCardTitle}>
+							{i?.hashed_id || "-"}
+						</Text>
+						<Text component={"h3"} className={s.status} c={"#004B84"}>
+							{i?.status || "-"}
+						</Text>
+					</Flex>
+					<Box className={s.internshipsCardDay}>
+						{i?.application_date &&
+						dayjs(i?.application_date).isSame(dayjs(), "day")
+							? "today"
+							: dayjs(i?.application_date).format("DD.MM.YYYY")}
+					</Box>
+				</Flex>
+				<Box className={s.internshipsCardContent}>
+					<Flex justify={"space-between"} align={"center"}>
+						<Flex align={"center"} gap={10}>
+							<Box className={s.internshipsCardIcon}>
+								<Image
+									src={`${EnvKeys.NEXT_HOST}/${i?.company?.image}`}
+									alt={i?.company?.title}
+									width={32}
+									height={32}
+									unoptimized
+								/>
+							</Box>
+							<Text className={s.companyName}>{i?.company?.title || "-"}</Text>
+						</Flex>
+					</Flex>
+					<Flex direction={"column"} m={"1.5rem 0 1.5rem"} gap={"0.75rem"}>
+						<Text component={"h3"} className={s.internshipsCardTitle}>
+							{i?.internship?.title || "-"}
+						</Text>
+						<Text component={"p"} className={s.internshipsCardDescription}>
+							{i?.internship?.description || "-"}
+						</Text>
+					</Flex>
+					<Flex direction={"column"} mb={"1.5rem"}>
+						<Text component={"p"} className={s.internshipsCardDescription}>
+							Internship Dates:
+						</Text>
+						<Text component={"p"} className={s.internshipsCardDate}>
+							{`${dayjs(i?.internship?.internship_start_date).format(
+								"DD.MM.YYYY",
+							)} - ${dayjs(i?.internship?.internship_end_date).format(
+								"DD.MM.YYYY",
+							)}`}
+						</Text>
+					</Flex>
+					<FilledButton
+						fullWidth
+						h={"2.75rem"}
+						className={s.internshipsCardButton}
+						onClick={() => router.push(`/internship-inner/${i?.internship_id}`)}
+					>
+						Open an internship
+					</FilledButton>
+				</Box>
 			</Box>
-		</Box>
+		))
+	) : (
+		<div className={cx(s.internshipsCardWrapper, "no-data")}>
+			<Text>No data available</Text>
+		</div>
 	)
 }
 
