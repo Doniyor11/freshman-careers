@@ -26,9 +26,9 @@ export const SubmitInternship = () => {
 		reset,
 		control,
 		handleSubmit,
-		formState: { isDirty, isValid },
+		formState: { isDirty, isValid, errors },
 	} = useForm<ISubmit>({
-		mode: "onChange",
+		mode: "all",
 		resolver: yupResolver(SubmitScheme),
 	})
 
@@ -53,9 +53,10 @@ export const SubmitInternship = () => {
 				control={control}
 				render={({ field }) => (
 					<Input.Wrapper
-						className={s.inputWrapper}
 						required
 						label={"Full Name"}
+						className={s.inputWrapper}
+						error={errors?.full_name?.message}
 					>
 						<Input placeholder={"My answer"} {...field} />
 					</Input.Wrapper>
@@ -66,7 +67,12 @@ export const SubmitInternship = () => {
 				name={"email"}
 				control={control}
 				render={({ field }) => (
-					<Input.Wrapper className={s.inputWrapper} required label={"Email"}>
+					<Input.Wrapper
+						className={s.inputWrapper}
+						required
+						label={"Email"}
+						error={errors?.email?.message}
+					>
 						<Input placeholder={"My answer"} type={"email"} {...field} />
 					</Input.Wrapper>
 				)}
@@ -80,6 +86,7 @@ export const SubmitInternship = () => {
 						required
 						className={s.inputWrapper}
 						label={"Mobile Number"}
+						error={errors?.phone_number?.message}
 					>
 						<Input placeholder={"My answer"} type={"number"} {...field} />
 					</Input.Wrapper>
@@ -91,8 +98,9 @@ export const SubmitInternship = () => {
 				control={control}
 				render={({ field }) => (
 					<Input.Wrapper
-						className={s.inputWrapper}
 						required
+						className={s.inputWrapper}
+						error={errors?.current_study?.message}
 						label={"Where do you currently study?"}
 					>
 						<Input placeholder={"My answer"} {...field} />
@@ -105,8 +113,9 @@ export const SubmitInternship = () => {
 				control={control}
 				render={({ field }) => (
 					<Input.Wrapper
-						className={s.inputWrapper}
 						required
+						className={s.inputWrapper}
+						error={errors?.languages?.message}
 						label={"What languages do you speak, and at what level?"}
 						description={
 							"Please list each language and your proficiency level. For example: Native, Fluent, Intermediate, or Beginner. If you’ve taken any official language exams like IELTS, TOEFL, or CEFR, please include your score and the year you took the test.\n" +
@@ -123,8 +132,9 @@ export const SubmitInternship = () => {
 				control={control}
 				render={({ field }) => (
 					<Input.Wrapper
-						className={s.inputWrapper}
 						required
+						className={s.inputWrapper}
+						error={errors?.future_goals?.message}
 						label={
 							"How will taking this internship help you advance your future goals? (150 words or more)"
 						}
@@ -142,8 +152,9 @@ export const SubmitInternship = () => {
 				control={control}
 				render={({ field }) => (
 					<Input.Wrapper
-						className={s.inputWrapper}
 						required
+						className={s.inputWrapper}
+						error={errors?.past_experience?.message}
 						label={
 							"What specific skills or past experiences do you have that will help you contribute to this internship position? (150 words or more)"
 						}
@@ -161,8 +172,9 @@ export const SubmitInternship = () => {
 				control={control}
 				render={({ field }) => (
 					<Input.Wrapper
-						className={s.inputWrapper}
 						required
+						className={s.inputWrapper}
+						error={errors?.additional_circumstances?.message}
 						label={
 							"Are there any additional circumstances we should consider while reviewing your application?"
 						}
@@ -180,8 +192,8 @@ export const SubmitInternship = () => {
 				control={control}
 				render={({ field }) => (
 					<Input.Wrapper
-						className={s.inputWrapper}
 						required
+						className={s.inputWrapper}
 						label={"Attach your CV (pdf)"}
 						description={
 							"Upload 1 file of supported type. File size – no more than 10 MB."

@@ -107,7 +107,12 @@ export const Navbar = () => {
 						) : null}
 						{matches ? (
 							<>
-								<Burger color={"#004C84"} opened={opened} onClick={toggle} size={'sm'}/>
+								<Burger
+									color={"#004C84"}
+									opened={opened}
+									onClick={toggle}
+									size={"sm"}
+								/>
 								<MobileDrawer opened={opened} close={toggle} />
 							</>
 						) : null}

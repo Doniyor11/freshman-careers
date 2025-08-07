@@ -13,4 +13,7 @@ export enum apiKeys {
 	subscriptionRenewal = "/account/subscription/renewal",
 	responses = "/account/responses",
 	applicationsSubmit = "/applications/submit",
+	resetPassword = "/auth/reset-password-request",
+	confirmationCode = "/auth/confirm-password-reset",
+	changePasswordReset = "/auth/change-password-reset",
 }
