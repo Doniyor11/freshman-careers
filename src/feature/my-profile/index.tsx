@@ -52,9 +52,7 @@ export const MyProfile = () => {
 					Go back
 				</Text>
 			</Flex>
-			<Flex mb={
-				matches ? "1.5rem" : "2.5rem"
-			}>
+			<Flex mb={matches ? "1.5rem" : "2.5rem"}>
 				<Text component={"h1"} className={s.title}>
 					My profile
 				</Text>
@@ -104,12 +102,11 @@ const ProfileCard = () => {
 									? `${EnvKeys.NEXT_HOST}/${data?.profile_image}`
 									: UserImage
 							}
-							alt={""}
+							alt={"image"}
 							width={64}
 							height={64}
 							unoptimized
 						/>
-						aaa
 					</Box>
 				</Flex>
 				<Flex direction={"column"} gap={"0.25rem"} mb={"0.75rem"}>

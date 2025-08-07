@@ -92,7 +92,10 @@ export const SignIn = () => {
 						/>
 
 						<Flex mb={32} justify={"flex-end"}>
-							<Button className={s.forgotPassword}>
+							<Button
+								className={s.forgotPassword}
+								onClick={() => setModalType("forgot-password")}
+							>
 								Forgot your password?
 							</Button>
 						</Flex>

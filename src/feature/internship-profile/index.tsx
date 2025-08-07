@@ -20,9 +20,16 @@ export const InternshipProfile = () => {
 	const matches = useMediaQuery("(max-width: 1024px)")
 	const matchesSmall = useMediaQuery("(max-width: 576px)")
 	const router = useRouter()
-	const [format, education, salary, search, date] = useApplicationFilterStore(
-		(s) => [s.format, s.education, s.salary, s.search, s.date],
-	)
+	const [format, education, salary, search, data_order, date, setDataOrder] =
+		useApplicationFilterStore((s) => [
+			s.format,
+			s.education,
+			s.salary,
+			s.search,
+			s.data_order,
+			s.date,
+			s.setDataOrder,
+		])
 	const [debouncedValue] = useDebouncedValue(search, 200)
 
 	const { data } = useGetMyApplicationsQuery({
@@ -30,6 +37,7 @@ export const InternshipProfile = () => {
 		format,
 		education,
 		salary,
+		data_order: data_order,
 		date: (date ? `${dayjs(date).format("YYYY-MM-DD")}` : null) as any,
 	})
 
@@ -59,7 +67,12 @@ export const InternshipProfile = () => {
 						>
 							<Menu.Target>
 								<Text className={s.myApplicationsSelect}>
-									Most Recent <Icon2 />
+									{data_order === "NEWEST"
+										? "Most Recent"
+										: data_order === "OLDEST"
+										? "The oldest"
+										: "Select order"}
+									<Icon2 />
 								</Text>
 							</Menu.Target>
 
@@ -68,6 +81,7 @@ export const InternshipProfile = () => {
 									className={s.profileItem}
 									justify={"space-between"}
 									align={"center"}
+									onClick={() => setDataOrder("NEWEST")}
 								>
 									<Text component={"span"} className={s.profileItemText}>
 										Most Recent
@@ -78,6 +92,7 @@ export const InternshipProfile = () => {
 									className={s.profileItem}
 									justify={"space-between"}
 									align={"center"}
+									onClick={() => setDataOrder("OLDEST")}
 								>
 									<Text component={"span"} className={s.profileItemText}>
 										The oldest

@@ -28,4 +28,5 @@ export interface IMyInternshipParam {
 	education?: string
 	salary?: string
 	date?: Date | null
+	data_order?: string
 }

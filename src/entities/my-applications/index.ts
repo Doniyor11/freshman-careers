@@ -10,6 +10,7 @@ export const getMyApplicationsApi = async (params: IMyInternshipParam) => {
 			format: params.format,
 			education: params.education,
 			salary: params.salary,
+			data_order: params.data_order,
 			date: params.date,
 		},
 	})

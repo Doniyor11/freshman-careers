@@ -1,4 +1,7 @@
 import { NewPassword, SignIn, SignUp } from "@/feature/auth"
+import { ChangePassword } from "@/feature/auth/change-password/ui"
+import { ConfirmationCode } from "@/feature/auth/confirmation-code/ui"
+import { ForgotPassword } from "@/feature/auth/forgot-password/ui"
 import { Anchor, Modal, Text } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
 import React, { useEffect } from "react"
@@ -27,7 +30,7 @@ export const AuthWrapper = () => {
 		setModalType(
 			authType === "register" ||
 				authType === "forgot-password" ||
-				authType === "new-password"
+				authType === "change-password"
 				? authType
 				: "login",
 		)
@@ -74,6 +77,15 @@ export const AuthWrapper = () => {
 				</Case>
 				<Case condition={modalType === "new-password"}>
 					<NewPassword />
+				</Case>
+				<Case condition={modalType === "forgot-password"}>
+					<ForgotPassword />
+				</Case>
+				<Case condition={modalType === "code-confirmation"}>
+					<ConfirmationCode />
+				</Case>
+				<Case condition={modalType === "change-password"}>
+					<ChangePassword />
 				</Case>
 			</Switch>
 		</Modal>

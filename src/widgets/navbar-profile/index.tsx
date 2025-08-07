@@ -7,10 +7,10 @@ import React from "react"
 
 import { useGetUserMeQuery } from "@/entities/user-me/query.ts"
 
+import UserImage from "@/shared/assets/images/user-profile.png"
 import { EnvKeys, TOKEN } from "@/shared/constants/env.ts"
 
 import s from "./navbar-profile.module.scss"
-import UserImage from "@/shared/assets/images/user-profile.png"
 
 export const NavbarProfile = () => {
 	const router = useRouter()
@@ -68,7 +68,7 @@ export const NavbarProfile = () => {
 								gap={"1rem"}
 							>
 								<Flex align={"flex-start"} direction={"column"} w={"11rem"}>
-									<Text component={"h3"} className={s.profileItemName} >
+									<Text component={"h3"} className={s.profileItemName}>
 										{data?.login}
 									</Text>
 									<Text component={"p"} className={s.profileItemEmail}>

@@ -27,7 +27,7 @@ export const SignUp = () => {
 		resolver: yupResolver(SignUpScheme),
 	})
 	const { mutate, isPending } = useSignUpQuery(() =>
-		setModalType("new-password"),
+		setModalType("change-password"),
 	)
 
 	const onSubmit = (data: ISignUp) => {
