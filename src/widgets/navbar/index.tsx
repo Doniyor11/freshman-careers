@@ -2,13 +2,14 @@ import { Box, Burger, Container, Drawer, Flex, Text } from "@mantine/core"
 import { useDisclosure, useMediaQuery } from "@mantine/hooks"
 import { useRouter } from "next/router"
 import React from "react"
-
+import Logo from "@/shared/assets/images/logo.png"
 import { useAuthorizationStore } from "@/widgets/auth/model"
 import { AuthWrapper } from "@/widgets/auth/ui"
 
 import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./navbar.module.scss"
+import Image from "next/image";
 
 const navbarLink = [
 	{
@@ -20,7 +21,7 @@ const navbarLink = [
 		href: "/ ",
 	},
 	{
-		label: "Mentorship",
+		label: "Companies",
 		href: "/",
 	},
 	{
@@ -74,8 +75,7 @@ export const Navbar = () => {
 							flex={matches ? "1" : "unset"}
 							p={"0.375rem 0"}
 						>
-							<Text component={"p"}>Freshman</Text>
-							<Text component={"span"}>Careers</Text>
+							<Image src={Logo} alt={"logo"} width={160} height={undefined} unoptimized />
 						</Flex>
 						{!matches ? (
 							<Flex
