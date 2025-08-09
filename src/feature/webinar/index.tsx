@@ -7,7 +7,7 @@ import s from "./webinar.module.scss"
 
 export const Webinar = () => {
 	return (
-		<Container size={"1440px"} id={"Webinars"}>
+		<Container size={"1440px"}>
 			<Box className={s.webinarWrapper}>
 				<TitleHead
 					info={"WEBINAR"}

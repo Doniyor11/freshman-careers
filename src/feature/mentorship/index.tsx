@@ -19,7 +19,7 @@ export const Mentorship = () => {
 	const [index, setIndex] = useState<number>(1)
 	const companyName = ["Center for Progressive Reforms", "NazarX R&D"]
 	return (
-		<Container size={"1440px"} id={"Mentorship"}>
+		<Container size={"1440px"} id={"Companies"}>
 			<Box className={s.mentorshipWrapper}>
 				<TitleHead
 					info={"Companies"}
