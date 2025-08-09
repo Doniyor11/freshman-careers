@@ -11,6 +11,7 @@ import UserImage from "@/shared/assets/images/user-profile.png"
 import { EnvKeys, TOKEN } from "@/shared/constants/env.ts"
 
 import s from "./navbar-profile.module.scss"
+import Logo from "@/shared/assets/images/logo.png";
 
 export const NavbarProfile = () => {
 	const router = useRouter()
@@ -35,8 +36,7 @@ export const NavbarProfile = () => {
 							router.push("/")
 						}}
 					>
-						<Text component={"p"}>Freshman</Text>
-						<Text component={"span"}>Careers</Text>
+                        <Image src={Logo} alt={"logo"} width={160} height={undefined} unoptimized />
 					</Flex>
 					<Menu
 						trigger={"hover"}
