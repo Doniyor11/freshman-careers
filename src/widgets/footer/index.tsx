@@ -31,9 +31,9 @@ export const Footer = () => {
 						</Text>
 						<Text
 							className={s.footerDescription}
-							onClick={() => onLinkClick("Mentorship")}
+							onClick={() => onLinkClick("Companies")}
 						>
-							Mentorship
+							Companies
 						</Text>
 					</Flex>
 					<Flex direction={"column"} gap={"0.75rem"}>

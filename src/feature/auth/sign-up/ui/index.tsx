@@ -27,7 +27,7 @@ export const SignUp = () => {
 		resolver: yupResolver(SignUpScheme),
 	})
 	const { mutate, isPending } = useSignUpQuery(() =>
-		setModalType("change-password"),
+		setModalType("new-password"),
 	)
 
 	const onSubmit = (data: ISignUp) => {
@@ -43,7 +43,7 @@ export const SignUp = () => {
 			<ActionIcon className={s.close} onClick={() => setAuthorization(false)}>
 				<IconClose />
 			</ActionIcon>
-			<h2 className={s.otherTitle}>Create Account</h2>
+			<h2 className={s.otherTitle}> Create Account</h2>
 			<Text m={"4px 0 32px"} className={s.cardSubtitle}>
 				Enter your email and phone number to create a new account on the
 				platform
