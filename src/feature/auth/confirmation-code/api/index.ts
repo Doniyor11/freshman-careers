@@ -4,6 +4,6 @@ import { apiKeys } from "@/shared/constants/api-keys.ts"
 import { IConfirmationCode } from "./types.ts"
 
 export const confirmationCodeApi = async (data: IConfirmationCode) => {
-	const response = await clientApi.post(apiKeys.confirmationCode, data)
+	const response = await clientApi.post(apiKeys.confirmResetCode, data)
 	return response.data
 }

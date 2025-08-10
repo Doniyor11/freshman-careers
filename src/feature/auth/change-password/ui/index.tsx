@@ -12,7 +12,7 @@ import { Input } from "@/shared/ui"
 
 import { useChangePasswordQuery } from "../api/query"
 import { ChangePasswordScheme } from "../api/scheme"
-import { IChangePassword } from "../api/types"
+import { IChangePassword, IChangePasswordScheme } from "../api/types"
 
 export const ChangePassword = () => {
 	const [setAuthorization, setModalType] = useAuthorizationStore((s) => [
@@ -24,21 +24,25 @@ export const ChangePassword = () => {
 		control,
 		handleSubmit,
 		formState: { isDirty, isValid, errors },
-	} = useForm<IChangePassword>({
+	} = useForm<IChangePasswordScheme>({
 		mode: "onChange",
 		resolver: yupResolver(ChangePasswordScheme),
 	})
 
 	const { mutate, isPending } = useChangePasswordQuery(() => {
-		sessionStorage.removeItem("email")
-		setAuthorization(false)
+		sessionStorage.removeItem("user_email")
+		sessionStorage.removeItem("confirmationCode")
 		setModalType("login")
 	})
 
 	const onSubmit = (data: IChangePassword) => {
+		const email = sessionStorage.getItem("user_email")
+		const code = sessionStorage.getItem("confirmationCode")
+
 		mutate({
-			password: data?.password,
-			password_confirmation: data?.password_confirmation,
+			code: code ? code : undefined,
+			email: email ? email : undefined,
+			new_password: data?.new_password,
 		})
 	}
 
@@ -56,11 +60,11 @@ export const ChangePassword = () => {
 
 				<form className={s.form} onSubmit={handleSubmit(onSubmit)}>
 					<Controller
-						name={"password"}
+						name={"new_password"}
 						control={control}
 						render={({ field }) => (
 							<Input
-								error={errors?.password?.message}
+								error={errors?.new_password?.message}
 								height={64}
 								label={"New password"}
 								type={"password"}
@@ -69,11 +73,11 @@ export const ChangePassword = () => {
 						)}
 					/>
 					<Controller
-						name={"password_confirmation"}
+						name={"confirm_password"}
 						control={control}
 						render={({ field }) => (
 							<Input
-								error={errors?.password_confirmation?.message}
+								error={errors?.confirm_password?.message}
 								mt={16}
 								height={64}
 								type={"password"}
