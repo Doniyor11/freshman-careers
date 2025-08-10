@@ -32,15 +32,17 @@ export const ConfirmationCode = () => {
 	})
 	const { mutate, isPending } = useConfirmationCodeQuery(() => {
 		setModalType("change-password")
-		localStorage.removeItem("user_email")
 	})
 
 	const onSubmit = (data: IConfirmationCode) => {
-		const userEmail = localStorage.getItem("user_email")
+		const userEmail = sessionStorage.getItem("user_email")
 		mutate({
 			code: data?.code,
 			email: userEmail ? userEmail : undefined,
 		})
+		if (data?.code) {
+			sessionStorage.setItem("confirmationCode", data?.code)
+		}
 	}
 	return (
 		<>

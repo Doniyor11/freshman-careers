@@ -1,15 +1,16 @@
 import { Box, Burger, Container, Drawer, Flex, Text } from "@mantine/core"
 import { useDisclosure, useMediaQuery } from "@mantine/hooks"
+import Image from "next/image"
 import { useRouter } from "next/router"
 import React from "react"
-import Logo from "@/shared/assets/images/logo.png"
+
 import { useAuthorizationStore } from "@/widgets/auth/model"
 import { AuthWrapper } from "@/widgets/auth/ui"
 
+import Logo from "@/shared/assets/images/logo.png"
 import { FilledButton } from "@/shared/ui/buttons"
 
 import s from "./navbar.module.scss"
-import Image from "next/image";
 
 const navbarLink = [
 	{
@@ -75,7 +76,13 @@ export const Navbar = () => {
 							flex={matches ? "1" : "unset"}
 							p={"0.375rem 0"}
 						>
-							<Image src={Logo} alt={"logo"} width={160} height={undefined} unoptimized />
+							<Image
+								src={Logo}
+								alt={"logo"}
+								width={160}
+								height={undefined}
+								unoptimized
+							/>
 						</Flex>
 						{!matches ? (
 							<Flex

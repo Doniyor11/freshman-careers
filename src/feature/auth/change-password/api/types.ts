@@ -1,4 +1,12 @@
 export interface IChangePassword {
-	password: string
-	password_confirmation: string
+	email?: string
+	code?: string
+	new_password: string
+	confirm_password?: string
+}
+export interface IChangePasswordScheme {
+	email?: string
+	code?: string
+	new_password: string
+	confirm_password: string
 }

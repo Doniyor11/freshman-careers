@@ -1,13 +1,12 @@
 import * as yup from "yup"
 
 export const ChangePasswordScheme = yup.object().shape({
-	password: yup
+	new_password: yup
 		.string()
 		.required("Password is required")
 		.min(8, "Password must be at least 8 characters long"),
-	password_confirmation: yup
+	confirm_password: yup
 		.string()
 		.required("Password confirmation is required")
-		.min(8, "Password confirmation must be at least 8 characters long")
-		.oneOf([yup.ref("password")], "Passwords do not match"),
+		.oneOf([yup.ref("new_password")], "Passwords do not match"),
 })

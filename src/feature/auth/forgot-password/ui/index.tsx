@@ -38,7 +38,7 @@ export const ForgotPassword = () => {
 		mutate({
 			email: data?.email,
 		})
-		localStorage.setItem("user_email", data?.email)
+		sessionStorage.setItem("user_email", data?.email)
 	}
 	return (
 		<>

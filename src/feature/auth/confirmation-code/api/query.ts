@@ -7,11 +7,12 @@ import { IConfirmationCode } from "./types.ts"
 export const useConfirmationCodeQuery = (onSuccess: () => void) => {
 	return useMutation({
 		mutationFn: (data: IConfirmationCode) => confirmationCodeApi(data),
-		onSuccess: () => {
+		onSuccess: (data) => {
+			toast.success(data.message)
 			onSuccess && onSuccess()
 		},
-		onError: (err) => {
-			toast.error(err.message)
+		onError: (err: any) => {
+			toast.error(err.detail)
 		},
 	})
 }
