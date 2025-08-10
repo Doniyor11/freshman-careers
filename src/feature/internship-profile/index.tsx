@@ -104,7 +104,7 @@ export const InternshipProfile = () => {
 					</Flex>
 					{/* ------------ Card -------------	*/}
 					{data?.length > 0 ? (
-						<Grid mt={"1.5rem"} gutter={"1.5rem"}>
+						<Grid mt={"1.5rem"} gutter={"1.5rem"} align={'stretch'}>
 							{data?.map((i: IGetInternship, index: number) => (
 								<Grid.Col
 									span={matchesSmall ? 12 : matches ? 6 : 4}
