@@ -1,44 +1,58 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
-import { useInternshipInfoStore } from "@/feature/internship-inner-info/submit-internship/model"
-import { SubmitInternship } from "@/feature/internship-inner-info/submit-internship/ui"
 import {
 	ActionIcon,
 	Box,
 	Container,
 	Flex,
+	Group,
 	List,
 	Modal,
 	Text,
 } from "@mantine/core"
+import { Dropzone, FileWithPath, MIME_TYPES } from "@mantine/dropzone"
 import { useMediaQuery } from "@mantine/hooks"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useRouter } from "next/router"
+import { useState } from "react"
 
+import { useUploadFileQuery } from "@/entities/file-upload/query.ts"
 import { useGetInternshipQuery } from "@/entities/internships/query.ts"
 
+import ImageModal from "@/shared/assets/images/icon/document-text2.svg"
+import ImageModal1 from "@/shared/assets/images/icon/document-text3.svg"
 import IconClose from "@/shared/assets/images/icon/icon-close.svg"
 import { EnvKeys } from "@/shared/constants/env.ts"
-import { FilledButton } from "@/shared/ui/buttons"
+import { FilledButton, OutlineButton } from "@/shared/ui/buttons"
 
 import s from "./internship-inner-info.module.scss"
 
 export const InternshipInnerInfo = () => {
 	const matches = useMediaQuery("(max-width: 1024px)")
+	const params = useParams()
 	const router = useRouter()
-	const [submitModal, setSubmitModal] = useInternshipInfoStore((s) => [
-		s.submitModal,
-		s.setSubmitModal,
-	])
-
+	const [opened, setOpened] = useState(false)
+	const [success, setSuccess] = useState(false)
+	const [uploaded, setUploaded] = useState(false)
+	const [file, setFile] = useState<FileWithPath[]>([])
 	const handleOpenModal = () => {
-		setSubmitModal(true)
+		setOpened(true)
 	}
 	const handleCloseModal = () => {
-		setSubmitModal(false)
+		setOpened(false)
+		setFile([])
+		setUploaded(false)
 	}
 
-	const params = useParams()
+	const { mutate, isPending } = useUploadFileQuery(() => setSuccess(true))
+
+	const handleUploadFile = () => {
+		mutate({
+			id: Number(params?.id),
+			file: file[0],
+		})
+	}
+
 	const { data } = useGetInternshipQuery(Number(params?.id))
 
 	const dataPriceInfo = [
@@ -193,7 +207,7 @@ export const InternshipInnerInfo = () => {
 			</Flex>
 			{/* Modal Upload document	*/}
 			<Modal
-				opened={submitModal}
+				opened={opened}
 				onClose={handleCloseModal}
 				size={"50rem"}
 				centered
@@ -209,82 +223,80 @@ export const InternshipInnerInfo = () => {
 						<IconClose />
 					</ActionIcon>
 					<Text component={"h3"} className={s.titleModal}>
-						Uzbekistan's Club Internship
+						Upload document
 					</Text>
-					{/*<Text component={"p"} className={s.titleDescription}>*/}
-					{/*	To upload a document, click on the upload button*/}
-					{/*</Text>*/}
-					<SubmitInternship />
+					<Text component={"p"} className={s.titleDescription}>
+						To upload a document, click on the upload button
+					</Text>
+
+					{!success ? (
+						<>
+							<Dropzone
+								onDrop={(files) => {
+									setFile(files)
+									setUploaded(true)
+								}}
+								onReject={(files) => console.log("rejected files", files)}
+								maxFiles={1}
+								multiple={false}
+								// maxSize={10 * 1024 ** 2}
+								accept={[MIME_TYPES.pdf, MIME_TYPES.doc]}
+								className={s.dropzone}
+							>
+								<Group
+									gap="xl"
+									justify="center"
+									style={{ pointerEvents: "none" }}
+									mih={300}
+								>
+									<Dropzone.Accept>
+										<ImageModal />
+									</Dropzone.Accept>
+
+									<Dropzone.Idle>
+										{!uploaded ? (
+											<ImageModal1 />
+										) : (
+											<Flex direction={"column"} align={"center"} gap={12}>
+												<ImageModal />
+												<Text className={s.imageDesciption}>
+													{file[0]?.name}
+												</Text>
+											</Flex>
+										)}
+									</Dropzone.Idle>
+								</Group>
+							</Dropzone>
+							<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
+								<FilledButton
+									h={"3.5rem"}
+									bg={"#004C84"}
+									onClick={handleUploadFile}
+									loading={isPending}
+									disabled={!(file.length > 0)}
+								>
+									Upload the document
+								</FilledButton>
+								<OutlineButton onClick={handleCloseModal} h={"3.5rem"}>
+									Cancel
+								</OutlineButton>
+							</Flex>
+						</>
+					) : (
+						<div className={s.successBox}>
+							<Flex direction={"column"}>
+								<ImageModal />
+								<Text component={"p"} className={s.imageName}>
+									{file[0]?.name}
+								</Text>
+								<Text component={"p"} className={s.imageDesciption}>
+									Successfully uploaded
+								</Text>
+							</Flex>
+						</div>
+					)}
 				</div>
 			</Modal>
 		</Container>
 	)
 }
-
-//
-// {!success ? (
-// 	<>
-// 		<Dropzone
-// 			onDrop={(files) => {
-// 				setFile(files)
-// 				setUploaded(true)
-// 			}}
-// 			onReject={(files) => console.log("rejected files", files)}
-// 			maxFiles={1}
-// 			multiple={false}
-// 			// maxSize={10 * 1024 ** 2}
-// 			accept={[MIME_TYPES.pdf, MIME_TYPES.doc]}
-// 			className={s.dropzone}
-// 		>
-// 			<Group
-// 				gap="xl"
-// 				justify="center"
-// 				style={{ pointerEvents: "none" }}
-// 				mih={300}
-// 			>
-// 				<Dropzone.Accept>
-// 					<ImageModal />
-// 				</Dropzone.Accept>
-//
-// 				<Dropzone.Idle>
-// 					{!uploaded ? (
-// 						<ImageModal1 />
-// 					) : (
-// 						<Flex direction={"column"} align={"center"} gap={12}>
-// 							<ImageModal />
-// 							<Text className={s.imageDesciption}>
-// 								{file[0]?.name}
-// 							</Text>
-// 						</Flex>
-// 					)}
-// 				</Dropzone.Idle>
-// 			</Group>
-// 		</Dropzone>
-// 		<Flex direction={"column"} gap={"0.75rem"} mt={"4rem"}>
-// 			<FilledButton
-// 				h={"3.5rem"}
-// 				bg={"#004C84"}
-// 				onClick={handleUploadFile}
-// 				loading={isPending}
-// 				disabled={!(file.length > 0)}
-// 			>
-// 				Upload the document
-// 			</FilledButton>
-// 			<OutlineButton onClick={handleCloseModal} h={"3.5rem"}>
-// 				Cancel
-// 			</OutlineButton>
-// 		</Flex>
-// 	</>
-// ) : (
-// 	<div className={s.successBox}>
-// 		<Flex direction={"column"}>
-// 			<ImageModal />
-// 			<Text component={"p"} className={s.imageName}>
-// 				{file[0]?.name}
-// 			</Text>
-// 			<Text component={"p"} className={s.imageDesciption}>
-// 				Successfully uploaded
-// 			</Text>
-// 		</Flex>
-// 	</div>
-// )}

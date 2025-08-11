@@ -5,6 +5,7 @@ export enum apiKeys {
 	internships = "admin/internships",
 	myApplications = "account/internships",
 	userMe = "account/me",
+	accountApply = "account/apply",
 	userFiles = "account/files",
 	changePassword = "account/password",
 	subscription = "/account/subscribe",

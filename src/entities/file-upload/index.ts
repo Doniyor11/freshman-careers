@@ -10,6 +10,9 @@ export const uploadFileApi = async (data: IFileUpload) => {
 		formData.append("file", data?.file)
 	}
 
-	const response = await clientApi.post(apiKeys.userFiles, formData)
+	const response = await clientApi.post(
+		`${apiKeys.accountApply}/${data?.id}`,
+		formData,
+	)
 	return response.data
 }
