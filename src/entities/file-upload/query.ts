@@ -8,12 +8,10 @@ export const useUploadFileQuery = (onSuccess: () => void) => {
 	return useMutation({
 		mutationFn: (data: IFileUpload) => uploadFileApi(data),
 		onSuccess: (data) => {
-			// @ts-ignore
-			toast.success(data?.detail)
+			toast.success(data?.message)
 			onSuccess && onSuccess()
 		},
-		onError: (data) => {
-			// @ts-ignore
+		onError: (data: any) => {
 			toast.error(data?.detail)
 		},
 	})

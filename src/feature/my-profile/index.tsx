@@ -3,6 +3,8 @@ import IconDoc from "@//shared/assets/images/icon/document-text.svg"
 import IconDownload from "@//shared/assets/images/icon/download.svg"
 import IconTrash from "@//shared/assets/images/icon/trash.svg"
 import UserImage from "@//shared/assets/images/user-profile.png"
+import { useInternshipInfoStore } from "@/feature/internship-inner-info/submit-internship/model"
+import { SubmitInternship } from "@/feature/internship-inner-info/submit-internship/ui"
 import { ChangePasswordProfileModal } from "@/feature/my-profile/change-password/ui"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
@@ -70,6 +72,15 @@ export const MyProfile = () => {
 					<Grid>
 						<Grid.Col span={matches ? 12 : 4}>
 							<Card />
+						</Grid.Col>
+					</Grid>
+					{/*	 -----------  Grid end ------------ */}
+				</Grid.Col>
+				<Grid.Col span={matches ? 12 : 9}>
+					{/*	 -----------  Grid start ------------ */}
+					<Grid>
+						<Grid.Col span={matches ? 12 : 4}>
+							<Documents />
 						</Grid.Col>
 					</Grid>
 					{/*	 -----------  Grid end ------------ */}
@@ -157,52 +168,87 @@ const ProfileCard = () => {
 }
 
 export const Documents = () => {
+	const [submitModal, setSubmitModal] = useInternshipInfoStore((s) => [
+		s.submitModal,
+		s.setSubmitModal,
+	])
 	const { data } = useGetUserFilesQuery()
 	const { mutate, isPending } = useDeleteFilesQuery()
-	if (!(data?.length > 0)) return <></>
+
+	const handleClose = () => {
+		setSubmitModal(false)
+	}
 
 	return (
-		<Box className={s.card}>
-			<Text component={"p"} className={s.cardTitle} mb={"1.5rem"}>
-				Documents
-			</Text>
+		<>
+			<Box className={s.card}>
+				<Text component={"p"} className={s.cardTitle} mb={"1.5rem"}>
+					Documents
+				</Text>
 
-			{data?.map((i: IUserFiles, index: number) => (
-				<Flex key={index} className={s.documentList}>
-					<IconDoc />
-					<Flex direction={"column"} flex={"auto"}>
-						<Text component={"p"} className={s.documentTitle} ml={"0.5rem"}>
-							{i?.file_name || "-"}
-						</Text>
-						<Text component={"p"} className={s.documentLabel} ml={"0.5rem"}>
-							Download date:{" "}
-							{i?.uploaded_at
-								? dayjs(i?.uploaded_at).format("MM/DD/YYYY")
-								: "-"}
-						</Text>
-					</Flex>
+				{data?.length > 0 ? (
+					data?.map((i: IUserFiles, index: number) => (
+						<Flex key={index} className={s.documentList}>
+							<IconDoc />
+							<Flex direction={"column"} flex={"auto"}>
+								<Text component={"p"} className={s.documentTitle} ml={"0.5rem"}>
+									{i?.file_name || "-"}
+								</Text>
+								<Text component={"p"} className={s.documentLabel} ml={"0.5rem"}>
+									Download date:{" "}
+									{i?.uploaded_at
+										? dayjs(i?.uploaded_at).format("MM/DD/YYYY")
+										: "-"}
+								</Text>
+							</Flex>
 
-					<Flex gap={2} align={"center"}>
-						<Anchor
-							href={`${EnvKeys.NEXT_HOST}/${encodeURI(i?.file_path)}`}
-							download
-							target={"_blank"}
-						>
-							<ActionIcon variant={"transparent"}>
-								<IconDownload />
-							</ActionIcon>
-						</Anchor>
-						<ActionIcon
-							variant={"transparent"}
-							disabled={isPending}
-							onClick={() => mutate(i.id)}
-						>
-							<IconTrash />
-						</ActionIcon>
-					</Flex>
-				</Flex>
-			))}
-		</Box>
+							<Flex gap={2} align={"center"}>
+								<Anchor
+									href={`${EnvKeys.NEXT_HOST}/${encodeURI(i?.file_path)}`}
+									download
+									target={"_blank"}
+								>
+									<ActionIcon variant={"transparent"}>
+										<IconDownload />
+									</ActionIcon>
+								</Anchor>
+								<ActionIcon
+									variant={"transparent"}
+									disabled={isPending}
+									onClick={() => mutate(i.id)}
+								>
+									<IconTrash />
+								</ActionIcon>
+							</Flex>
+						</Flex>
+					))
+				) : (
+					<div className={cx(s.documentList, "no-data")}>
+						<Text>No data available</Text>
+					</div>
+				)}
+				<FilledButton
+					onClick={() => setSubmitModal(true)}
+					bg={"#004C84"}
+					h={"2.75rem"}
+					fullWidth
+					mt={"1.5rem"}
+				>
+					Applications submit
+				</FilledButton>
+			</Box>
+			<Modal size={"50rem"} opened={submitModal} onClose={handleClose}>
+				<div className={s.modalWrapper}>
+					<Text component={"h3"} className={s.titleModal}>
+						Uzbekistan's Club Internship
+					</Text>
+					{/*<Text component={"p"} className={s.titleDescription}>*/}
+					{/*	To upload a document, click on the upload button*/}
+					{/*</Text>*/}
+					<SubmitInternship />
+				</div>
+			</Modal>
+		</>
 	)
 }
 

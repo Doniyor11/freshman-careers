@@ -7,7 +7,6 @@ export interface ISubmit {
 	future_goals: string
 	past_experience: string
 	additional_circumstances: string
-	internship_id?: number
 	cv?: File | null
 	supporting_documents?: File | null
 }
