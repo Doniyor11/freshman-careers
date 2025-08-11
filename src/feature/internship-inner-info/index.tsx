@@ -194,7 +194,7 @@ export const InternshipInnerInfo = () => {
 				{/*	2 */}
 				<Flex direction={"column"} flex={1} gap={"0.5rem"}>
 					<Text component={"p"} className={s.descriptionTitle}>
-						Terms and conditions
+						Responsibilities
 					</Text>
 					<List className={s.list}>
 						<List.Item>

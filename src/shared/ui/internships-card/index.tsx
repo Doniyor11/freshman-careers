@@ -1,6 +1,4 @@
-import IconEdit from "@//shared/assets//images/icon/edit.svg"
-import IconTrash from "@//shared/assets//images/icon/trash.svg"
-import { ActionIcon, Box, Flex, Text } from "@mantine/core"
+import { Box, Flex, Text } from "@mantine/core"
 import Image from "next/image"
 import React from "react"
 
@@ -20,10 +18,6 @@ interface InternshipsCardProps {
 	datesLabel: string
 	dates: string
 	onApply: () => void
-	onResponses?: () => void
-	onEdit?: () => void
-	onDelete?: () => void
-	isAdmin?: boolean
 	border?: boolean
 }
 
@@ -38,10 +32,6 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 	datesLabel,
 	dates,
 	onApply,
-	onResponses,
-	isAdmin = false,
-	onEdit,
-	onDelete,
 	border = true,
 	companyName,
 }) => {
@@ -62,37 +52,39 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 				/>
 			</Box>
 			<Box className={s.internshipsCardContent}>
-				<Flex justify={"space-between"} align={"center"}>
-					<Flex align={"center"} gap={10}>
-						<Box className={s.internshipsCardIcon}>
-							<Image
-								src={iconSrc}
-								alt={iconAlt}
-								width={32}
-								height={32}
-								unoptimized
-							/>
-						</Box>
-						<Text className={s.companyName}>{companyName}</Text>
+				<Box>
+					<Flex justify={"space-between"} align={"center"}>
+						<Flex align={"center"} gap={10}>
+							<Box className={s.internshipsCardIcon}>
+								<Image
+									src={iconSrc}
+									alt={iconAlt}
+									width={32}
+									height={32}
+									unoptimized
+								/>
+							</Box>
+							<Text className={s.companyName}>{companyName}</Text>
+						</Flex>
+						<Box className={s.internshipsCardDay}>{day}</Box>
 					</Flex>
-					<Box className={s.internshipsCardDay}>{day}</Box>
-				</Flex>
-				<Flex direction={"column"} m={"1.5rem 0 1.5rem"} gap={"0.75rem"}>
-					<Text component={"h3"} className={s.internshipsCardTitle}>
-						{title}
-					</Text>
-					<Text component={"p"} className={s.internshipsCardDescription}>
-						{description}
-					</Text>
-				</Flex>
-				<Flex direction={"column"} mb={"1.5rem"}>
-					<Text component={"p"} className={s.internshipsCardDescription}>
-						{datesLabel}
-					</Text>
-					<Text component={"p"} className={s.internshipsCardDate}>
-						{dates}
-					</Text>
-				</Flex>
+					<Flex direction={"column"} m={"1.5rem 0 1.5rem"} gap={"0.75rem"}>
+						<Text component={"h3"} className={s.internshipsCardTitle}>
+							{title}
+						</Text>
+						<Text component={"p"} className={s.internshipsCardDescription}>
+							{description}
+						</Text>
+					</Flex>
+					<Flex direction={"column"} mb={"1.5rem"}>
+						<Text component={"p"} className={s.internshipsCardDescription}>
+							{datesLabel}
+						</Text>
+						<Text component={"p"} className={s.internshipsCardDate}>
+							{dates}
+						</Text>
+					</Flex>
+				</Box>
 				<FilledButton
 					className={s.internshipsCardButton}
 					fullWidth
@@ -101,32 +93,6 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 				>
 					Apply now
 				</FilledButton>
-				{isAdmin && (
-					<Flex gap={"0.5rem"}>
-						<FilledButton
-							className={s.internshipsCardButton}
-							bg={"#004C84;"}
-							flex={"auto"}
-							onClick={onResponses}
-						>
-							Responses
-						</FilledButton>
-						<ActionIcon
-							bg={"#fff"}
-							className={s.internshipsCardActionIcon}
-							onClick={onEdit}
-						>
-							<IconEdit />
-						</ActionIcon>
-						<ActionIcon
-							bg={"#fff"}
-							className={s.internshipsCardActionIcon}
-							onClick={onDelete}
-						>
-							<IconTrash />
-						</ActionIcon>
-					</Flex>
-				)}
 			</Box>
 		</Box>
 	)

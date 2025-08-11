@@ -109,6 +109,10 @@
 .internshipsCardWrapper {
 	border-radius: 0.5rem;
 	background: #fff;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .internshipsCardHead {
