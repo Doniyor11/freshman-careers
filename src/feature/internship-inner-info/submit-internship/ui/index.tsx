@@ -5,6 +5,7 @@ import { useInternshipInfoStore } from "@/feature/internship-inner-info/submit-i
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Button, FileButton, Flex, Input, Text } from "@mantine/core"
 import cx from "clsx"
+import { useParams } from "next/navigation"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "react-toastify"
@@ -16,7 +17,7 @@ import s from "./styles.module.scss"
 
 export const SubmitInternship = () => {
 	const setSubmitModal = useInternshipInfoStore((s) => s.setSubmitModal)
-
+	const params = useParams()
 	const [cvFile, setCvFile] = useState<File | null>(null)
 	const [documents, setDocuments] = useState<File | null>(null)
 
@@ -38,6 +39,7 @@ export const SubmitInternship = () => {
 	const onSubmit = (data: ISubmit) => {
 		mutate({
 			...data,
+			internship_id: Number(params?.id),
 			cv: cvFile ? cvFile : undefined,
 			supporting_documents: documents ? documents : undefined,
 		})

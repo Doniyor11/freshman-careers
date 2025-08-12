@@ -14,6 +14,9 @@ export const submitApi = async (data: ISubmit) => {
 	formData.append("future_goals", data?.future_goals)
 	formData.append("past_experience", data?.past_experience)
 	formData.append("additional_circumstances", data?.additional_circumstances)
+	if (data?.internship_id) {
+		formData.append("internship_id", data?.internship_id.toString())
+	}
 
 	if (data?.cv) {
 		formData.append("cv", data?.cv)

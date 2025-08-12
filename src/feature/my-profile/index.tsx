@@ -3,8 +3,6 @@ import IconDoc from "@//shared/assets/images/icon/document-text.svg"
 import IconDownload from "@//shared/assets/images/icon/download.svg"
 import IconTrash from "@//shared/assets/images/icon/trash.svg"
 import UserImage from "@//shared/assets/images/user-profile.png"
-import { useInternshipInfoStore } from "@/feature/internship-inner-info/submit-internship/model"
-import { SubmitInternship } from "@/feature/internship-inner-info/submit-internship/ui"
 import { ChangePasswordProfileModal } from "@/feature/my-profile/change-password/ui"
 import { EditProfileModal } from "@/feature/my-profile/edit-profile/ui"
 import { useProfileStore } from "@/feature/my-profile/model"
@@ -164,16 +162,8 @@ const ProfileCard = () => {
 }
 
 export const Documents = () => {
-	const [submitModal, setSubmitModal] = useInternshipInfoStore((s) => [
-		s.submitModal,
-		s.setSubmitModal,
-	])
 	const { data } = useGetUserFilesQuery()
 	const { mutate, isPending } = useDeleteFilesQuery()
-
-	const handleClose = () => {
-		setSubmitModal(false)
-	}
 
 	return (
 		<>
@@ -223,27 +213,7 @@ export const Documents = () => {
 						<Text>No data available</Text>
 					</div>
 				)}
-				<FilledButton
-					onClick={() => setSubmitModal(true)}
-					bg={"#004C84"}
-					h={"2.75rem"}
-					fullWidth
-					mt={"1.5rem"}
-				>
-					Applications submit
-				</FilledButton>
 			</Box>
-			<Modal size={"50rem"} opened={submitModal} onClose={handleClose}>
-				<div className={s.modalWrapper}>
-					<Text component={"h3"} className={s.titleModal}>
-						Uzbekistan's Club Internship
-					</Text>
-					{/*<Text component={"p"} className={s.titleDescription}>*/}
-					{/*	To upload a document, click on the upload button*/}
-					{/*</Text>*/}
-					<SubmitInternship />
-				</div>
-			</Modal>
 		</>
 	)
 }
@@ -252,6 +222,18 @@ const Card = () => {
 	const matches = useMediaQuery("(max-width: 1024px)")
 	const router = useRouter()
 	const { data } = useGetResponsesQuery()
+
+	const getStatusColor = (status?: string) => {
+		switch (status) {
+			case "Rejected":
+				return "#CD0700"
+			case "Accepted":
+				return "#00C206"
+			case "Pending":
+			default:
+				return "#004B84"
+		}
+	}
 
 	return (
 		<Grid align={"stretch"}>
@@ -271,7 +253,11 @@ const Card = () => {
 											<Text component={"h3"} className={s.internshipsCardTitle}>
 												{i?.hashed_id || "-"}
 											</Text>
-											<Text component={"h3"} className={s.status} c={"#004B84"}>
+											<Text
+												component={"h3"}
+												className={s.status}
+												c={getStatusColor(i?.status)}
+											>
 												{i?.status || "-"}
 											</Text>
 										</Flex>
