@@ -253,7 +253,11 @@ const Card = () => {
 											<Text component={"h3"} className={s.internshipsCardTitle}>
 												{i?.hashed_id || "-"}
 											</Text>
-											<Text component={"h3"} className={s.status} c={getStatusColor(i?.status)}>
+											<Text
+												component={"h3"}
+												className={s.status}
+												c={getStatusColor(i?.status)}
+											>
 												{i?.status || "-"}
 											</Text>
 										</Flex>
