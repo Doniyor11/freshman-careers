@@ -7,7 +7,8 @@ import { ISubmit } from "./types.ts"
 export const useSubmitQuery = (onSuccess: () => void) => {
 	return useMutation({
 		mutationFn: (data: ISubmit) => submitApi(data),
-		onSuccess: () => {
+		onSuccess: (data: any) => {
+			toast.success(data.message)
 			onSuccess && onSuccess()
 		},
 		onError: (err: any) => {

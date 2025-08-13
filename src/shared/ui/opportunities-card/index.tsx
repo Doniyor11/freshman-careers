@@ -23,11 +23,12 @@ export const OpportunitiesCard: FC<OpportunitiesCardIProps> = ({
 
 	return (
 		<Flex
-			align={matches ? "flex-start" : "center"}
+			align={"center"}
 			direction={matches ? "column" : "row"}
 			justify={"center"}
 			w={"100%"}
 			maw={430}
+			rowGap={16}
 		>
 			<Box className={s.opportunitiesCard}>
 				<Box className={s.opportunitiesCardImage}>
@@ -41,7 +42,10 @@ export const OpportunitiesCard: FC<OpportunitiesCardIProps> = ({
 				</Text>
 			</Box>
 			{icon && (
-				<Box m={"1rem 0 0 1rem"} className={s.opportunitiesCardArrow}>
+				<Box
+					m={matches ? 0 : "1rem 0 0 1rem"}
+					className={s.opportunitiesCardArrow}
+				>
 					<IconArrow />
 				</Box>
 			)}
