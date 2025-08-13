@@ -18,6 +18,7 @@ import {
 	Container,
 	Flex,
 	Grid,
+	ScrollArea,
 	Stack,
 	Text,
 } from "@mantine/core"
@@ -46,7 +47,11 @@ export const MyProfile = () => {
 	const router = useRouter()
 	return (
 		<Container size={"1440px"} className={s.myProfileWrapper}>
-			<Flex onClick={() => router.push("/profile")} align={"center"}>
+			<Flex
+				onClick={() => router.push("/profile")}
+				align={"center"}
+				w={"fit-content"}
+			>
 				<IconBack />
 				<Text component={"p"} className={s.backText}>
 					Go back
@@ -66,18 +71,9 @@ export const MyProfile = () => {
 					</Flex>
 				</Grid.Col>
 				<Grid.Col span={matches ? 12 : 9}>
-					{/*	 -----------  Grid start ------------ */}
-					<Card />
-					{/*	 -----------  Grid end ------------ */}
-				</Grid.Col>
-				<Grid.Col span={matches ? 12 : 9}>
-					{/*	 -----------  Grid start ------------ */}
-					<Grid>
-						<Grid.Col span={matches ? 12 : 4}>
-							<Documents />
-						</Grid.Col>
-					</Grid>
-					{/*	 -----------  Grid end ------------ */}
+					<ScrollArea h={"calc(100vh - 270px)"} type={"hover"} scrollbars="y">
+						<Card />
+					</ScrollArea>
 				</Grid.Col>
 			</Grid>
 		</Container>
@@ -240,6 +236,370 @@ const Card = () => {
 			{data?.length > 0 ? (
 				data?.map((i: IResponse, index: number) => (
 					<>
+						<Grid.Col span={matches ? 12 : 4}>
+							<Box className={s.internshipsCardWrapper} key={index}>
+								<Box>
+									<Flex
+										justify={"space-between"}
+										align={"flex-start"}
+										p={"1.5rem"}
+										className={s.internshipsCardHead}
+									>
+										<Flex direction={"column"}>
+											<Text component={"h3"} className={s.internshipsCardTitle}>
+												{i?.hashed_id || "-"}
+											</Text>
+											<Text
+												component={"h3"}
+												className={s.status}
+												c={getStatusColor(i?.status)}
+											>
+												{i?.status || "-"}
+											</Text>
+										</Flex>
+										<Box className={s.internshipsCardDay}>
+											{i?.application_date &&
+											dayjs(i?.application_date).isSame(dayjs(), "day")
+												? "today"
+												: dayjs(i?.application_date).format("DD.MM.YYYY")}
+										</Box>
+									</Flex>
+									<Box className={s.internshipsCardContent}>
+										<Flex justify={"space-between"} align={"center"}>
+											<Flex align={"center"} gap={10}>
+												<Box className={s.internshipsCardIcon}>
+													<Image
+														src={`${EnvKeys.NEXT_HOST}/${i?.company?.image}`}
+														alt={i?.company?.title}
+														width={32}
+														height={32}
+														unoptimized
+													/>
+												</Box>
+												<Text className={s.companyName}>
+													{i?.company?.title || "-"}
+												</Text>
+											</Flex>
+										</Flex>
+										<Flex
+											direction={"column"}
+											m={"1.5rem 0 1.5rem"}
+											gap={"0.75rem"}
+										>
+											<Text component={"h3"} className={s.internshipsCardTitle}>
+												{i?.internship?.title || "-"}
+											</Text>
+											<Text
+												component={"p"}
+												className={s.internshipsCardDescription}
+											>
+												{i?.internship?.description || "-"}
+											</Text>
+										</Flex>
+										<Flex direction={"column"} mb={"1.5rem"}>
+											<Text
+												component={"p"}
+												className={s.internshipsCardDescription}
+											>
+												Internship Dates:
+											</Text>
+											<Text component={"p"} className={s.internshipsCardDate}>
+												{`${dayjs(i?.internship?.internship_start_date).format(
+													"DD.MM.YYYY",
+												)} - ${dayjs(i?.internship?.internship_end_date).format(
+													"DD.MM.YYYY",
+												)}`}
+											</Text>
+										</Flex>
+									</Box>
+								</Box>
+								<Box p={"0 24px 24px"}>
+									<FilledButton
+										fullWidth
+										h={"2.75rem"}
+										className={s.internshipsCardButton}
+										onClick={() =>
+											router.push(`/internship-inner/${i?.internship_id}`)
+										}
+									>
+										Open an internship
+									</FilledButton>
+								</Box>
+							</Box>
+						</Grid.Col>
+						<Grid.Col span={matches ? 12 : 4}>
+							<Box className={s.internshipsCardWrapper} key={index}>
+								<Box>
+									<Flex
+										justify={"space-between"}
+										align={"flex-start"}
+										p={"1.5rem"}
+										className={s.internshipsCardHead}
+									>
+										<Flex direction={"column"}>
+											<Text component={"h3"} className={s.internshipsCardTitle}>
+												{i?.hashed_id || "-"}
+											</Text>
+											<Text
+												component={"h3"}
+												className={s.status}
+												c={getStatusColor(i?.status)}
+											>
+												{i?.status || "-"}
+											</Text>
+										</Flex>
+										<Box className={s.internshipsCardDay}>
+											{i?.application_date &&
+											dayjs(i?.application_date).isSame(dayjs(), "day")
+												? "today"
+												: dayjs(i?.application_date).format("DD.MM.YYYY")}
+										</Box>
+									</Flex>
+									<Box className={s.internshipsCardContent}>
+										<Flex justify={"space-between"} align={"center"}>
+											<Flex align={"center"} gap={10}>
+												<Box className={s.internshipsCardIcon}>
+													<Image
+														src={`${EnvKeys.NEXT_HOST}/${i?.company?.image}`}
+														alt={i?.company?.title}
+														width={32}
+														height={32}
+														unoptimized
+													/>
+												</Box>
+												<Text className={s.companyName}>
+													{i?.company?.title || "-"}
+												</Text>
+											</Flex>
+										</Flex>
+										<Flex
+											direction={"column"}
+											m={"1.5rem 0 1.5rem"}
+											gap={"0.75rem"}
+										>
+											<Text component={"h3"} className={s.internshipsCardTitle}>
+												{i?.internship?.title || "-"}
+											</Text>
+											<Text
+												component={"p"}
+												className={s.internshipsCardDescription}
+											>
+												{i?.internship?.description || "-"}
+											</Text>
+										</Flex>
+										<Flex direction={"column"} mb={"1.5rem"}>
+											<Text
+												component={"p"}
+												className={s.internshipsCardDescription}
+											>
+												Internship Dates:
+											</Text>
+											<Text component={"p"} className={s.internshipsCardDate}>
+												{`${dayjs(i?.internship?.internship_start_date).format(
+													"DD.MM.YYYY",
+												)} - ${dayjs(i?.internship?.internship_end_date).format(
+													"DD.MM.YYYY",
+												)}`}
+											</Text>
+										</Flex>
+									</Box>
+								</Box>
+								<Box p={"0 24px 24px"}>
+									<FilledButton
+										fullWidth
+										h={"2.75rem"}
+										className={s.internshipsCardButton}
+										onClick={() =>
+											router.push(`/internship-inner/${i?.internship_id}`)
+										}
+									>
+										Open an internship
+									</FilledButton>
+								</Box>
+							</Box>
+						</Grid.Col>
+						<Grid.Col span={matches ? 12 : 4}>
+							<Box className={s.internshipsCardWrapper} key={index}>
+								<Box>
+									<Flex
+										justify={"space-between"}
+										align={"flex-start"}
+										p={"1.5rem"}
+										className={s.internshipsCardHead}
+									>
+										<Flex direction={"column"}>
+											<Text component={"h3"} className={s.internshipsCardTitle}>
+												{i?.hashed_id || "-"}
+											</Text>
+											<Text
+												component={"h3"}
+												className={s.status}
+												c={getStatusColor(i?.status)}
+											>
+												{i?.status || "-"}
+											</Text>
+										</Flex>
+										<Box className={s.internshipsCardDay}>
+											{i?.application_date &&
+											dayjs(i?.application_date).isSame(dayjs(), "day")
+												? "today"
+												: dayjs(i?.application_date).format("DD.MM.YYYY")}
+										</Box>
+									</Flex>
+									<Box className={s.internshipsCardContent}>
+										<Flex justify={"space-between"} align={"center"}>
+											<Flex align={"center"} gap={10}>
+												<Box className={s.internshipsCardIcon}>
+													<Image
+														src={`${EnvKeys.NEXT_HOST}/${i?.company?.image}`}
+														alt={i?.company?.title}
+														width={32}
+														height={32}
+														unoptimized
+													/>
+												</Box>
+												<Text className={s.companyName}>
+													{i?.company?.title || "-"}
+												</Text>
+											</Flex>
+										</Flex>
+										<Flex
+											direction={"column"}
+											m={"1.5rem 0 1.5rem"}
+											gap={"0.75rem"}
+										>
+											<Text component={"h3"} className={s.internshipsCardTitle}>
+												{i?.internship?.title || "-"}
+											</Text>
+											<Text
+												component={"p"}
+												className={s.internshipsCardDescription}
+											>
+												{i?.internship?.description || "-"}
+											</Text>
+										</Flex>
+										<Flex direction={"column"} mb={"1.5rem"}>
+											<Text
+												component={"p"}
+												className={s.internshipsCardDescription}
+											>
+												Internship Dates:
+											</Text>
+											<Text component={"p"} className={s.internshipsCardDate}>
+												{`${dayjs(i?.internship?.internship_start_date).format(
+													"DD.MM.YYYY",
+												)} - ${dayjs(i?.internship?.internship_end_date).format(
+													"DD.MM.YYYY",
+												)}`}
+											</Text>
+										</Flex>
+									</Box>
+								</Box>
+								<Box p={"0 24px 24px"}>
+									<FilledButton
+										fullWidth
+										h={"2.75rem"}
+										className={s.internshipsCardButton}
+										onClick={() =>
+											router.push(`/internship-inner/${i?.internship_id}`)
+										}
+									>
+										Open an internship
+									</FilledButton>
+								</Box>
+							</Box>
+						</Grid.Col>
+						<Grid.Col span={matches ? 12 : 4}>
+							<Box className={s.internshipsCardWrapper} key={index}>
+								<Box>
+									<Flex
+										justify={"space-between"}
+										align={"flex-start"}
+										p={"1.5rem"}
+										className={s.internshipsCardHead}
+									>
+										<Flex direction={"column"}>
+											<Text component={"h3"} className={s.internshipsCardTitle}>
+												{i?.hashed_id || "-"}
+											</Text>
+											<Text
+												component={"h3"}
+												className={s.status}
+												c={getStatusColor(i?.status)}
+											>
+												{i?.status || "-"}
+											</Text>
+										</Flex>
+										<Box className={s.internshipsCardDay}>
+											{i?.application_date &&
+											dayjs(i?.application_date).isSame(dayjs(), "day")
+												? "today"
+												: dayjs(i?.application_date).format("DD.MM.YYYY")}
+										</Box>
+									</Flex>
+									<Box className={s.internshipsCardContent}>
+										<Flex justify={"space-between"} align={"center"}>
+											<Flex align={"center"} gap={10}>
+												<Box className={s.internshipsCardIcon}>
+													<Image
+														src={`${EnvKeys.NEXT_HOST}/${i?.company?.image}`}
+														alt={i?.company?.title}
+														width={32}
+														height={32}
+														unoptimized
+													/>
+												</Box>
+												<Text className={s.companyName}>
+													{i?.company?.title || "-"}
+												</Text>
+											</Flex>
+										</Flex>
+										<Flex
+											direction={"column"}
+											m={"1.5rem 0 1.5rem"}
+											gap={"0.75rem"}
+										>
+											<Text component={"h3"} className={s.internshipsCardTitle}>
+												{i?.internship?.title || "-"}
+											</Text>
+											<Text
+												component={"p"}
+												className={s.internshipsCardDescription}
+											>
+												{i?.internship?.description || "-"}
+											</Text>
+										</Flex>
+										<Flex direction={"column"} mb={"1.5rem"}>
+											<Text
+												component={"p"}
+												className={s.internshipsCardDescription}
+											>
+												Internship Dates:
+											</Text>
+											<Text component={"p"} className={s.internshipsCardDate}>
+												{`${dayjs(i?.internship?.internship_start_date).format(
+													"DD.MM.YYYY",
+												)} - ${dayjs(i?.internship?.internship_end_date).format(
+													"DD.MM.YYYY",
+												)}`}
+											</Text>
+										</Flex>
+									</Box>
+								</Box>
+								<Box p={"0 24px 24px"}>
+									<FilledButton
+										fullWidth
+										h={"2.75rem"}
+										className={s.internshipsCardButton}
+										onClick={() =>
+											router.push(`/internship-inner/${i?.internship_id}`)
+										}
+									>
+										Open an internship
+									</FilledButton>
+								</Box>
+							</Box>
+						</Grid.Col>
 						<Grid.Col span={matches ? 12 : 4}>
 							<Box className={s.internshipsCardWrapper} key={index}>
 								<Box>
