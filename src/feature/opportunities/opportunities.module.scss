@@ -9,20 +9,30 @@
 }
 
 .opportunitiesGrid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: auto;
-	grid-column-gap: 4rem;
-	grid-row-gap: 2rem;
-	margin: 2.5rem 0;
-	@media screen and (max-width: 1024px) {
-		grid-template-columns: repeat(2, 1fr);
-		grid-column-gap: 0.75rem;
-		grid-row-gap: 1rem;
+	display: flex;
+	align-items: center;
+	margin-top: 40px;
+	gap: 1rem;
+
+	&:nth-child(3) {
+		margin-top: 64px;
+		margin-bottom: 40px;
 	}
-	@media screen and (max-width: 576px) {
-		grid-template-columns: repeat(1, 1fr);
-		grid-column-gap: 0.75rem;
-		grid-row-gap: 1rem;
+
+	.icon {
+		min-width: 64px;
+		height: 64px;
+	}
+
+	@media screen and (max-width: 1024px) {
+		flex-direction: column;
+		margin-top: 20px;
+		&:nth-child(3) {
+			margin-top: 34px;
+			margin-bottom: 20px;
+		}
+		.icon {
+			transform: rotate(90deg);
+		}
 	}
 }

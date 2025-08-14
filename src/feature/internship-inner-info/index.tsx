@@ -204,7 +204,11 @@ export const InternshipInnerInfo = () => {
 					>
 						<IconClose />
 					</ActionIcon>
-					<ScrollArea h={"calc(100vh - 300px)"} type={"hover"} offsetScrollbars={'y'}>
+					<ScrollArea
+						h={"calc(100vh - 300px)"}
+						type={"hover"}
+						offsetScrollbars={"y"}
+					>
 						<SubmitInternship />
 					</ScrollArea>
 				</div>

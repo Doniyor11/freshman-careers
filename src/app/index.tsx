@@ -22,4 +22,3 @@ const App = ({ Component, pageProps }: AppProps) => {
 }
 
 export default withHocs(App)
-
