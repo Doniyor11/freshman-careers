@@ -296,7 +296,16 @@ export const SubmitInternship = () => {
 					onClick={() => {
 						setDocuments(null)
 						setCvFile(null)
-						reset({})
+						reset({
+							full_name: "",
+							email: "",
+							phone_number: "",
+							current_study: "",
+							languages: "",
+							future_goals: "",
+							past_experience: "",
+							additional_circumstances: "",
+						})
 					}}
 				>
 					Clear fields

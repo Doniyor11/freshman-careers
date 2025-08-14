@@ -1,7 +1,17 @@
 import IconBack from "@//shared/assets/images/icon/chevron_backward5.svg"
+import IconClose from "@//shared/assets/images/icon/icon-close.svg"
 import { useInternshipInfoStore } from "@/feature/internship-inner-info/submit-internship/model"
 import { SubmitInternship } from "@/feature/internship-inner-info/submit-internship/ui"
-import { Box, Container, Flex, List, Modal, Text } from "@mantine/core"
+import {
+	ActionIcon,
+	Box,
+	Container,
+	Flex,
+	List,
+	Modal,
+	ScrollArea,
+	Text,
+} from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
 import Image from "next/image"
 import { useParams } from "next/navigation"
@@ -180,12 +190,23 @@ export const InternshipInnerInfo = () => {
 					</List>
 				</Flex>
 			</Flex>
-			<Modal size={"50rem"} opened={submitModal} onClose={handleClose}>
+			<Modal
+				size={"50rem"}
+				opened={submitModal}
+				onClose={handleClose}
+				withCloseButton={false}
+			>
 				<div className={s.modalWrapper}>
-					<Text component={"h3"} className={s.titleModal}>
-						Uzbekistan's Club Internship
-					</Text>
-					<SubmitInternship />
+					<ActionIcon
+						className={s.iconClose}
+						onClick={handleClose}
+						variant={"transparent"}
+					>
+						<IconClose />
+					</ActionIcon>
+					<ScrollArea h={"calc(100vh - 300px)"} type={"hover"} offsetScrollbars={'y'}>
+						<SubmitInternship />
+					</ScrollArea>
 				</div>
 			</Modal>
 		</Container>
