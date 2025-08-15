@@ -72,9 +72,10 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 						<Text component={"h3"} className={s.internshipsCardTitle}>
 							{title}
 						</Text>
-						<Text component={"p"} className={s.internshipsCardDescription}>
-							{description}
-						</Text>
+						<div
+							className={s.internshipsCardDescription}
+							dangerouslySetInnerHTML={{ __html: description }}
+						/>
 					</Flex>
 					<Flex direction={"column"} mb={"1.5rem"}>
 						<Text component={"p"} className={s.internshipsCardDescription}>

@@ -7,7 +7,6 @@ import {
 	Box,
 	Container,
 	Flex,
-	List,
 	Modal,
 	ScrollArea,
 	Text,
@@ -153,9 +152,10 @@ export const InternshipInnerInfo = () => {
 				<Text component={"p"} className={s.descriptionTitle}>
 					Description
 				</Text>
-				<Text component={"p"} className={s.description}>
-					{data?.description || "-"}
-				</Text>
+				<div
+					className={s.description}
+					dangerouslySetInnerHTML={{ __html: data?.description || "-" }}
+				/>
 			</Flex>
 			<Flex
 				m={"2.5rem 0 4rem 0"}
@@ -168,26 +168,20 @@ export const InternshipInnerInfo = () => {
 					<Text component={"p"} className={s.descriptionTitle}>
 						Requirements
 					</Text>
-					<List className={s.list}>
-						<List.Item>
-							<Text component={"p"} className={s.description}>
-								{data?.requirements || "-"}
-							</Text>
-						</List.Item>
-					</List>
+					<div
+						className={s.description}
+						dangerouslySetInnerHTML={{ __html: data?.requirements || "-" }}
+					/>
 				</Flex>
 				{/*	2 */}
 				<Flex direction={"column"} flex={1} gap={"0.5rem"}>
 					<Text component={"p"} className={s.descriptionTitle}>
 						Responsibilities
 					</Text>
-					<List className={s.list}>
-						<List.Item>
-							<Text component={"p"} className={s.description}>
-								{data?.conditions || "-"}
-							</Text>
-						</List.Item>
-					</List>
+					<div
+						className={s.description}
+						dangerouslySetInnerHTML={{ __html: data?.conditions || "-" }}
+					/>
 				</Flex>
 			</Flex>
 			<Modal
