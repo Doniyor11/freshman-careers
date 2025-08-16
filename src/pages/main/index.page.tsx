@@ -1,11 +1,4 @@
-import {
-	Faq,
-	Internships,
-	Mentorship,
-	Opportunities,
-	Reviews,
-	Webinar,
-} from "@/feature"
+import { Faq, Internships, Opportunities } from "@/feature"
 import dynamic from "next/dynamic"
 
 import { Footer, Navbar } from "@/widgets"
@@ -21,9 +14,9 @@ const HomePage = () => {
 				<Navbar />
 				<Internships />
 				<Opportunities />
-				<Mentorship />
-				<Reviews />
-				<Webinar />
+				{/*<Mentorship />*/}
+				{/*<Reviews />*/}
+				{/*<Webinar />*/}
 				<Faq />
 				<Footer />
 			</PublicRoute>

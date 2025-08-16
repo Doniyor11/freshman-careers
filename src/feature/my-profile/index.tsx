@@ -289,12 +289,12 @@ const Card = () => {
 											<Text component={"h3"} className={s.internshipsCardTitle}>
 												{i?.internship?.title || "-"}
 											</Text>
-											<Text
-												component={"p"}
+											<div
 												className={s.internshipsCardDescription}
-											>
-												{i?.internship?.description || "-"}
-											</Text>
+												dangerouslySetInnerHTML={{
+													__html: i?.internship?.description || "-",
+												}}
+											/>
 										</Flex>
 										<Flex direction={"column"} mb={"1.5rem"}>
 											<Text

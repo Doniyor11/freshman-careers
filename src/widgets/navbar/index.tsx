@@ -22,13 +22,17 @@ const navbarLink = [
 		href: "/ ",
 	},
 	{
-		label: "Companies",
-		href: "/",
-	},
-	{
-		label: "Reviews",
+		label: "FAQ",
 		href: "/ ",
 	},
+	// {
+	// 	label: "Companies",
+	// 	href: "/",
+	// },
+	// {
+	// 	label: "Reviews",
+	// 	href: "/ ",
+	// },
 ]
 
 export const Navbar = () => {
