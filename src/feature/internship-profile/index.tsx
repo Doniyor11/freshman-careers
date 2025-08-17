@@ -38,7 +38,8 @@ export const InternshipProfile = () => {
 		education,
 		salary,
 		data_order: data_order,
-		date: (date ? `${dayjs(date).format("YYYY-MM-DD")}` : null) as any,
+		start_date_min: date[0] ? dayjs(date[0]).format("YYYY-MM-DD") : undefined,
+		start_date_max: date[1] ? dayjs(date[1]).format("YYYY-MM-DD") : undefined,
 	})
 
 	return (

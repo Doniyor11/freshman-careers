@@ -38,3 +38,21 @@
 	border: 1px solid #ff6a00;
 	color: #fff;
 }
+
+.rangeInput {
+	.datePickerInput {
+		border-radius: 0.5rem;
+		border: 1px solid #e2eaff;
+		background: #fafbff;
+		height: 3.5rem;
+
+		.datePickerPlaceholder {
+			color: #848f98;
+			font-size: 1rem;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 1.25rem;
+			letter-spacing: -0.02rem;
+		}
+	}
+}

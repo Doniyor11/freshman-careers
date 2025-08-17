@@ -11,7 +11,8 @@ export const getMyApplicationsApi = async (params: IMyInternshipParam) => {
 			education: params.education,
 			salary: params.salary,
 			data_order: params.data_order,
-			date: params.date,
+			start_date_min: params.start_date_min,
+			start_date_max: params.start_date_max,
 		},
 	})
 	return response?.data

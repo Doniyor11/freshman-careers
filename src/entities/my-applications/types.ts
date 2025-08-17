@@ -27,6 +27,7 @@ export interface IMyInternshipParam {
 	format?: string
 	education?: string
 	salary?: string
-	date?: Date | null
+	start_date_min?: any
+	start_date_max?: any
 	data_order?: string
 }

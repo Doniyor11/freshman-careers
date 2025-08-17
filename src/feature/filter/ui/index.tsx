@@ -1,11 +1,11 @@
 import { useApplicationFilterStore } from "@/feature/filter/model"
 import { Badge, Box, Flex, Input, Text } from "@mantine/core"
+import { DatePickerInput } from "@mantine/dates"
 import cx from "clsx"
 import React from "react"
 
 import Icon5 from "@/shared/assets/images/icon/briefcase.svg"
 import Icon4 from "@/shared/assets/images/icon/search-normal.svg"
-import { InputDate } from "@/shared/ui/date-input"
 
 import s from "./filter.module.scss"
 
@@ -46,15 +46,17 @@ export const Filter = () => {
 				/>
 			</Box>
 			<Flex direction={"column"} gap={"2rem"}>
-				{/*<Select*/}
-				{/*	label={"Internship direction"}*/}
-				{/*	placeholder={"Internship direction"}*/}
-				{/*	leftSection={<Icon5 />}*/}
-				{/*/>*/}
-				<InputDate
-					label={"Internship Date"}
-					placeholder={"Select dates"}
+				<DatePickerInput
+					type="range"
+					valueFormat={"DD.MM.YYYY"}
+					placeholder="Select dates"
+					className={s.rangeInput}
+					classNames={{
+						input: s.datePickerInput,
+						placeholder: s.datePickerPlaceholder,
+					}}
 					leftSection={<Icon5 />}
+					clearable
 					value={date}
 					onChange={setDate}
 				/>
