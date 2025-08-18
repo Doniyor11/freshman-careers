@@ -247,7 +247,7 @@ const Card = () => {
 									>
 										<Flex direction={"column"}>
 											<Text component={"h3"} className={s.internshipsCardTitle}>
-												{i?.hashed_id || "-"}
+												{`Response #${index + 1}` || "-"}
 											</Text>
 											<Text
 												component={"h3"}
@@ -343,7 +343,6 @@ const SubscriptionCard = () => {
 
 	const { data: RenewalData } = useSubscriptionRenewalQuery()
 	const { data: SuccessData } = useGetAccountSuccessQuery()
-
 	return (
 		<>
 			<Box className={s.card}>

@@ -6,10 +6,6 @@ export default function Document() {
 		<Html lang="en">
 			<Head>
 				<link rel="icon" href="/favicon.png" />
-				<link
-					href="https://fonts.cdnfonts.com/css/graphik-trial"
-					rel="stylesheet"
-				/>
 				<ColorSchemeScript />
 			</Head>
 			<body>
