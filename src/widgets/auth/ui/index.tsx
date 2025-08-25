@@ -9,7 +9,7 @@ import { Case, Switch } from "react-if"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
 
-import IconFacebook from "@/shared/assets/images/icon/icon-facebook.svg"
+// import IconFacebook from "@/shared/assets/images/icon/icon-facebook.svg"
 import IconGoogle from "@/shared/assets/images/icon/icon-google.svg"
 
 import s from "./styles.module.scss"
@@ -46,13 +46,13 @@ export const AuthWrapper = () => {
 				<Text>Continue with Google</Text>
 			</Anchor>
 
-			<Anchor
-				className={s.socialAuth}
-				href="https://api.freshman.careers/account/login/facebook"
-			>
-				<IconFacebook />
-				<Text>Continue with Facebook</Text>
-			</Anchor>
+			{/*<Anchor*/}
+			{/*	className={s.socialAuth}*/}
+			{/*	href="https://api.freshman.careers/account/login/facebook"*/}
+			{/*>*/}
+			{/*	<IconFacebook />*/}
+			{/*	<Text>Continue with Facebook</Text>*/}
+			{/*</Anchor>*/}
 		</div>
 	)
 
