@@ -6,7 +6,7 @@ import s from "./title-head.module.scss"
 
 interface TitleHeadIProps {
 	info?: string
-	title?: string
+	title: string
 	description?: string
 }
 
@@ -26,7 +26,7 @@ export const TitleHead: FC<TitleHeadIProps> = ({
 				className={s.titleHeadWrapper}
 			>
 				<Text component={"span"}>{info}</Text>
-				<Text component={"h3"}>{title}</Text>
+				<Text component={"h3"} dangerouslySetInnerHTML={{ __html: title }} />
 				<Text component={"p"}>{description}</Text>
 			</Flex>
 		</>
