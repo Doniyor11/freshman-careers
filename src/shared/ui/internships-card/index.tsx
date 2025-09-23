@@ -9,15 +9,15 @@ import s from "./internships-card.module.scss"
 interface InternshipsCardProps {
 	imageSrc: string
 	imageAlt: string
-	iconSrc: string
-	iconAlt: string
-	day: string
+	iconSrc?: string
+	iconAlt?: string
+	day?: string
 	title: string
 	companyName?: string
-	description: string
-	datesLabel: string
-	dates: string
-	onApply: () => void
+	description?: string
+	datesLabel?: string
+	dates?: string
+	onApply?: () => void
 	border?: boolean
 }
 
@@ -54,28 +54,32 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 			<Box className={s.internshipsCardContent}>
 				<Box>
 					<Flex justify={"space-between"} align={"center"}>
-						<Flex align={"center"} gap={10}>
-							<Box className={s.internshipsCardIcon}>
-								<Image
-									src={iconSrc}
-									alt={iconAlt}
-									width={32}
-									height={32}
-									unoptimized
-								/>
-							</Box>
-							<Text className={s.companyName}>{companyName}</Text>
-						</Flex>
+						{iconSrc && iconAlt && (
+							<Flex align={"center"} gap={10}>
+								<Box className={s.internshipsCardIcon}>
+									<Image
+										src={iconSrc}
+										alt={iconAlt}
+										width={32}
+										height={32}
+										unoptimized
+									/>
+								</Box>
+								<Text className={s.companyName}>{companyName}</Text>
+							</Flex>
+						)}
 						<Box className={s.internshipsCardDay}>{day}</Box>
 					</Flex>
 					<Flex direction={"column"} m={"1.5rem 0 1.5rem"} gap={"0.75rem"}>
 						<Text component={"h3"} className={s.internshipsCardTitle}>
 							{title}
 						</Text>
-						<div
-							className={s.internshipsCardDescription}
-							dangerouslySetInnerHTML={{ __html: description }}
-						/>
+						{description && (
+							<div
+								className={s.internshipsCardDescription}
+								dangerouslySetInnerHTML={{ __html: description }}
+							/>
+						)}
 					</Flex>
 					<Flex direction={"column"} mb={"1.5rem"}>
 						<Text component={"p"} className={s.internshipsCardDescription}>

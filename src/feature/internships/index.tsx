@@ -1,6 +1,7 @@
 import { Box, Container, Grid } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
 import dayjs from "dayjs"
+import { useRouter } from "next/router"
 import React from "react"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
@@ -8,12 +9,14 @@ import { useAuthorizationStore } from "@/widgets/auth/model"
 import { useGetInternshipsQuery } from "@/entities/internships/query.ts"
 import { IGetInternship } from "@/entities/internships/types.ts"
 
+import ImageOne from "@/shared/assets/images/image-mentorship.jpg"
 import { EnvKeys } from "@/shared/constants/env.ts"
 import { Banner, InternshipsCard, TitleHead } from "@/shared/ui"
 
 import s from "./internships.module.scss"
 
 export const Internships = () => {
+	const router = useRouter()
 	const matches = useMediaQuery("(max-width: 1024px)")
 	const matchesSmall = useMediaQuery("(max-width: 845px)")
 	const matchesMobile = useMediaQuery("(max-width: 576px)")
@@ -34,6 +37,21 @@ export const Internships = () => {
 					}
 				/>
 				<Grid gutter={matches ? "1rem" : "3rem"} m={"2.5rem 0 2.5rem"}>
+					<Grid.Col
+						span={matchesMobile ? 12 : matchesSmall ? 6 : matches ? 6 : 4}
+					>
+						<InternshipsCard
+							imageSrc={`${ImageOne.src}`}
+							imageAlt={"image-alt"}
+							title={"Mentorship under Hikmat Abdurahmanov"}
+							onApply={() =>
+								router.push(
+									"https://airtable.com/appbaC77Zed9FJhJo/pagsETk81jZk6PTGM/form",
+								)
+							}
+						/>
+					</Grid.Col>
+
 					{data?.map((i: IGetInternship, index: number) => (
 						<Grid.Col
 							span={matchesMobile ? 12 : matchesSmall ? 6 : matches ? 6 : 4}
