@@ -106,7 +106,7 @@ export const InternshipProfile = () => {
 						</Menu>
 					</Flex>
 					{/* ------------ Card -------------	*/}
-					{!(data?.length > 0) ? (
+					{data?.length > 0 ? (
 						<Grid mt={"1.5rem"} gutter={"1.5rem"} align={"stretch"}>
 							<Grid.Col span={matchesSmall ? 12 : matches ? 6 : 4}>
 								<InternshipsCard
