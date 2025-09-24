@@ -1,6 +1,7 @@
 import { Box, Container, Grid } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
 import dayjs from "dayjs"
+import { useRouter } from "next/router"
 import React from "react"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
@@ -14,7 +15,6 @@ import { EnvKeys } from "@/shared/constants/env.ts"
 import { Banner, InternshipsCard, TitleHead } from "@/shared/ui"
 
 import s from "./internships.module.scss"
-import { useRouter } from "next/router"
 
 export const Internships = () => {
 	const router = useRouter()
