@@ -19,6 +19,7 @@ interface InternshipsCardProps {
 	dates?: string
 	onApply?: () => void
 	border?: boolean
+	lineClamp?: number
 }
 
 export const InternshipsCard: React.FC<InternshipsCardProps> = ({
@@ -34,6 +35,7 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 	onApply,
 	border = true,
 	companyName,
+	lineClamp = 2,
 }) => {
 	return (
 		<Box
@@ -76,6 +78,9 @@ export const InternshipsCard: React.FC<InternshipsCardProps> = ({
 						</Text>
 						{description && (
 							<div
+								style={{
+									WebkitLineClamp: lineClamp,
+								}}
 								className={s.internshipsCardDescription}
 								dangerouslySetInnerHTML={{ __html: description }}
 							/>
