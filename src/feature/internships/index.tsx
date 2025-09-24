@@ -1,7 +1,6 @@
 import { Box, Container, Grid } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
 import dayjs from "dayjs"
-import { useRouter } from "next/router"
 import React from "react"
 
 import { useAuthorizationStore } from "@/widgets/auth/model"
@@ -17,7 +16,6 @@ import { Banner, InternshipsCard, TitleHead } from "@/shared/ui"
 import s from "./internships.module.scss"
 
 export const Internships = () => {
-	const router = useRouter()
 	const matches = useMediaQuery("(max-width: 1024px)")
 	const matchesSmall = useMediaQuery("(max-width: 845px)")
 	const matchesMobile = useMediaQuery("(max-width: 576px)")
@@ -52,11 +50,10 @@ export const Internships = () => {
 								"For two months, you’ll follow Hikmat Abdurahmanov to meetings, conferences, and even business walks and lunches."
 							}
 							lineClamp={4}
-							onApply={() =>
-								router.push(
-									"https://airtable.com/appbaC77Zed9FJhJo/pagsETk81jZk6PTGM/form",
-								)
-							}
+							onApply={() => {
+								setAuthorization(true)
+								setModalType("login")
+							}}
 						/>
 					</Grid.Col>
 

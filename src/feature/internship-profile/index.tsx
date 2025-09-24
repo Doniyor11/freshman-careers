@@ -9,8 +9,10 @@ import React from "react"
 import { useGetMyApplicationsQuery } from "@/entities/my-applications/query.ts"
 import { IGetInternship } from "@/entities/my-applications/types.ts"
 
+import ImageTwo from "@/shared/assets/images/company-image.jpg"
 import Icon2 from "@/shared/assets/images/icon/chevron_backward3.svg"
 import Icon3 from "@/shared/assets/images/icon/chevron_backward-small.svg"
+import ImageOne from "@/shared/assets/images/image-mentorship.jpg"
 import { EnvKeys } from "@/shared/constants/env.ts"
 import { InternshipsCard } from "@/shared/ui"
 
@@ -104,8 +106,28 @@ export const InternshipProfile = () => {
 						</Menu>
 					</Flex>
 					{/* ------------ Card -------------	*/}
-					{data?.length > 0 ? (
+					{!(data?.length > 0) ? (
 						<Grid mt={"1.5rem"} gutter={"1.5rem"} align={"stretch"}>
+							<Grid.Col span={matchesSmall ? 12 : matches ? 6 : 4}>
+								<InternshipsCard
+									imageSrc={`${ImageOne.src}`}
+									imageAlt={"image-alt"}
+									title={"Mentorship under Hikmat Abdurahmanov"}
+									companyName={"TEAM University"}
+									iconSrc={`${ImageTwo.src}`}
+									iconAlt={"TEAM University"}
+									description={
+										"For two months, you’ll follow Hikmat Abdurahmanov to meetings, conferences, and even business walks and lunches."
+									}
+									lineClamp={4}
+									onApply={() =>
+										router.push(
+											"https://airtable.com/appbaC77Zed9FJhJo/pagsETk81jZk6PTGM/form",
+										)
+									}
+								/>
+							</Grid.Col>
+
 							{data?.map((i: IGetInternship, index: number) => (
 								<Grid.Col
 									span={matchesSmall ? 12 : matches ? 6 : 4}
